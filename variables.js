@@ -3,55 +3,73 @@ export function getVariableDefinitions() {
 		// System Variables
 		{
 			variableId: 'system_status',
-			name: 'System Status'
+			name: 'System Status',
 		},
 		{
 			variableId: 'system_duration',
-			name: 'System Active Duration'
+			name: 'System Active Duration',
 		},
 
 		// Camera Variables
 		{
 			variableId: 'camera_status',
-			name: 'Camera Status'
+			name: 'Camera Status',
 		},
 		{
 			variableId: 'camera_countdown',
-			name: 'Camera Countdown (seconds)'
+			name: 'Camera Countdown (seconds)',
 		},
 		{
 			variableId: 'camera_next_button',
-			name: 'Camera Next Button'
+			name: 'Camera Next Button',
 		},
 		{
 			variableId: 'camera_previous_button',
-			name: 'Camera Previous Button'
+			name: 'Camera Previous Button',
 		},
 		{
 			variableId: 'camera_trigger_count',
-			name: 'Camera Trigger Count'
+			name: 'Camera Trigger Count',
 		},
 
 		// Overlay Variables
 		{
 			variableId: 'overlay_status',
-			name: 'Overlay Status'
+			name: 'Overlay Status',
 		},
 		{
 			variableId: 'overlay_countdown',
-			name: 'Overlay Countdown (seconds)'
+			name: 'Overlay Countdown (seconds)',
 		},
 		{
 			variableId: 'overlay_next_button',
-			name: 'Overlay Next Button'
+			name: 'Overlay Next Button',
 		},
 		{
 			variableId: 'overlay_previous_button',
-			name: 'Overlay Previous Button'
+			name: 'Overlay Previous Button',
 		},
 		{
 			variableId: 'overlay_trigger_count',
-			name: 'Overlay Trigger Count'
-		}
+			name: 'Overlay Trigger Count',
+		},
+
+		// MIDI Variables
+		{
+			variableId: 'midi_status',
+			name: 'MIDI Connection Status',
+		},
+		{
+			variableId: 'midi_port',
+			name: 'Connected MIDI Port',
+		},
+		{
+			variableId: 'midi_last_note',
+			name: 'Last MIDI Note Received',
+		},
+		{
+			variableId: 'midi_last_cc',
+			name: 'Last MIDI CC Received',
+		},
 	]
 }

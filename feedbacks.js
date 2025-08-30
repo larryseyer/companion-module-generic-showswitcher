@@ -9,12 +9,12 @@ export function getFeedbacks(self) {
 			description: 'Show when system is running',
 			defaultStyle: {
 				bgcolor: combineRgb(0, 255, 0),
-				color: combineRgb(0, 0, 0)
+				color: combineRgb(0, 0, 0),
 			},
 			options: [],
 			callback: () => {
 				return self.systemState.isRunning
-			}
+			},
 		},
 		system_stopped: {
 			type: 'boolean',
@@ -22,12 +22,12 @@ export function getFeedbacks(self) {
 			description: 'Show when system is stopped',
 			defaultStyle: {
 				bgcolor: combineRgb(255, 0, 0),
-				color: combineRgb(255, 255, 255)
+				color: combineRgb(255, 255, 255),
 			},
 			options: [],
 			callback: () => {
 				return !self.systemState.isRunning
-			}
+			},
 		},
 
 		// Camera Feedbacks
@@ -37,12 +37,12 @@ export function getFeedbacks(self) {
 			description: 'Show when camera switcher is running',
 			defaultStyle: {
 				bgcolor: combineRgb(0, 255, 0),
-				color: combineRgb(0, 0, 0)
+				color: combineRgb(0, 0, 0),
 			},
 			options: [],
 			callback: () => {
 				return self.cameraSwitcher.isRunning
-			}
+			},
 		},
 		camera_stopped: {
 			type: 'boolean',
@@ -50,12 +50,12 @@ export function getFeedbacks(self) {
 			description: 'Show when camera switcher is stopped',
 			defaultStyle: {
 				bgcolor: combineRgb(255, 0, 0),
-				color: combineRgb(255, 255, 255)
+				color: combineRgb(255, 255, 255),
 			},
 			options: [],
 			callback: () => {
 				return !self.cameraSwitcher.isRunning
-			}
+			},
 		},
 		camera_countdown_below: {
 			type: 'boolean',
@@ -63,7 +63,7 @@ export function getFeedbacks(self) {
 			description: 'Show when camera countdown is below threshold',
 			defaultStyle: {
 				bgcolor: combineRgb(255, 255, 0),
-				color: combineRgb(0, 0, 0)
+				color: combineRgb(0, 0, 0),
 			},
 			options: [
 				{
@@ -72,14 +72,16 @@ export function getFeedbacks(self) {
 					id: 'threshold',
 					default: 5,
 					min: 1,
-					max: 60
-				}
+					max: 60,
+				},
 			],
 			callback: (feedback) => {
-				return self.cameraSwitcher.isRunning && 
-					   self.cameraSwitcher.countdown <= feedback.options.threshold &&
-					   self.cameraSwitcher.countdown > 0
-			}
+				return (
+					self.cameraSwitcher.isRunning &&
+					self.cameraSwitcher.countdown <= feedback.options.threshold &&
+					self.cameraSwitcher.countdown > 0
+				)
+			},
 		},
 		camera_next_button: {
 			type: 'boolean',
@@ -87,15 +89,15 @@ export function getFeedbacks(self) {
 			description: 'Show when specified button is next',
 			defaultStyle: {
 				bgcolor: combineRgb(0, 100, 255),
-				color: combineRgb(255, 255, 255)
+				color: combineRgb(255, 255, 255),
 			},
 			options: [
 				{
 					type: 'textinput',
 					label: 'Button (page/bank/button)',
 					id: 'button',
-					default: '2/1/0'
-				}
+					default: '2/1/0',
+				},
 			],
 			callback: (feedback) => {
 				if (!self.cameraSwitcher.isRunning || self.cameraSwitcher.nextButtonIndex < 0) {
@@ -103,7 +105,7 @@ export function getFeedbacks(self) {
 				}
 				const nextButton = self.cameraSwitcher.buttons[self.cameraSwitcher.nextButtonIndex]
 				return nextButton === feedback.options.button
-			}
+			},
 		},
 
 		// Overlay Feedbacks
@@ -113,12 +115,12 @@ export function getFeedbacks(self) {
 			description: 'Show when overlay switcher is running',
 			defaultStyle: {
 				bgcolor: combineRgb(0, 255, 0),
-				color: combineRgb(0, 0, 0)
+				color: combineRgb(0, 0, 0),
 			},
 			options: [],
 			callback: () => {
 				return self.overlaySwitcher.isRunning
-			}
+			},
 		},
 		overlay_stopped: {
 			type: 'boolean',
@@ -126,12 +128,12 @@ export function getFeedbacks(self) {
 			description: 'Show when overlay switcher is stopped',
 			defaultStyle: {
 				bgcolor: combineRgb(255, 0, 0),
-				color: combineRgb(255, 255, 255)
+				color: combineRgb(255, 255, 255),
 			},
 			options: [],
 			callback: () => {
 				return !self.overlaySwitcher.isRunning
-			}
+			},
 		},
 		overlay_countdown_below: {
 			type: 'boolean',
@@ -139,7 +141,7 @@ export function getFeedbacks(self) {
 			description: 'Show when overlay countdown is below threshold',
 			defaultStyle: {
 				bgcolor: combineRgb(255, 255, 0),
-				color: combineRgb(0, 0, 0)
+				color: combineRgb(0, 0, 0),
 			},
 			options: [
 				{
@@ -148,14 +150,16 @@ export function getFeedbacks(self) {
 					id: 'threshold',
 					default: 30,
 					min: 1,
-					max: 300
-				}
+					max: 300,
+				},
 			],
 			callback: (feedback) => {
-				return self.overlaySwitcher.isRunning && 
-					   self.overlaySwitcher.countdown <= feedback.options.threshold &&
-					   self.overlaySwitcher.countdown > 0
-			}
+				return (
+					self.overlaySwitcher.isRunning &&
+					self.overlaySwitcher.countdown <= feedback.options.threshold &&
+					self.overlaySwitcher.countdown > 0
+				)
+			},
 		},
 		overlay_next_button: {
 			type: 'boolean',
@@ -163,15 +167,15 @@ export function getFeedbacks(self) {
 			description: 'Show when specified button is next',
 			defaultStyle: {
 				bgcolor: combineRgb(255, 0, 255),
-				color: combineRgb(255, 255, 255)
+				color: combineRgb(255, 255, 255),
 			},
 			options: [
 				{
 					type: 'textinput',
 					label: 'Button (page/bank/button)',
 					id: 'button',
-					default: '2/2/1'
-				}
+					default: '2/2/1',
+				},
 			],
 			callback: (feedback) => {
 				if (!self.overlaySwitcher.isRunning || self.overlaySwitcher.nextButtonIndex < 0) {
@@ -179,7 +183,7 @@ export function getFeedbacks(self) {
 				}
 				const nextButton = self.overlaySwitcher.buttons[self.overlaySwitcher.nextButtonIndex]
 				return nextButton === feedback.options.button
-			}
+			},
 		},
 
 		// Counter Feedbacks
@@ -189,7 +193,7 @@ export function getFeedbacks(self) {
 			description: 'Show when camera trigger count is above threshold',
 			defaultStyle: {
 				bgcolor: combineRgb(100, 100, 255),
-				color: combineRgb(255, 255, 255)
+				color: combineRgb(255, 255, 255),
 			},
 			options: [
 				{
@@ -198,12 +202,12 @@ export function getFeedbacks(self) {
 					id: 'threshold',
 					default: 10,
 					min: 0,
-					max: 9999
-				}
+					max: 9999,
+				},
 			],
 			callback: (feedback) => {
 				return self.cameraSwitcher.triggerCount > feedback.options.threshold
-			}
+			},
 		},
 		overlay_count_above: {
 			type: 'boolean',
@@ -211,7 +215,7 @@ export function getFeedbacks(self) {
 			description: 'Show when overlay trigger count is above threshold',
 			defaultStyle: {
 				bgcolor: combineRgb(255, 100, 255),
-				color: combineRgb(255, 255, 255)
+				color: combineRgb(255, 255, 255),
 			},
 			options: [
 				{
@@ -220,12 +224,12 @@ export function getFeedbacks(self) {
 					id: 'threshold',
 					default: 5,
 					min: 0,
-					max: 9999
-				}
+					max: 9999,
+				},
 			],
 			callback: (feedback) => {
 				return self.overlaySwitcher.triggerCount > feedback.options.threshold
-			}
+			},
 		},
 
 		// Duration Feedback
@@ -235,7 +239,7 @@ export function getFeedbacks(self) {
 			description: 'Show when system has been running longer than threshold',
 			defaultStyle: {
 				bgcolor: combineRgb(0, 200, 200),
-				color: combineRgb(0, 0, 0)
+				color: combineRgb(0, 0, 0),
 			},
 			options: [
 				{
@@ -244,13 +248,56 @@ export function getFeedbacks(self) {
 					id: 'minutes',
 					default: 30,
 					min: 1,
-					max: 1440
-				}
+					max: 1440,
+				},
 			],
 			callback: (feedback) => {
 				const thresholdSeconds = feedback.options.minutes * 60
 				return self.systemState.isRunning && self.systemState.activeDuration > thresholdSeconds
-			}
-		}
+			},
+		},
+
+		// MIDI Feedbacks
+		midi_connected: {
+			type: 'boolean',
+			name: 'MIDI Connected',
+			description: 'Show when MIDI device is connected',
+			defaultStyle: {
+				bgcolor: combineRgb(255, 0, 255),
+				color: combineRgb(255, 255, 255),
+			},
+			options: [],
+			callback: () => {
+				return self.midiHandler && self.midiHandler.isConnected
+			},
+		},
+		midi_disconnected: {
+			type: 'boolean',
+			name: 'MIDI Disconnected',
+			description: 'Show when MIDI device is disconnected',
+			defaultStyle: {
+				bgcolor: combineRgb(100, 100, 100),
+				color: combineRgb(255, 255, 255),
+			},
+			options: [],
+			callback: () => {
+				return !self.midiHandler || !self.midiHandler.isConnected
+			},
+		},
+		midi_activity: {
+			type: 'boolean',
+			name: 'MIDI Activity',
+			description: 'Flash on MIDI activity',
+			defaultStyle: {
+				bgcolor: combineRgb(255, 255, 0),
+				color: combineRgb(0, 0, 0),
+			},
+			options: [],
+			callback: () => {
+				// This would need to be implemented with a short-lived flag
+				// that gets set when MIDI messages are received
+				return false
+			},
+		},
 	}
 }

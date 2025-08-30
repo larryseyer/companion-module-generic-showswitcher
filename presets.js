@@ -12,18 +12,18 @@ export function getPresets() {
 			text: 'SYSTEM\\nON',
 			size: '18',
 			color: combineRgb(255, 255, 255),
-			bgcolor: combineRgb(0, 100, 0)
+			bgcolor: combineRgb(0, 100, 0),
 		},
 		steps: [
 			{
 				down: [
 					{
 						actionId: 'system_on',
-						options: {}
-					}
+						options: {},
+					},
 				],
-				up: []
-			}
+				up: [],
+			},
 		],
 		feedbacks: [
 			{
@@ -31,10 +31,10 @@ export function getPresets() {
 				options: {},
 				style: {
 					bgcolor: combineRgb(0, 255, 0),
-					color: combineRgb(0, 0, 0)
-				}
-			}
-		]
+					color: combineRgb(0, 0, 0),
+				},
+			},
+		],
 	}
 
 	presets['system_off'] = {
@@ -45,18 +45,18 @@ export function getPresets() {
 			text: 'SYSTEM\\nOFF',
 			size: '18',
 			color: combineRgb(255, 255, 255),
-			bgcolor: combineRgb(100, 0, 0)
+			bgcolor: combineRgb(100, 0, 0),
 		},
 		steps: [
 			{
 				down: [
 					{
 						actionId: 'system_off',
-						options: {}
-					}
+						options: {},
+					},
 				],
-				up: []
-			}
+				up: [],
+			},
 		],
 		feedbacks: [
 			{
@@ -64,10 +64,10 @@ export function getPresets() {
 				options: {},
 				style: {
 					bgcolor: combineRgb(255, 0, 0),
-					color: combineRgb(255, 255, 255)
-				}
-			}
-		]
+					color: combineRgb(255, 255, 255),
+				},
+			},
+		],
 	}
 
 	presets['system_reset'] = {
@@ -78,20 +78,20 @@ export function getPresets() {
 			text: 'SYSTEM\\nRESET',
 			size: '14',
 			color: combineRgb(255, 255, 255),
-			bgcolor: combineRgb(100, 100, 0)
+			bgcolor: combineRgb(100, 100, 0),
 		},
 		steps: [
 			{
 				down: [
 					{
 						actionId: 'system_reset',
-						options: {}
-					}
+						options: {},
+					},
 				],
-				up: []
-			}
+				up: [],
+			},
 		],
-		feedbacks: []
+		feedbacks: [],
 	}
 
 	presets['system_toggle'] = {
@@ -102,18 +102,18 @@ export function getPresets() {
 			text: 'SYSTEM\\nTOGGLE',
 			size: '14',
 			color: combineRgb(255, 255, 255),
-			bgcolor: combineRgb(50, 50, 50)
+			bgcolor: combineRgb(50, 50, 50),
 		},
 		steps: [
 			{
 				down: [
 					{
 						actionId: 'system_toggle',
-						options: {}
-					}
+						options: {},
+					},
 				],
-				up: []
-			}
+				up: [],
+			},
 		],
 		feedbacks: [
 			{
@@ -122,8 +122,8 @@ export function getPresets() {
 				style: {
 					bgcolor: combineRgb(0, 255, 0),
 					color: combineRgb(0, 0, 0),
-					text: 'SYSTEM\\nRUNNING'
-				}
+					text: 'SYSTEM\\nRUNNING',
+				},
 			},
 			{
 				feedbackId: 'system_stopped',
@@ -131,10 +131,10 @@ export function getPresets() {
 				style: {
 					bgcolor: combineRgb(255, 0, 0),
 					color: combineRgb(255, 255, 255),
-					text: 'SYSTEM\\nSTOPPED'
-				}
-			}
-		]
+					text: 'SYSTEM\\nSTOPPED',
+				},
+			},
+		],
 	}
 
 	// Camera Control Presets
@@ -146,18 +146,18 @@ export function getPresets() {
 			text: 'CAM\\nON',
 			size: '18',
 			color: combineRgb(255, 255, 255),
-			bgcolor: combineRgb(0, 100, 0)
+			bgcolor: combineRgb(0, 100, 0),
 		},
 		steps: [
 			{
 				down: [
 					{
 						actionId: 'camera_on',
-						options: {}
-					}
+						options: {},
+					},
 				],
-				up: []
-			}
+				up: [],
+			},
 		],
 		feedbacks: [
 			{
@@ -165,10 +165,10 @@ export function getPresets() {
 				options: {},
 				style: {
 					bgcolor: combineRgb(0, 255, 0),
-					color: combineRgb(0, 0, 0)
-				}
-			}
-		]
+					color: combineRgb(0, 0, 0),
+				},
+			},
+		],
 	}
 
 	presets['camera_off'] = {
@@ -179,18 +179,18 @@ export function getPresets() {
 			text: 'CAM\\nOFF',
 			size: '18',
 			color: combineRgb(255, 255, 255),
-			bgcolor: combineRgb(100, 0, 0)
+			bgcolor: combineRgb(100, 0, 0),
 		},
 		steps: [
 			{
 				down: [
 					{
 						actionId: 'camera_off',
-						options: {}
-					}
+						options: {},
+					},
 				],
-				up: []
-			}
+				up: [],
+			},
 		],
 		feedbacks: [
 			{
@@ -198,10 +198,10 @@ export function getPresets() {
 				options: {},
 				style: {
 					bgcolor: combineRgb(255, 0, 0),
-					color: combineRgb(255, 255, 255)
-				}
-			}
-		]
+					color: combineRgb(255, 255, 255),
+				},
+			},
+		],
 	}
 
 	presets['camera_manual'] = {
@@ -212,20 +212,20 @@ export function getPresets() {
 			text: 'CAM\\nMANUAL',
 			size: '14',
 			color: combineRgb(255, 255, 255),
-			bgcolor: combineRgb(0, 50, 100)
+			bgcolor: combineRgb(0, 50, 100),
 		},
 		steps: [
 			{
 				down: [
 					{
 						actionId: 'camera_manual',
-						options: {}
-					}
+						options: {},
+					},
 				],
-				up: []
-			}
+				up: [],
+			},
 		],
-		feedbacks: []
+		feedbacks: [],
 	}
 
 	presets['camera_toggle'] = {
@@ -236,18 +236,18 @@ export function getPresets() {
 			text: 'CAM\\nTOGGLE',
 			size: '14',
 			color: combineRgb(255, 255, 255),
-			bgcolor: combineRgb(50, 50, 50)
+			bgcolor: combineRgb(50, 50, 50),
 		},
 		steps: [
 			{
 				down: [
 					{
 						actionId: 'camera_toggle',
-						options: {}
-					}
+						options: {},
+					},
 				],
-				up: []
-			}
+				up: [],
+			},
 		],
 		feedbacks: [
 			{
@@ -256,8 +256,8 @@ export function getPresets() {
 				style: {
 					bgcolor: combineRgb(0, 255, 0),
 					color: combineRgb(0, 0, 0),
-					text: 'CAM\\nRUNNING'
-				}
+					text: 'CAM\\nRUNNING',
+				},
 			},
 			{
 				feedbackId: 'camera_stopped',
@@ -265,10 +265,10 @@ export function getPresets() {
 				style: {
 					bgcolor: combineRgb(255, 0, 0),
 					color: combineRgb(255, 255, 255),
-					text: 'CAM\\nSTOPPED'
-				}
-			}
-		]
+					text: 'CAM\\nSTOPPED',
+				},
+			},
+		],
 	}
 
 	// Overlay Control Presets
@@ -280,18 +280,18 @@ export function getPresets() {
 			text: 'OVERLAY\\nON',
 			size: '14',
 			color: combineRgb(255, 255, 255),
-			bgcolor: combineRgb(100, 0, 100)
+			bgcolor: combineRgb(100, 0, 100),
 		},
 		steps: [
 			{
 				down: [
 					{
 						actionId: 'overlay_on',
-						options: {}
-					}
+						options: {},
+					},
 				],
-				up: []
-			}
+				up: [],
+			},
 		],
 		feedbacks: [
 			{
@@ -299,10 +299,10 @@ export function getPresets() {
 				options: {},
 				style: {
 					bgcolor: combineRgb(255, 0, 255),
-					color: combineRgb(255, 255, 255)
-				}
-			}
-		]
+					color: combineRgb(255, 255, 255),
+				},
+			},
+		],
 	}
 
 	presets['overlay_off'] = {
@@ -313,18 +313,18 @@ export function getPresets() {
 			text: 'OVERLAY\\nOFF',
 			size: '14',
 			color: combineRgb(255, 255, 255),
-			bgcolor: combineRgb(50, 0, 50)
+			bgcolor: combineRgb(50, 0, 50),
 		},
 		steps: [
 			{
 				down: [
 					{
 						actionId: 'overlay_off',
-						options: {}
-					}
+						options: {},
+					},
 				],
-				up: []
-			}
+				up: [],
+			},
 		],
 		feedbacks: [
 			{
@@ -332,10 +332,10 @@ export function getPresets() {
 				options: {},
 				style: {
 					bgcolor: combineRgb(100, 0, 0),
-					color: combineRgb(255, 255, 255)
-				}
-			}
-		]
+					color: combineRgb(255, 255, 255),
+				},
+			},
+		],
 	}
 
 	presets['overlay_manual'] = {
@@ -346,20 +346,20 @@ export function getPresets() {
 			text: 'OVERLAY\\nMANUAL',
 			size: '14',
 			color: combineRgb(255, 255, 255),
-			bgcolor: combineRgb(100, 0, 150)
+			bgcolor: combineRgb(100, 0, 150),
 		},
 		steps: [
 			{
 				down: [
 					{
 						actionId: 'overlay_manual',
-						options: {}
-					}
+						options: {},
+					},
 				],
-				up: []
-			}
+				up: [],
+			},
 		],
-		feedbacks: []
+		feedbacks: [],
 	}
 
 	presets['overlay_toggle'] = {
@@ -370,18 +370,18 @@ export function getPresets() {
 			text: 'OVERLAY\\nTOGGLE',
 			size: '14',
 			color: combineRgb(255, 255, 255),
-			bgcolor: combineRgb(50, 50, 50)
+			bgcolor: combineRgb(50, 50, 50),
 		},
 		steps: [
 			{
 				down: [
 					{
 						actionId: 'overlay_toggle',
-						options: {}
-					}
+						options: {},
+					},
 				],
-				up: []
-			}
+				up: [],
+			},
 		],
 		feedbacks: [
 			{
@@ -390,8 +390,8 @@ export function getPresets() {
 				style: {
 					bgcolor: combineRgb(255, 0, 255),
 					color: combineRgb(255, 255, 255),
-					text: 'OVERLAY\\nRUNNING'
-				}
+					text: 'OVERLAY\\nRUNNING',
+				},
 			},
 			{
 				feedbackId: 'overlay_stopped',
@@ -399,10 +399,10 @@ export function getPresets() {
 				style: {
 					bgcolor: combineRgb(100, 0, 0),
 					color: combineRgb(255, 255, 255),
-					text: 'OVERLAY\\nSTOPPED'
-				}
-			}
-		]
+					text: 'OVERLAY\\nSTOPPED',
+				},
+			},
+		],
 	}
 
 	// Status Display Presets
@@ -414,29 +414,29 @@ export function getPresets() {
 			text: 'CAM\\n$(showswitcher:camera_countdown)s',
 			size: '18',
 			color: combineRgb(255, 255, 255),
-			bgcolor: combineRgb(0, 0, 0)
+			bgcolor: combineRgb(0, 0, 0),
 		},
 		steps: [],
 		feedbacks: [
 			{
 				feedbackId: 'camera_countdown_below',
 				options: {
-					threshold: 5
+					threshold: 5,
 				},
 				style: {
 					bgcolor: combineRgb(255, 255, 0),
-					color: combineRgb(0, 0, 0)
-				}
+					color: combineRgb(0, 0, 0),
+				},
 			},
 			{
 				feedbackId: 'camera_stopped',
 				options: {},
 				style: {
 					text: 'CAM\\nSTOPPED',
-					bgcolor: combineRgb(100, 100, 100)
-				}
-			}
-		]
+					bgcolor: combineRgb(100, 100, 100),
+				},
+			},
+		],
 	}
 
 	presets['overlay_countdown'] = {
@@ -447,29 +447,29 @@ export function getPresets() {
 			text: 'OVERLAY\\n$(showswitcher:overlay_countdown)s',
 			size: '14',
 			color: combineRgb(255, 255, 255),
-			bgcolor: combineRgb(0, 0, 0)
+			bgcolor: combineRgb(0, 0, 0),
 		},
 		steps: [],
 		feedbacks: [
 			{
 				feedbackId: 'overlay_countdown_below',
 				options: {
-					threshold: 30
+					threshold: 30,
 				},
 				style: {
 					bgcolor: combineRgb(255, 255, 0),
-					color: combineRgb(0, 0, 0)
-				}
+					color: combineRgb(0, 0, 0),
+				},
 			},
 			{
 				feedbackId: 'overlay_stopped',
 				options: {},
 				style: {
 					text: 'OVERLAY\\nSTOPPED',
-					bgcolor: combineRgb(100, 100, 100)
-				}
-			}
-		]
+					bgcolor: combineRgb(100, 100, 100),
+				},
+			},
+		],
 	}
 
 	presets['system_duration'] = {
@@ -480,21 +480,21 @@ export function getPresets() {
 			text: 'ACTIVE\\n$(showswitcher:system_duration)',
 			size: '14',
 			color: combineRgb(255, 255, 255),
-			bgcolor: combineRgb(0, 0, 50)
+			bgcolor: combineRgb(0, 0, 50),
 		},
 		steps: [],
 		feedbacks: [
 			{
 				feedbackId: 'system_duration_above',
 				options: {
-					minutes: 60
+					minutes: 60,
 				},
 				style: {
 					bgcolor: combineRgb(0, 200, 200),
-					color: combineRgb(0, 0, 0)
-				}
-			}
-		]
+					color: combineRgb(0, 0, 0),
+				},
+			},
+		],
 	}
 
 	presets['camera_next'] = {
@@ -505,10 +505,10 @@ export function getPresets() {
 			text: 'NEXT CAM\\n$(showswitcher:camera_next_button)',
 			size: '14',
 			color: combineRgb(255, 255, 255),
-			bgcolor: combineRgb(0, 50, 0)
+			bgcolor: combineRgb(0, 50, 0),
 		},
 		steps: [],
-		feedbacks: []
+		feedbacks: [],
 	}
 
 	presets['overlay_next'] = {
@@ -519,10 +519,10 @@ export function getPresets() {
 			text: 'NEXT OVL\\n$(showswitcher:overlay_next_button)',
 			size: '14',
 			color: combineRgb(255, 255, 255),
-			bgcolor: combineRgb(50, 0, 50)
+			bgcolor: combineRgb(50, 0, 50),
 		},
 		steps: [],
-		feedbacks: []
+		feedbacks: [],
 	}
 
 	presets['camera_count'] = {
@@ -533,21 +533,21 @@ export function getPresets() {
 			text: 'CAM COUNT\\n$(showswitcher:camera_trigger_count)',
 			size: '14',
 			color: combineRgb(255, 255, 255),
-			bgcolor: combineRgb(0, 0, 100)
+			bgcolor: combineRgb(0, 0, 100),
 		},
 		steps: [],
 		feedbacks: [
 			{
 				feedbackId: 'camera_count_above',
 				options: {
-					threshold: 100
+					threshold: 100,
 				},
 				style: {
 					bgcolor: combineRgb(100, 100, 255),
-					color: combineRgb(0, 0, 0)
-				}
-			}
-		]
+					color: combineRgb(0, 0, 0),
+				},
+			},
+		],
 	}
 
 	presets['overlay_count'] = {
@@ -558,21 +558,21 @@ export function getPresets() {
 			text: 'OVL COUNT\\n$(showswitcher:overlay_trigger_count)',
 			size: '14',
 			color: combineRgb(255, 255, 255),
-			bgcolor: combineRgb(100, 0, 100)
+			bgcolor: combineRgb(100, 0, 100),
 		},
 		steps: [],
 		feedbacks: [
 			{
 				feedbackId: 'overlay_count_above',
 				options: {
-					threshold: 20
+					threshold: 20,
 				},
 				style: {
 					bgcolor: combineRgb(255, 100, 255),
-					color: combineRgb(0, 0, 0)
-				}
-			}
-		]
+					color: combineRgb(0, 0, 0),
+				},
+			},
+		],
 	}
 
 	return presets

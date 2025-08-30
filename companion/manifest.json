@@ -1,26 +1,26 @@
 {
-  "id": "generic-showswitcher",
-  "name": "Show Switcher",
-  "shortname": "ShowSwitch",
-  "description": "Automatic camera and overlay switching system with random timing control",
-  "version": "1.0.0",
-  "license": "MIT",
-  "repository": "https://github.com/bitfocus/companion-module-generic-showswitcher.git",
-  "bugs": "https://github.com/bitfocus/companion-module-generic-showswitcher/issues",
-  "maintainers": [
-    {
-      "name": "Larry Seyer",
-      "email": "support@example.com"
-    }
-  ],
-  "runtime": {
-    "type": "node18",
-    "api": "nodejs-ipc",
-    "apiVersion": "1.11.0",
-    "entrypoint": "../main.js"
-  },
-  "manufacturer": "Generic",
-  "products": ["Show Switcher"],
-  "keywords": ["switcher", "automation", "camera", "overlay", "random"],
-  "legacyIds": []
+	"id": "generic-showswitcher",
+	"name": "Show Switcher",
+	"shortname": "ShowSwitch",
+	"description": "Automatic camera and overlay switching system with random timing control",
+	"version": "1.0.0",
+	"license": "MIT",
+	"repository": "https://github.com/bitfocus/companion-module-generic-showswitcher.git",
+	"bugs": "https://github.com/bitfocus/companion-module-generic-showswitcher/issues",
+	"maintainers": [
+		{
+			"name": "Larry Seyer",
+			"email": "support@example.com"
+		}
+	],
+	"runtime": {
+		"type": "node18",
+		"api": "nodejs-ipc",
+		"apiVersion": "1.11.0",
+		"entrypoint": "../main.js"
+	},
+	"manufacturer": "Generic",
+	"products": ["Show Switcher"],
+	"keywords": ["switcher", "automation", "camera", "overlay", "random"],
+	"legacyIds": []
 }
