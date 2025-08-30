@@ -1,0 +1,39 @@
+{
+  "name": "companion-module-generic-showswitcher",
+  "version": "1.0.0",
+  "main": "main.js",
+  "type": "module",
+  "scripts": {
+    "format": "prettier -w .",
+    "build": "companion-module-build",
+    "build:dev": "companion-module-build --dev",
+    "dev": "companion-module-build --dev --watch",
+    "package": "npm run build && echo 'Package created: generic-showswitcher-*.tgz'"
+  },
+  "keywords": [
+    "companion-module",
+    "switcher",
+    "automation",
+    "broadcast",
+    "camera",
+    "overlay",
+    "random"
+  ],
+  "author": "Larry Seyer",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bitfocus/companion-module-generic-showswitcher.git"
+  },
+  "bugs": {
+    "url": "https://github.com/bitfocus/companion-module-generic-showswitcher/issues"
+  },
+  "homepage": "https://github.com/bitfocus/companion-module-generic-showswitcher#readme",
+  "dependencies": {
+    "@companion-module/base": "~1.11.3"
+  },
+  "devDependencies": {
+    "@companion-module/tools": "^2.3.0",
+    "prettier": "^3.2.4"
+  }
+}
