@@ -330,7 +330,7 @@ MIT License - See [LICENSE](LICENSE) file for details
 
 ## Version History
 
-### 1.0.0 (2024-01-30)
+### 1.0.0 (2025-08-30)
 - Initial release
 - Full feature parity with Show Switcher web application
 - Support for dual independent switchers
