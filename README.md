@@ -562,3 +562,6 @@ MIT License - See [LICENSE](LICENSE) file for details
 ---
 
 _For the latest updates and information, visit the [GitHub repository](https://github.com/bitfocus/companion-module-generic-showswitcher)_
+
+
+
