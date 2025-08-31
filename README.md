@@ -2,6 +2,8 @@
 
 A [Bitfocus Companion](https://bitfocus.io/companion) module for automatic camera and overlay switching with random timing control. This module provides professional broadcast automation capabilities, allowing you to automatically switch between camera angles and trigger overlay graphics at randomized intervals.
 
+![ShowSwitchButtonsExamples](./ShowSwitchButtonsExamples.png)
+
 ## Features
 
 ### Core Functionality
