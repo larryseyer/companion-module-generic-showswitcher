@@ -12,7 +12,7 @@ export function getActions(self) {
 			name: 'System OFF',
 			options: [],
 			callback: async () => {
-				self.stopSystem()
+				await self.stopSystem()
 			},
 		},
 		system_reset: {
@@ -27,7 +27,7 @@ export function getActions(self) {
 			options: [],
 			callback: async () => {
 				if (self.systemState.isRunning) {
-					self.stopSystem()
+					await self.stopSystem()
 				} else {
 					self.startSystem()
 				}

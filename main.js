@@ -86,7 +86,7 @@ class ShowSwitcherInstance extends InstanceBase {
 			}
 		}
 
-		this.log('info', 'Show Switcher module v1.0.1 initialized with MIDI support')
+		this.log('info', 'Show Switcher module v1.0.2 initialized with MIDI support')
 	}
 
 	async destroy() {
@@ -613,11 +613,27 @@ class ShowSwitcherInstance extends InstanceBase {
 		this.checkFeedbacks('system_running', 'system_stopped')
 	}
 
-	stopSystem() {
+	async stopSystem() {
+		const wasRunning = this.systemState.isRunning
 		this.systemState.isRunning = false
 
 		this.stopCameraSwitcher()
 		this.stopOverlaySwitcher()
+
+		// If system was running and we have camera buttons configured,
+		// trigger the first button to return to default camera
+		if (wasRunning && this.cameraSwitcher.buttons.length > 0) {
+			const defaultButton = this.cameraSwitcher.buttons[0]
+			const [page, bank, btn] = defaultButton.split('/').map(Number)
+
+			this.log('info', `Returning to default camera: ${defaultButton}`)
+			await this.pressButton(page, bank, btn)
+
+			// Update the previous button to show it was triggered
+			this.cameraSwitcher.previousButton = defaultButton
+			this.cameraSwitcher.triggerCount++
+			this.updateVariables()
+		}
 
 		this.log('info', 'System stopped')
 		this.checkFeedbacks('system_running', 'system_stopped')

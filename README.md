@@ -11,6 +11,7 @@ A [Bitfocus Companion](https://bitfocus.io/companion) module for automatic camer
 - **Dual Independent Switchers**: Separate control for camera angles and overlay graphics
 - **Random Timing Engine**: Each switcher randomly selects intervals within configured ranges
 - **System-Wide Control**: Start/stop both switchers simultaneously or control individually
+- **Default Camera Return**: Automatically returns to the first camera button when system is stopped (v1.0.2+)
 - **Manual Override**: Instantly trigger any switcher while maintaining automatic operation
 - **Dynamic Button Management**: Add or remove buttons from rotation during live operation
 - **Comprehensive Status Tracking**: Monitor countdowns, trigger counts, and system duration
@@ -134,12 +135,12 @@ Buttons are specified in the format: `page/bank/button`
 
 ### System Control
 
-| Action            | Description                                    |
-| ----------------- | ---------------------------------------------- |
-| **System ON**     | Start both camera and overlay switchers        |
-| **System OFF**    | Stop both switchers                            |
-| **System Reset**  | Stop everything and reset all counters to zero |
-| **System Toggle** | Toggle system between ON and OFF states        |
+| Action            | Description                                                                       |
+| ----------------- | --------------------------------------------------------------------------------- |
+| **System ON**     | Start both camera and overlay switchers                                           |
+| **System OFF**    | Stop both switchers and return to first camera button (default camera)            |
+| **System Reset**  | Stop everything and reset all counters to zero                                    |
+| **System Toggle** | Toggle system between ON and OFF states (returns to default camera when stopping) |
 
 ### Camera Control
 
@@ -507,12 +508,13 @@ Min: 60 seconds, Max: 180 seconds
 ## Tips and Best Practices
 
 1. **Start Simple**: Test with high page numbers (99/99/0) before using production buttons
-2. **Use Presets**: Start with presets and customize as needed
-3. **Monitor Logs**: Enable debug logging during setup
-4. **Backup Configuration**: Export your Companion config before major changes
-5. **Test Manual Triggers**: Verify manual triggers work before relying on automation
-6. **Use Variables**: Display countdowns on Stream Deck buttons for operator awareness
-7. **Weighted Selection**: Duplicate important cameras in the list for more frequent display
+2. **Default Camera First**: Place your default/main camera as the first button in the list for automatic return
+3. **Use Presets**: Start with presets and customize as needed
+4. **Monitor Logs**: Enable debug logging during setup
+5. **Backup Configuration**: Export your Companion config before major changes
+6. **Test Manual Triggers**: Verify manual triggers work before relying on automation
+7. **Use Variables**: Display countdowns on Stream Deck buttons for operator awareness
+8. **Weighted Selection**: Duplicate important cameras in the list for more frequent display
 
 ## Support
 
@@ -540,6 +542,15 @@ MIT License - See [LICENSE](LICENSE) file for details
 - **Framework**: [Bitfocus Companion Module Base](https://github.com/bitfocus/companion-module-base)
 
 ## Version History
+
+### 1.0.2 (2025-09-01)
+
+- **New Feature**: Default camera return when system is stopped
+  - Automatically triggers the first button in the camera list when system is turned off
+  - Ensures production returns to a known default camera angle
+  - Works with System OFF and System Toggle actions
+  - Updates trigger count and previous button variables appropriately
+- Improved system shutdown behavior for professional broadcast workflows
 
 ### 1.0.1 (2025-08-30)
 
