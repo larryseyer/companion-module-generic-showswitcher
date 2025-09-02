@@ -133,6 +133,34 @@ export function getFeedbacks(self) {
 				return self.cameraSwitcher.sequentialMode
 			},
 		},
+		// NEW: Camera Random Mode feedback for better preset support
+		camera_mode_random: {
+			type: 'boolean',
+			name: 'Camera Random Mode',
+			description: 'Show when camera is in random mode',
+			defaultStyle: {
+				bgcolor: combineRgb(150, 0, 150),
+				color: combineRgb(255, 255, 255),
+			},
+			options: [],
+			callback: () => {
+				return !self.cameraSwitcher.sequentialMode
+			},
+		},
+		// NEW: Camera Mode Sequential feedback renamed for consistency
+		camera_mode_sequential: {
+			type: 'boolean',
+			name: 'Camera Sequential Mode',
+			description: 'Show when camera is in sequential mode',
+			defaultStyle: {
+				bgcolor: combineRgb(0, 150, 150),
+				color: combineRgb(255, 255, 255),
+			},
+			options: [],
+			callback: () => {
+				return self.cameraSwitcher.sequentialMode
+			},
+		},
 
 		// Overlay Feedbacks
 		overlay_running: {
@@ -217,6 +245,34 @@ export function getFeedbacks(self) {
 			description: 'Show when overlay is in sequential mode',
 			defaultStyle: {
 				bgcolor: combineRgb(255, 100, 255),
+				color: combineRgb(255, 255, 255),
+			},
+			options: [],
+			callback: () => {
+				return self.overlaySwitcher.sequentialMode
+			},
+		},
+		// NEW: Overlay Random Mode feedback for better preset support
+		overlay_mode_random: {
+			type: 'boolean',
+			name: 'Overlay Random Mode',
+			description: 'Show when overlay is in random mode',
+			defaultStyle: {
+				bgcolor: combineRgb(150, 0, 150),
+				color: combineRgb(255, 255, 255),
+			},
+			options: [],
+			callback: () => {
+				return !self.overlaySwitcher.sequentialMode
+			},
+		},
+		// NEW: Overlay Mode Sequential feedback renamed for consistency
+		overlay_mode_sequential: {
+			type: 'boolean',
+			name: 'Overlay Sequential Mode',
+			description: 'Show when overlay is in sequential mode',
+			defaultStyle: {
+				bgcolor: combineRgb(0, 150, 150),
 				color: combineRgb(255, 255, 255),
 			},
 			options: [],
@@ -319,6 +375,23 @@ export function getFeedbacks(self) {
 				return self.performance.httpErrors > feedback.options.threshold
 			},
 		},
+		// NEW: HTTP Errors High feedback for simplified presets
+		http_errors_high: {
+			type: 'boolean',
+			name: 'HTTP Errors High',
+			description: 'Show when HTTP error rate is above 10%',
+			defaultStyle: {
+				bgcolor: combineRgb(255, 100, 0),
+				color: combineRgb(0, 0, 0),
+			},
+			options: [],
+			callback: () => {
+				const total = self.performance.httpSuccesses + self.performance.httpErrors
+				if (total === 0) return false
+				const errorRate = self.performance.httpErrors / total
+				return errorRate > 0.1 // 10% error rate
+			},
+		},
 		queue_size_above: {
 			type: 'boolean',
 			name: 'Queue Size Above',
@@ -339,6 +412,20 @@ export function getFeedbacks(self) {
 			],
 			callback: (feedback) => {
 				return self.performance.buttonPressQueue.length > feedback.options.threshold
+			},
+		},
+		// NEW: Queue Full feedback for simplified presets
+		queue_full: {
+			type: 'boolean',
+			name: 'Queue Full',
+			description: 'Show when button press queue is full',
+			defaultStyle: {
+				bgcolor: combineRgb(255, 0, 0),
+				color: combineRgb(255, 255, 255),
+			},
+			options: [],
+			callback: () => {
+				return self.performance.buttonPressQueue.length > 10
 			},
 		},
 
@@ -381,6 +468,22 @@ export function getFeedbacks(self) {
 			callback: () => {
 				// This would need to be implemented with a short-lived flag
 				// that gets set when MIDI messages are received
+				return false
+			},
+		},
+		// NEW: Statistics Saved feedback for visual confirmation
+		statistics_saved: {
+			type: 'boolean',
+			name: 'Statistics Saved',
+			description: 'Flash when statistics are saved',
+			defaultStyle: {
+				bgcolor: combineRgb(0, 255, 0),
+				color: combineRgb(0, 0, 0),
+			},
+			options: [],
+			callback: () => {
+				// This would need to be implemented with a short-lived flag
+				// that gets set when statistics are saved
 				return false
 			},
 		},

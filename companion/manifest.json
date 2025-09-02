@@ -3,7 +3,7 @@
 	"name": "Show Switcher",
 	"shortname": "ShowSwitch",
 	"description": "Professional broadcast automation with pause/resume, sequential/random modes, button blacklisting, performance monitoring, and comprehensive MIDI control",
-	"version": "2.0.0",
+	"version": "2.0.1",
 	"license": "MIT",
 	"repository": "https://github.com/bitfocus/companion-module-generic-showswitcher.git",
 	"bugs": "https://github.com/bitfocus/companion-module-generic-showswitcher/issues",

@@ -36,8 +36,8 @@ export class MidiHandler {
 			45: 'system_toggle',
 			46: 'camera_toggle',
 			47: 'overlay_toggle',
-			48: 'system_pause',     // New
-			49: 'system_resume',    // New
+			48: 'system_pause', // New
+			49: 'system_resume', // New
 			50: 'camera_mode_toggle', // New
 			51: 'overlay_mode_toggle', // New
 		}
@@ -46,8 +46,8 @@ export class MidiHandler {
 		this.ccMap = {
 			1: 'camera_timer',
 			2: 'overlay_timer',
-			3: 'camera_min_timer',  // New - adjust minimum timer
-			4: 'camera_max_timer',  // New - adjust maximum timer
+			3: 'camera_min_timer', // New - adjust minimum timer
+			4: 'camera_max_timer', // New - adjust maximum timer
 			5: 'overlay_min_timer', // New - adjust minimum timer
 			6: 'overlay_max_timer', // New - adjust maximum timer
 		}
@@ -344,7 +344,10 @@ export class MidiHandler {
 				break
 			case 'camera_mode_toggle':
 				this.instance.cameraSwitcher.sequentialMode = !this.instance.cameraSwitcher.sequentialMode
-				this.instance.log('info', `Camera mode: ${this.instance.cameraSwitcher.sequentialMode ? 'Sequential' : 'Random'}`)
+				this.instance.log(
+					'info',
+					`Camera mode: ${this.instance.cameraSwitcher.sequentialMode ? 'Sequential' : 'Random'}`
+				)
 				this.instance.updateVariables()
 				break
 			case 'overlay_on':
@@ -365,7 +368,10 @@ export class MidiHandler {
 				break
 			case 'overlay_mode_toggle':
 				this.instance.overlaySwitcher.sequentialMode = !this.instance.overlaySwitcher.sequentialMode
-				this.instance.log('info', `Overlay mode: ${this.instance.overlaySwitcher.sequentialMode ? 'Sequential' : 'Random'}`)
+				this.instance.log(
+					'info',
+					`Overlay mode: ${this.instance.overlaySwitcher.sequentialMode ? 'Sequential' : 'Random'}`
+				)
 				this.instance.updateVariables()
 				break
 			default:

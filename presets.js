@@ -4,103 +4,14 @@ export function getPresets() {
 	const presets = {}
 
 	// ============= SYSTEM CONTROL PRESETS =============
-	
-	presets['system_on'] = {
-		type: 'button',
-		category: 'System Control',
-		name: 'System ON',
-		style: {
-			text: 'SYSTEM\\nON',
-			size: '18',
-			color: combineRgb(255, 255, 255),
-			bgcolor: combineRgb(0, 100, 0),
-		},
-		steps: [
-			{
-				down: [
-					{
-						actionId: 'system_on',
-						options: {},
-					},
-				],
-				up: [],
-			},
-		],
-		feedbacks: [
-			{
-				feedbackId: 'system_running',
-				options: {},
-				style: {
-					bgcolor: combineRgb(0, 255, 0),
-					color: combineRgb(0, 0, 0),
-				},
-			},
-		],
-	}
 
-	presets['system_off'] = {
+	// Consolidated System Start/Stop with steps
+	presets['system_control'] = {
 		type: 'button',
 		category: 'System Control',
-		name: 'System OFF',
+		name: 'System Start/Stop',
 		style: {
-			text: 'SYSTEM\\nOFF',
-			size: '18',
-			color: combineRgb(255, 255, 255),
-			bgcolor: combineRgb(100, 0, 0),
-		},
-		steps: [
-			{
-				down: [
-					{
-						actionId: 'system_off',
-						options: {},
-					},
-				],
-				up: [],
-			},
-		],
-		feedbacks: [
-			{
-				feedbackId: 'system_stopped',
-				options: {},
-				style: {
-					bgcolor: combineRgb(255, 0, 0),
-					color: combineRgb(255, 255, 255),
-				},
-			},
-		],
-	}
-
-	presets['system_reset'] = {
-		type: 'button',
-		category: 'System Control',
-		name: 'System Reset',
-		style: {
-			text: 'SYSTEM\\nRESET',
-			size: '14',
-			color: combineRgb(255, 255, 255),
-			bgcolor: combineRgb(100, 100, 0),
-		},
-		steps: [
-			{
-				down: [
-					{
-						actionId: 'system_reset',
-						options: {},
-					},
-				],
-				up: [],
-			},
-		],
-		feedbacks: [],
-	}
-
-	presets['system_toggle'] = {
-		type: 'button',
-		category: 'System Control',
-		name: 'System Toggle',
-		style: {
-			text: 'SYSTEM\\nTOGGLE',
+			text: '$(showswitcher:system_status == "Stopped" ? "⏵" : "⏹")\\nSYSTEM',
 			size: '14',
 			color: combineRgb(255, 255, 255),
 			bgcolor: combineRgb(50, 50, 50),
@@ -121,42 +32,45 @@ export function getPresets() {
 				feedbackId: 'system_running',
 				options: {},
 				style: {
-					bgcolor: combineRgb(0, 255, 0),
-					color: combineRgb(0, 0, 0),
-					text: 'SYSTEM\\nRUNNING',
+					bgcolor: combineRgb(0, 150, 0),
+					color: combineRgb(255, 255, 255),
+					text: '⏹\\nSTOP',
+					size: '14',
 				},
 			},
 			{
 				feedbackId: 'system_stopped',
 				options: {},
 				style: {
-					bgcolor: combineRgb(255, 0, 0),
+					bgcolor: combineRgb(100, 0, 0),
 					color: combineRgb(255, 255, 255),
-					text: 'SYSTEM\\nSTOPPED',
+					text: '⏵\\nSTART',
+					size: '14',
 				},
 			},
 			{
 				feedbackId: 'system_paused',
 				options: {},
 				style: {
-					bgcolor: combineRgb(255, 200, 0),
-					color: combineRgb(0, 0, 0),
-					text: 'SYSTEM\\nPAUSED',
+					bgcolor: combineRgb(200, 150, 0),
+					color: combineRgb(255, 255, 255),
+					text: '⏸\\nPAUSED',
+					size: '14',
 				},
 			},
 		],
 	}
 
-	// NEW Ver 2.0: System Pause
-	presets['system_pause'] = {
+	// Consolidated Pause/Resume with smart toggle
+	presets['system_pause_resume'] = {
 		type: 'button',
 		category: 'System Control',
-		name: 'System Pause',
+		name: 'System Pause/Resume',
 		style: {
-			text: 'PAUSE',
-			size: '18',
+			text: '⏸\\nPAUSE',
+			size: '14',
 			color: combineRgb(255, 255, 255),
-			bgcolor: combineRgb(150, 100, 0),
+			bgcolor: combineRgb(100, 100, 0),
 		},
 		steps: [
 			{
@@ -168,32 +82,6 @@ export function getPresets() {
 				],
 				up: [],
 			},
-		],
-		feedbacks: [
-			{
-				feedbackId: 'system_paused',
-				options: {},
-				style: {
-					bgcolor: combineRgb(255, 200, 0),
-					color: combineRgb(0, 0, 0),
-					text: '⏸ PAUSED',
-				},
-			},
-		],
-	}
-
-	// NEW Ver 2.0: System Resume
-	presets['system_resume'] = {
-		type: 'button',
-		category: 'System Control',
-		name: 'System Resume',
-		style: {
-			text: 'RESUME',
-			size: '18',
-			color: combineRgb(255, 255, 255),
-			bgcolor: combineRgb(0, 100, 50),
-		},
-		steps: [
 			{
 				down: [
 					{
@@ -206,25 +94,53 @@ export function getPresets() {
 		],
 		feedbacks: [
 			{
-				feedbackId: 'system_running',
+				feedbackId: 'system_paused',
 				options: {},
 				style: {
-					bgcolor: combineRgb(0, 255, 0),
+					bgcolor: combineRgb(255, 200, 0),
 					color: combineRgb(0, 0, 0),
-					text: '▶ RUNNING',
+					text: '▶\\nRESUME',
+					size: '14',
 				},
 			},
 		],
 	}
 
-	// NEW Ver 2.0: System Status with Pause indicator
-	presets['system_status_advanced'] = {
+	presets['system_reset'] = {
 		type: 'button',
 		category: 'System Control',
-		name: 'System Status Advanced',
+		name: 'System Reset',
 		style: {
-			text: '$(showswitcher:system_status)\\n$(showswitcher:system_duration)',
+			text: '↻\\nRESET',
 			size: '14',
+			color: combineRgb(255, 255, 255),
+			bgcolor: combineRgb(150, 50, 0),
+		},
+		steps: [
+			{
+				down: [],
+				up: [],
+			},
+			{
+				down: [
+					{
+						actionId: 'system_reset',
+						options: {},
+					},
+				],
+				up: [],
+			},
+		],
+		feedbacks: [],
+	}
+
+	presets['system_status_display'] = {
+		type: 'button',
+		category: 'System Control',
+		name: 'System Status Display',
+		style: {
+			text: '⚙ $(showswitcher:system_status)\\n$(showswitcher:system_duration)',
+			size: '12',
 			color: combineRgb(255, 255, 255),
 			bgcolor: combineRgb(30, 30, 30),
 		},
@@ -235,6 +151,8 @@ export function getPresets() {
 				options: {},
 				style: {
 					bgcolor: combineRgb(0, 100, 0),
+					text: '▶ RUNNING\\n$(showswitcher:system_duration)',
+					size: '12',
 				},
 			},
 			{
@@ -242,119 +160,34 @@ export function getPresets() {
 				options: {},
 				style: {
 					bgcolor: combineRgb(200, 150, 0),
+					text: '⏸ PAUSED\\n$(showswitcher:system_duration)',
+					size: '12',
 				},
 			},
 			{
 				feedbackId: 'system_stopped',
 				options: {},
 				style: {
-					bgcolor: combineRgb(100, 0, 0),
+					bgcolor: combineRgb(60, 60, 60),
+					text: '⏹ STOPPED\\n$(showswitcher:system_duration)',
+					size: '12',
 				},
 			},
 		],
 	}
 
 	// ============= CAMERA CONTROL PRESETS =============
-	
-	presets['camera_on'] = {
-		type: 'button',
-		category: 'Camera Control',
-		name: 'Camera ON',
-		style: {
-			text: 'CAM\\nON',
-			size: '18',
-			color: combineRgb(255, 255, 255),
-			bgcolor: combineRgb(0, 100, 0),
-		},
-		steps: [
-			{
-				down: [
-					{
-						actionId: 'camera_on',
-						options: {},
-					},
-				],
-				up: [],
-			},
-		],
-		feedbacks: [
-			{
-				feedbackId: 'camera_running',
-				options: {},
-				style: {
-					bgcolor: combineRgb(0, 255, 0),
-					color: combineRgb(0, 0, 0),
-				},
-			},
-		],
-	}
 
-	presets['camera_off'] = {
+	// Consolidated Camera Control
+	presets['camera_control'] = {
 		type: 'button',
 		category: 'Camera Control',
-		name: 'Camera OFF',
+		name: 'Camera Start/Stop',
 		style: {
-			text: 'CAM\\nOFF',
-			size: '18',
-			color: combineRgb(255, 255, 255),
-			bgcolor: combineRgb(100, 0, 0),
-		},
-		steps: [
-			{
-				down: [
-					{
-						actionId: 'camera_off',
-						options: {},
-					},
-				],
-				up: [],
-			},
-		],
-		feedbacks: [
-			{
-				feedbackId: 'camera_stopped',
-				options: {},
-				style: {
-					bgcolor: combineRgb(255, 0, 0),
-					color: combineRgb(255, 255, 255),
-				},
-			},
-		],
-	}
-
-	presets['camera_manual'] = {
-		type: 'button',
-		category: 'Camera Control',
-		name: 'Camera Manual',
-		style: {
-			text: 'CAM\\nMANUAL',
+			text: '📹\\nCAMERA',
 			size: '14',
 			color: combineRgb(255, 255, 255),
 			bgcolor: combineRgb(0, 50, 100),
-		},
-		steps: [
-			{
-				down: [
-					{
-						actionId: 'camera_manual',
-						options: {},
-					},
-				],
-				up: [],
-			},
-		],
-		feedbacks: [],
-	}
-
-	presets['camera_toggle'] = {
-		type: 'button',
-		category: 'Camera Control',
-		name: 'Camera Toggle',
-		style: {
-			text: 'CAM\\nTOGGLE',
-			size: '14',
-			color: combineRgb(255, 255, 255),
-			bgcolor: combineRgb(50, 50, 50),
 		},
 		steps: [
 			{
@@ -372,31 +205,57 @@ export function getPresets() {
 				feedbackId: 'camera_running',
 				options: {},
 				style: {
-					bgcolor: combineRgb(0, 255, 0),
-					color: combineRgb(0, 0, 0),
-					text: 'CAM\\nRUNNING',
+					bgcolor: combineRgb(0, 150, 255),
+					color: combineRgb(255, 255, 255),
+					text: '📹\\nACTIVE',
+					size: '14',
 				},
 			},
 			{
 				feedbackId: 'camera_stopped',
 				options: {},
 				style: {
-					bgcolor: combineRgb(255, 0, 0),
-					color: combineRgb(255, 255, 255),
-					text: 'CAM\\nSTOPPED',
+					bgcolor: combineRgb(50, 50, 50),
+					color: combineRgb(200, 200, 200),
+					text: '📹\\nSTART',
+					size: '14',
 				},
 			},
 		],
 	}
 
-	// NEW Ver 2.0: Camera Mode Toggle
-	presets['camera_mode_toggle'] = {
+	presets['camera_manual'] = {
 		type: 'button',
 		category: 'Camera Control',
-		name: 'Camera Mode Toggle',
+		name: 'Camera Manual Trigger',
 		style: {
-			text: 'CAM MODE\\n$(showswitcher:camera_mode)',
+			text: '🎬\\nTRIGGER',
 			size: '14',
+			color: combineRgb(255, 255, 255),
+			bgcolor: combineRgb(0, 75, 150),
+		},
+		steps: [
+			{
+				down: [
+					{
+						actionId: 'camera_manual',
+						options: {},
+					},
+				],
+				up: [],
+			},
+		],
+		feedbacks: [],
+	}
+
+	// Camera Mode with smart toggle
+	presets['camera_mode'] = {
+		type: 'button',
+		category: 'Camera Control',
+		name: 'Camera Mode',
+		style: {
+			text: '🔀\\n$(showswitcher:camera_mode)',
+			size: '12',
 			color: combineRgb(255, 255, 255),
 			bgcolor: combineRgb(0, 75, 75),
 		},
@@ -404,8 +263,21 @@ export function getPresets() {
 			{
 				down: [
 					{
-						actionId: 'camera_mode_toggle',
-						options: {},
+						actionId: 'camera_set_mode',
+						options: {
+							mode: 'sequential',
+						},
+					},
+				],
+				up: [],
+			},
+			{
+				down: [
+					{
+						actionId: 'camera_set_mode',
+						options: {
+							mode: 'random',
+						},
 					},
 				],
 				up: [],
@@ -413,152 +285,29 @@ export function getPresets() {
 		],
 		feedbacks: [
 			{
-				feedbackId: 'camera_mode_sequential',
+				feedbackId: 'camera_sequential_mode',
 				options: {},
 				style: {
 					bgcolor: combineRgb(0, 150, 150),
-					color: combineRgb(255, 255, 255),
-					text: 'CAM MODE\\nSEQUENTIAL',
-				},
-			},
-			{
-				feedbackId: 'camera_mode_random',
-				options: {},
-				style: {
-					bgcolor: combineRgb(150, 0, 150),
-					color: combineRgb(255, 255, 255),
-					text: 'CAM MODE\\nRANDOM',
+					text: '➡\\nSEQUENTIAL',
+					size: '12',
 				},
 			},
 		],
-	}
-
-	// NEW Ver 2.0: Camera Blacklist Clear
-	presets['camera_blacklist_clear'] = {
-		type: 'button',
-		category: 'Camera Control',
-		name: 'Clear Camera Blacklist',
-		style: {
-			text: 'CLEAR\\nBLACKLIST',
-			size: '14',
-			color: combineRgb(255, 255, 255),
-			bgcolor: combineRgb(100, 50, 0),
-		},
-		steps: [
-			{
-				down: [
-					{
-						actionId: 'camera_blacklist_clear',
-						options: {},
-					},
-				],
-				up: [],
-			},
-		],
-		feedbacks: [],
 	}
 
 	// ============= OVERLAY CONTROL PRESETS =============
-	
-	presets['overlay_on'] = {
+
+	// Consolidated Overlay Control
+	presets['overlay_control'] = {
 		type: 'button',
 		category: 'Overlay Control',
-		name: 'Overlay ON',
+		name: 'Overlay Start/Stop',
 		style: {
-			text: 'OVERLAY\\nON',
+			text: '🎨\\nOVERLAY',
 			size: '14',
 			color: combineRgb(255, 255, 255),
 			bgcolor: combineRgb(100, 0, 100),
-		},
-		steps: [
-			{
-				down: [
-					{
-						actionId: 'overlay_on',
-						options: {},
-					},
-				],
-				up: [],
-			},
-		],
-		feedbacks: [
-			{
-				feedbackId: 'overlay_running',
-				options: {},
-				style: {
-					bgcolor: combineRgb(255, 0, 255),
-					color: combineRgb(255, 255, 255),
-				},
-			},
-		],
-	}
-
-	presets['overlay_off'] = {
-		type: 'button',
-		category: 'Overlay Control',
-		name: 'Overlay OFF',
-		style: {
-			text: 'OVERLAY\\nOFF',
-			size: '14',
-			color: combineRgb(255, 255, 255),
-			bgcolor: combineRgb(50, 0, 50),
-		},
-		steps: [
-			{
-				down: [
-					{
-						actionId: 'overlay_off',
-						options: {},
-					},
-				],
-				up: [],
-			},
-		],
-		feedbacks: [
-			{
-				feedbackId: 'overlay_stopped',
-				options: {},
-				style: {
-					bgcolor: combineRgb(100, 0, 0),
-					color: combineRgb(255, 255, 255),
-				},
-			},
-		],
-	}
-
-	presets['overlay_manual'] = {
-		type: 'button',
-		category: 'Overlay Control',
-		name: 'Overlay Manual',
-		style: {
-			text: 'OVERLAY\\nMANUAL',
-			size: '14',
-			color: combineRgb(255, 255, 255),
-			bgcolor: combineRgb(100, 0, 150),
-		},
-		steps: [
-			{
-				down: [
-					{
-						actionId: 'overlay_manual',
-						options: {},
-					},
-				],
-				up: [],
-			},
-		],
-		feedbacks: [],
-	}
-
-	presets['overlay_toggle'] = {
-		type: 'button',
-		category: 'Overlay Control',
-		name: 'Overlay Toggle',
-		style: {
-			text: 'OVERLAY\\nTOGGLE',
-			size: '14',
-			color: combineRgb(255, 255, 255),
-			bgcolor: combineRgb(50, 50, 50),
 		},
 		steps: [
 			{
@@ -576,83 +325,40 @@ export function getPresets() {
 				feedbackId: 'overlay_running',
 				options: {},
 				style: {
-					bgcolor: combineRgb(255, 0, 255),
+					bgcolor: combineRgb(200, 0, 200),
 					color: combineRgb(255, 255, 255),
-					text: 'OVERLAY\\nRUNNING',
+					text: '🎨\\nACTIVE',
+					size: '14',
 				},
 			},
 			{
 				feedbackId: 'overlay_stopped',
 				options: {},
 				style: {
-					bgcolor: combineRgb(100, 0, 0),
-					color: combineRgb(255, 255, 255),
-					text: 'OVERLAY\\nSTOPPED',
+					bgcolor: combineRgb(50, 0, 50),
+					color: combineRgb(200, 200, 200),
+					text: '🎨\\nSTART',
+					size: '14',
 				},
 			},
 		],
 	}
 
-	// NEW Ver 2.0: Overlay Mode Toggle
-	presets['overlay_mode_toggle'] = {
+	presets['overlay_manual'] = {
 		type: 'button',
 		category: 'Overlay Control',
-		name: 'Overlay Mode Toggle',
+		name: 'Overlay Manual Trigger',
 		style: {
-			text: 'OVL MODE\\n$(showswitcher:overlay_mode)',
+			text: '✨\\nTRIGGER',
 			size: '14',
 			color: combineRgb(255, 255, 255),
-			bgcolor: combineRgb(75, 0, 75),
+			bgcolor: combineRgb(150, 0, 150),
 		},
 		steps: [
 			{
 				down: [
 					{
-						actionId: 'overlay_mode_toggle',
-						options: {},
-					},
-				],
-				up: [],
-			},
-		],
-		feedbacks: [
-			{
-				feedbackId: 'overlay_mode_sequential',
-				options: {},
-				style: {
-					bgcolor: combineRgb(0, 150, 150),
-					color: combineRgb(255, 255, 255),
-					text: 'OVL MODE\\nSEQUENTIAL',
-				},
-			},
-			{
-				feedbackId: 'overlay_mode_random',
-				options: {},
-				style: {
-					bgcolor: combineRgb(150, 0, 150),
-					color: combineRgb(255, 255, 255),
-					text: 'OVL MODE\\nRANDOM',
-				},
-			},
-		],
-	}
-
-	// NEW Ver 2.0: Overlay Blacklist Clear
-	presets['overlay_blacklist_clear'] = {
-		type: 'button',
-		category: 'Overlay Control',
-		name: 'Clear Overlay Blacklist',
-		style: {
-			text: 'CLEAR\\nBLACKLIST',
-			size: '14',
-			color: combineRgb(255, 255, 255),
-			bgcolor: combineRgb(100, 50, 100),
-		},
-		steps: [
-			{
-				down: [
-					{
-						actionId: 'overlay_blacklist_clear',
+						actionId: 'overlay_manual',
 						options: {},
 					},
 				],
@@ -662,15 +368,63 @@ export function getPresets() {
 		feedbacks: [],
 	}
 
+	// Overlay Mode with smart toggle
+	presets['overlay_mode'] = {
+		type: 'button',
+		category: 'Overlay Control',
+		name: 'Overlay Mode',
+		style: {
+			text: '🔀\\n$(showswitcher:overlay_mode)',
+			size: '12',
+			color: combineRgb(255, 255, 255),
+			bgcolor: combineRgb(75, 0, 75),
+		},
+		steps: [
+			{
+				down: [
+					{
+						actionId: 'overlay_set_mode',
+						options: {
+							mode: 'sequential',
+						},
+					},
+				],
+				up: [],
+			},
+			{
+				down: [
+					{
+						actionId: 'overlay_set_mode',
+						options: {
+							mode: 'random',
+						},
+					},
+				],
+				up: [],
+			},
+		],
+		feedbacks: [
+			{
+				feedbackId: 'overlay_sequential_mode',
+				options: {},
+				style: {
+					bgcolor: combineRgb(0, 150, 150),
+					text: '➡\\nSEQUENTIAL',
+					size: '12',
+				},
+			},
+		],
+	}
+
 	// ============= STATUS DISPLAY PRESETS =============
-	
+
 	presets['camera_countdown'] = {
 		type: 'button',
 		category: 'Status Display',
 		name: 'Camera Countdown',
 		style: {
-			text: 'CAM\\n$(showswitcher:camera_countdown)s',
-			size: '18',
+			text: '📹 CAM\\n$(showswitcher:camera_countdown)s',
+			size: '14',
 			color: combineRgb(255, 255, 255),
 			bgcolor: combineRgb(0, 0, 0),
 		},
@@ -682,16 +436,19 @@ export function getPresets() {
 					threshold: 5,
 				},
 				style: {
-					bgcolor: combineRgb(255, 255, 0),
+					bgcolor: combineRgb(255, 200, 0),
 					color: combineRgb(0, 0, 0),
+					text: '⚠ CAM\\n$(showswitcher:camera_countdown)s',
+					size: '14',
 				},
 			},
 			{
 				feedbackId: 'camera_stopped',
 				options: {},
 				style: {
-					text: 'CAM\\nSTOPPED',
-					bgcolor: combineRgb(100, 100, 100),
+					text: '📹 CAM\\nOFF',
+					bgcolor: combineRgb(60, 60, 60),
+					size: '14',
 				},
 			},
 		],
@@ -702,7 +459,7 @@ export function getPresets() {
 		category: 'Status Display',
 		name: 'Overlay Countdown',
 		style: {
-			text: 'OVERLAY\\n$(showswitcher:overlay_countdown)s',
+			text: '🎨 OVL\\n$(showswitcher:overlay_countdown)s',
 			size: '14',
 			color: combineRgb(255, 255, 255),
 			bgcolor: combineRgb(0, 0, 0),
@@ -715,16 +472,19 @@ export function getPresets() {
 					threshold: 30,
 				},
 				style: {
-					bgcolor: combineRgb(255, 255, 0),
+					bgcolor: combineRgb(255, 200, 0),
 					color: combineRgb(0, 0, 0),
+					text: '⚠ OVL\\n$(showswitcher:overlay_countdown)s',
+					size: '14',
 				},
 			},
 			{
 				feedbackId: 'overlay_stopped',
 				options: {},
 				style: {
-					text: 'OVERLAY\\nSTOPPED',
-					bgcolor: combineRgb(100, 100, 100),
+					text: '🎨 OVL\\nOFF',
+					bgcolor: combineRgb(60, 60, 60),
+					size: '14',
 				},
 			},
 		],
@@ -735,8 +495,8 @@ export function getPresets() {
 		category: 'Status Display',
 		name: 'System Duration',
 		style: {
-			text: 'ACTIVE\\n$(showswitcher:system_duration)',
-			size: '14',
+			text: '⏱ ACTIVE\\n$(showswitcher:system_duration)',
+			size: '12',
 			color: combineRgb(255, 255, 255),
 			bgcolor: combineRgb(0, 0, 50),
 		},
@@ -755,14 +515,13 @@ export function getPresets() {
 		],
 	}
 
-	// NEW Ver 2.0: Total Runtime Display
 	presets['system_total_runtime'] = {
 		type: 'button',
 		category: 'Status Display',
 		name: 'Total Runtime',
 		style: {
-			text: 'TOTAL\\n$(showswitcher:system_total_runtime)',
-			size: '14',
+			text: '∑ TOTAL\\n$(showswitcher:system_total_runtime)',
+			size: '12',
 			color: combineRgb(255, 255, 255),
 			bgcolor: combineRgb(0, 50, 100),
 		},
@@ -770,14 +529,13 @@ export function getPresets() {
 		feedbacks: [],
 	}
 
-	// NEW Ver 2.0: Session Count Display
 	presets['system_session_count'] = {
 		type: 'button',
 		category: 'Status Display',
 		name: 'Session Count',
 		style: {
-			text: 'SESSIONS\\n$(showswitcher:system_session_count)',
-			size: '14',
+			text: '# SESSIONS\\n$(showswitcher:system_session_count)',
+			size: '12',
 			color: combineRgb(255, 255, 255),
 			bgcolor: combineRgb(50, 50, 100),
 		},
@@ -790,8 +548,8 @@ export function getPresets() {
 		category: 'Status Display',
 		name: 'Camera Next Button',
 		style: {
-			text: 'NEXT CAM\\n$(showswitcher:camera_next_button)',
-			size: '14',
+			text: '📹 NEXT\\n$(showswitcher:camera_next_button)',
+			size: '11',
 			color: combineRgb(255, 255, 255),
 			bgcolor: combineRgb(0, 50, 0),
 		},
@@ -804,8 +562,8 @@ export function getPresets() {
 		category: 'Status Display',
 		name: 'Overlay Next Button',
 		style: {
-			text: 'NEXT OVL\\n$(showswitcher:overlay_next_button)',
-			size: '14',
+			text: '🎨 NEXT\\n$(showswitcher:overlay_next_button)',
+			size: '11',
 			color: combineRgb(255, 255, 255),
 			bgcolor: combineRgb(50, 0, 50),
 		},
@@ -813,17 +571,32 @@ export function getPresets() {
 		feedbacks: [],
 	}
 
+	// Consolidated counter with reset on double-tap
 	presets['camera_count'] = {
 		type: 'button',
 		category: 'Status Display',
 		name: 'Camera Trigger Count',
 		style: {
-			text: 'CAM COUNT\\n$(showswitcher:camera_trigger_count)',
-			size: '14',
+			text: '📹 COUNT\\n$(showswitcher:camera_trigger_count)',
+			size: '12',
 			color: combineRgb(255, 255, 255),
 			bgcolor: combineRgb(0, 0, 100),
 		},
-		steps: [],
+		steps: [
+			{
+				down: [],
+				up: [],
+			},
+			{
+				down: [
+					{
+						actionId: 'reset_camera_counter',
+						options: {},
+					},
+				],
+				up: [],
+			},
+		],
 		feedbacks: [
 			{
 				feedbackId: 'camera_count_above',
@@ -843,12 +616,26 @@ export function getPresets() {
 		category: 'Status Display',
 		name: 'Overlay Trigger Count',
 		style: {
-			text: 'OVL COUNT\\n$(showswitcher:overlay_trigger_count)',
-			size: '14',
+			text: '🎨 COUNT\\n$(showswitcher:overlay_trigger_count)',
+			size: '12',
 			color: combineRgb(255, 255, 255),
 			bgcolor: combineRgb(100, 0, 100),
 		},
-		steps: [],
+		steps: [
+			{
+				down: [],
+				up: [],
+			},
+			{
+				down: [
+					{
+						actionId: 'reset_overlay_counter',
+						options: {},
+					},
+				],
+				up: [],
+			},
+		],
 		feedbacks: [
 			{
 				feedbackId: 'overlay_count_above',
@@ -863,14 +650,13 @@ export function getPresets() {
 		],
 	}
 
-	// NEW Ver 2.0: Camera Average Interval
 	presets['camera_average_interval'] = {
 		type: 'button',
 		category: 'Status Display',
 		name: 'Camera Avg Interval',
 		style: {
-			text: 'CAM AVG\\n$(showswitcher:camera_average_interval)s',
-			size: '14',
+			text: '⏱ CAM AVG\\n$(showswitcher:camera_average_interval)s',
+			size: '11',
 			color: combineRgb(255, 255, 255),
 			bgcolor: combineRgb(0, 75, 50),
 		},
@@ -878,14 +664,13 @@ export function getPresets() {
 		feedbacks: [],
 	}
 
-	// NEW Ver 2.0: Overlay Average Interval
 	presets['overlay_average_interval'] = {
 		type: 'button',
 		category: 'Status Display',
 		name: 'Overlay Avg Interval',
 		style: {
-			text: 'OVL AVG\\n$(showswitcher:overlay_average_interval)s',
-			size: '14',
+			text: '⏱ OVL AVG\\n$(showswitcher:overlay_average_interval)s',
+			size: '11',
 			color: combineRgb(255, 255, 255),
 			bgcolor: combineRgb(75, 0, 100),
 		},
@@ -893,49 +678,52 @@ export function getPresets() {
 		feedbacks: [],
 	}
 
-	// ============= PERFORMANCE MONITORING PRESETS (Ver 2.0) =============
-	
-	// NEW Ver 2.0: HTTP Success Rate
+	// ============= PERFORMANCE MONITORING PRESETS =============
+
 	presets['http_success_rate'] = {
 		type: 'button',
 		category: 'Performance Monitor',
 		name: 'HTTP Success Rate',
 		style: {
-			text: 'SUCCESS\\n$(showswitcher:http_success_rate)',
-			size: '14',
+			text: '📊 SUCCESS\\n$(showswitcher:http_success_rate)',
+			size: '11',
 			color: combineRgb(255, 255, 255),
 			bgcolor: combineRgb(0, 50, 0),
 		},
 		steps: [],
 		feedbacks: [
 			{
-				feedbackId: 'http_errors_high',
-				options: {},
+				feedbackId: 'http_errors_above',
+				options: {
+					threshold: 5,
+				},
 				style: {
 					bgcolor: combineRgb(255, 100, 0),
 					color: combineRgb(0, 0, 0),
-					text: 'ERROR!\\n$(showswitcher:http_success_rate)',
+					text: '⚠ ERROR\\n$(showswitcher:http_success_rate)',
+					size: '11',
 				},
 			},
 		],
 	}
 
-	// NEW Ver 2.0: HTTP Error Count
 	presets['http_error_count'] = {
 		type: 'button',
 		category: 'Performance Monitor',
 		name: 'HTTP Errors',
 		style: {
-			text: 'ERRORS\\n$(showswitcher:http_errors)',
-			size: '14',
+			text: '❌ ERRORS\\n$(showswitcher:http_errors)',
+			size: '12',
 			color: combineRgb(255, 255, 255),
 			bgcolor: combineRgb(50, 0, 0),
 		},
 		steps: [],
 		feedbacks: [
 			{
-				feedbackId: 'http_errors_high',
-				options: {},
+				feedbackId: 'http_errors_above',
+				options: {
+					threshold: 5,
+				},
 				style: {
 					bgcolor: combineRgb(255, 0, 0),
 					color: combineRgb(255, 255, 255),
@@ -944,47 +732,67 @@ export function getPresets() {
 		],
 	}
 
-	// NEW Ver 2.0: Queue Size
 	presets['queue_size'] = {
 		type: 'button',
 		category: 'Performance Monitor',
 		name: 'Queue Size',
 		style: {
-			text: 'QUEUE\\n$(showswitcher:queue_size)',
-			size: '14',
+			text: '📋 QUEUE\\n$(showswitcher:queue_size)',
+			size: '12',
 			color: combineRgb(255, 255, 255),
 			bgcolor: combineRgb(0, 50, 100),
 		},
-		steps: [],
+		steps: [
+			{
+				down: [],
+				up: [],
+			},
+			{
+				down: [
+					{
+						actionId: 'clear_button_queue',
+						options: {},
+					},
+				],
+				up: [],
+			},
+		],
 		feedbacks: [
 			{
-				feedbackId: 'queue_full',
-				options: {},
+				feedbackId: 'queue_size_above',
+				options: {
+					threshold: 3,
+				},
 				style: {
 					bgcolor: combineRgb(255, 0, 0),
 					color: combineRgb(255, 255, 255),
-					text: 'QUEUE\\nFULL!',
+					text: '⚠ QUEUE\\nFULL',
+					size: '12',
 				},
 			},
 		],
 	}
 
-	// NEW Ver 2.0: Clear Statistics
-	presets['clear_statistics'] = {
+	// Consolidated statistics management
+	presets['statistics_control'] = {
 		type: 'button',
 		category: 'Performance Monitor',
-		name: 'Clear Statistics',
+		name: 'Statistics Control',
 		style: {
-			text: 'CLEAR\\nSTATS',
-			size: '14',
+			text: '💾 STATS\\nREADY',
+			size: '12',
 			color: combineRgb(255, 255, 255),
-			bgcolor: combineRgb(100, 0, 0),
+			bgcolor: combineRgb(50, 50, 50),
 		},
 		steps: [
 			{
+				down: [],
+				up: [],
+			},
+			{
 				down: [
 					{
-						actionId: 'clear_statistics',
+						actionId: 'reset_statistics',
 						options: {},
 					},
 				],
@@ -994,22 +802,35 @@ export function getPresets() {
 		feedbacks: [],
 	}
 
-	// NEW Ver 2.0: Save Statistics
-	presets['save_statistics'] = {
+	// ============= MIDI CONTROL PRESETS =============
+
+	// Consolidated MIDI status and control
+	presets['midi_control'] = {
 		type: 'button',
-		category: 'Performance Monitor',
-		name: 'Save Statistics',
+		category: 'MIDI Control',
+		name: 'MIDI Connection',
 		style: {
-			text: 'SAVE\\nSTATS',
-			size: '14',
+			text: '🎹 MIDI\\n$(showswitcher:midi_status)',
+			size: '12',
 			color: combineRgb(255, 255, 255),
-			bgcolor: combineRgb(0, 100, 0),
+			bgcolor: combineRgb(50, 0, 100),
 		},
 		steps: [
 			{
 				down: [
 					{
-						actionId: 'save_statistics',
+						actionId: 'midi_connect',
+						options: {
+							port_index: 0,
+						},
+					},
+				],
+				up: [],
+			},
+			{
+				down: [
+					{
+						actionId: 'midi_disconnect',
 						options: {},
 					},
 				],
@@ -1018,62 +839,49 @@ export function getPresets() {
 		],
 		feedbacks: [
 			{
-				feedbackId: 'statistics_saved',
-				options: {},
-				style: {
-					bgcolor: combineRgb(0, 255, 0),
-					color: combineRgb(0, 0, 0),
-				},
-			},
-		],
-	}
-
-	// ============= MIDI CONTROL PRESETS =============
-	
-	// MIDI Status
-	presets['midi_status'] = {
-		type: 'button',
-		category: 'MIDI Control',
-		name: 'MIDI Status',
-		style: {
-			text: 'MIDI\\n$(showswitcher:midi_status)',
-			size: '14',
-			color: combineRgb(255, 255, 255),
-			bgcolor: combineRgb(50, 0, 100),
-		},
-		steps: [],
-		feedbacks: [
-			{
 				feedbackId: 'midi_connected',
 				options: {},
 				style: {
 					bgcolor: combineRgb(150, 0, 255),
 					color: combineRgb(255, 255, 255),
+					text: '🎹 MIDI\\n✓ CONNECTED',
+					size: '11',
 				},
 			},
 			{
 				feedbackId: 'midi_disconnected',
 				options: {},
 				style: {
-					bgcolor: combineRgb(100, 100, 100),
-					color: combineRgb(255, 255, 255),
+					bgcolor: combineRgb(60, 60, 60),
+					color: combineRgb(200, 200, 200),
+					text: '🎹 MIDI\\nCONNECT',
+					size: '12',
 				},
 			},
 		],
 	}
 
-	// MIDI Port Display
 	presets['midi_port'] = {
 		type: 'button',
 		category: 'MIDI Control',
 		name: 'MIDI Port',
 		style: {
-			text: 'PORT\\n$(showswitcher:midi_port)',
-			size: '12',
+			text: '🎹 PORT\\n$(showswitcher:midi_port)',
+			size: '10',
 			color: combineRgb(255, 255, 255),
 			bgcolor: combineRgb(75, 0, 150),
 		},
-		steps: [],
+		steps: [
+			{
+				down: [
+					{
+						actionId: 'midi_refresh_ports',
+						options: {},
+					},
+				],
+				up: [],
+			},
+		],
 		feedbacks: [
 			{
 				feedbackId: 'midi_activity',
@@ -1086,14 +894,13 @@ export function getPresets() {
 		],
 	}
 
-	// MIDI Last Note
 	presets['midi_last_note'] = {
 		type: 'button',
 		category: 'MIDI Control',
 		name: 'MIDI Last Note',
 		style: {
-			text: 'NOTE\\n$(showswitcher:midi_last_note)',
-			size: '14',
+			text: '♪ NOTE\\n$(showswitcher:midi_last_note)',
+			size: '11',
 			color: combineRgb(255, 255, 255),
 			bgcolor: combineRgb(50, 50, 100),
 		},
@@ -1101,14 +908,13 @@ export function getPresets() {
 		feedbacks: [],
 	}
 
-	// MIDI Last CC
 	presets['midi_last_cc'] = {
 		type: 'button',
 		category: 'MIDI Control',
 		name: 'MIDI Last CC',
 		style: {
-			text: 'CC\\n$(showswitcher:midi_last_cc)',
-			size: '14',
+			text: '🎛 CC\\n$(showswitcher:midi_last_cc)',
+			size: '11',
 			color: combineRgb(255, 255, 255),
 			bgcolor: combineRgb(100, 50, 50),
 		},
@@ -1116,39 +922,13 @@ export function getPresets() {
 		feedbacks: [],
 	}
 
-	// MIDI Disconnect
-	presets['midi_disconnect'] = {
+	presets['show_midi_guide'] = {
 		type: 'button',
 		category: 'MIDI Control',
-		name: 'MIDI Disconnect',
+		name: 'MIDI Guide',
 		style: {
-			text: 'MIDI\\nDISCONNECT',
-			size: '14',
-			color: combineRgb(255, 255, 255),
-			bgcolor: combineRgb(100, 0, 0),
-		},
-		steps: [
-			{
-				down: [
-					{
-						actionId: 'midi_disconnect',
-						options: {},
-					},
-				],
-				up: [],
-			},
-		],
-		feedbacks: [],
-	}
-
-	// MIDI Refresh
-	presets['midi_refresh'] = {
-		type: 'button',
-		category: 'MIDI Control',
-		name: 'MIDI Refresh Ports',
-		style: {
-			text: 'MIDI\\nREFRESH',
-			size: '14',
+			text: 'ℹ MIDI\\nGUIDE',
+			size: '12',
 			color: combineRgb(255, 255, 255),
 			bgcolor: combineRgb(0, 100, 100),
 		},
@@ -1156,7 +936,7 @@ export function getPresets() {
 			{
 				down: [
 					{
-						actionId: 'midi_refresh',
+						actionId: 'show_midi_guide',
 						options: {},
 					},
 				],

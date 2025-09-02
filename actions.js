@@ -150,6 +150,18 @@ export function getActions(self) {
 				self.updateVariables()
 			},
 		},
+		// NEW: Camera Mode Toggle action for simplified preset
+		camera_mode_toggle: {
+			name: 'Toggle Camera Mode',
+			options: [],
+			callback: async () => {
+				self.cameraSwitcher.sequentialMode = !self.cameraSwitcher.sequentialMode
+				self.cameraSwitcher.sequentialIndex = 0
+				const mode = self.cameraSwitcher.sequentialMode ? 'sequential' : 'random'
+				self.log('info', `Camera mode toggled to ${mode}`)
+				self.updateVariables()
+			},
+		},
 
 		// Overlay Actions
 		overlay_on: {
@@ -253,6 +265,18 @@ export function getActions(self) {
 				self.updateVariables()
 			},
 		},
+		// NEW: Overlay Mode Toggle action for simplified preset
+		overlay_mode_toggle: {
+			name: 'Toggle Overlay Mode',
+			options: [],
+			callback: async () => {
+				self.overlaySwitcher.sequentialMode = !self.overlaySwitcher.sequentialMode
+				self.overlaySwitcher.sequentialIndex = 0
+				const mode = self.overlaySwitcher.sequentialMode ? 'sequential' : 'random'
+				self.log('info', `Overlay mode toggled to ${mode}`)
+				self.updateVariables()
+			},
+		},
 
 		// Button Management Actions
 		camera_add_button: {
@@ -334,6 +358,15 @@ export function getActions(self) {
 				}
 			},
 		},
+		// NEW: Clear camera blacklist action
+		camera_blacklist_clear: {
+			name: 'Clear Camera Blacklist',
+			options: [],
+			callback: async () => {
+				self.cameraSwitcher.blacklist = []
+				self.log('info', 'Camera blacklist cleared')
+			},
+		},
 		overlay_add_button: {
 			name: 'Add Overlay Button',
 			options: [
@@ -413,6 +446,15 @@ export function getActions(self) {
 				}
 			},
 		},
+		// NEW: Clear overlay blacklist action
+		overlay_blacklist_clear: {
+			name: 'Clear Overlay Blacklist',
+			options: [],
+			callback: async () => {
+				self.overlaySwitcher.blacklist = []
+				self.log('info', 'Overlay blacklist cleared')
+			},
+		},
 
 		// Counter Reset Actions
 		reset_camera_counter: {
@@ -452,6 +494,27 @@ export function getActions(self) {
 
 				self.updateVariables()
 				self.log('info', 'All statistics reset')
+			},
+		},
+		// NEW: Clear specific statistics
+		clear_statistics: {
+			name: 'Clear Performance Statistics',
+			options: [],
+			callback: async () => {
+				self.performance.httpErrors = 0
+				self.performance.httpSuccesses = 0
+				self.performance.averageResponseTime = 0
+				self.updateVariables()
+				self.log('info', 'Performance statistics cleared')
+			},
+		},
+		// NEW: Save statistics action
+		save_statistics: {
+			name: 'Save Statistics',
+			options: [],
+			callback: async () => {
+				await self.saveStatistics()
+				self.log('info', 'Statistics saved')
 			},
 		},
 
@@ -508,6 +571,17 @@ export function getActions(self) {
 		},
 		midi_refresh_ports: {
 			name: 'MIDI Refresh Ports',
+			options: [],
+			callback: async () => {
+				if (self.midiHandler) {
+					await self.midiHandler.refreshPorts()
+					self.log('info', 'MIDI ports refreshed')
+				}
+			},
+		},
+		// NEW: Renamed for consistency
+		midi_refresh: {
+			name: 'MIDI Refresh',
 			options: [],
 			callback: async () => {
 				if (self.midiHandler) {

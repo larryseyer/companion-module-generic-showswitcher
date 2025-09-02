@@ -1,5 +1,5 @@
 //
-// companion-module-generic-showswitcher module Ver 2.0 for BitFocus Companion
+// companion-module-generic-showswitcher module for BitFocus Companion
 // by Larry Seyer
 // bitfocus@larryseyer.com
 // http://LarrySeyer.com
@@ -619,15 +619,18 @@ class ShowSwitcherInstance extends InstanceBase {
 			overlay_average_interval: Math.round(this.overlaySwitcher.averageInterval),
 			overlay_mode: this.overlaySwitcher.sequentialMode ? 'Sequential' : 'Random',
 
-			system_status: this.systemState.isPaused ? 'Paused' : (this.systemState.isRunning ? 'Started' : 'Stopped'),
+			system_status: this.systemState.isPaused ? 'Paused' : this.systemState.isRunning ? 'Started' : 'Stopped',
 			system_duration: this.formatDuration(this.systemState.activeDuration),
 			system_total_runtime: this.formatDuration(this.systemState.totalRuntime),
 			system_session_count: this.systemState.sessionCount,
 
 			// Performance metrics
-			http_success_rate: this.performance.httpSuccesses > 0
-				? Math.round((this.performance.httpSuccesses / (this.performance.httpSuccesses + this.performance.httpErrors)) * 100) + '%'
-				: '0%',
+			http_success_rate:
+				this.performance.httpSuccesses > 0
+					? Math.round(
+							(this.performance.httpSuccesses / (this.performance.httpSuccesses + this.performance.httpErrors)) * 100
+						) + '%'
+					: '0%',
 			http_errors: this.performance.httpErrors,
 			queue_size: this.performance.buttonPressQueue.length,
 
@@ -671,13 +674,13 @@ class ShowSwitcherInstance extends InstanceBase {
 			let candidates = [...Array(switcher.buttons.length).keys()]
 
 			// Remove blacklisted buttons
-			candidates = candidates.filter(i => !switcher.blacklist.includes(switcher.buttons[i]))
+			candidates = candidates.filter((i) => !switcher.blacklist.includes(switcher.buttons[i]))
 
 			// Avoid immediate repeats if enabled
 			if (this.config[switcher === this.cameraSwitcher ? 'camera_avoid_repeat' : 'overlay_avoid_repeat']) {
 				if (switcher.previousButton !== 'None') {
 					const prevIndex = switcher.buttons.indexOf(switcher.previousButton)
-					candidates = candidates.filter(i => i !== prevIndex)
+					candidates = candidates.filter((i) => i !== prevIndex)
 				}
 			}
 
@@ -692,12 +695,13 @@ class ShowSwitcherInstance extends InstanceBase {
 	}
 
 	updateHistory(switcher, button) {
-		const historySize = this.config[switcher === this.cameraSwitcher ? 'camera_history_size' : 'overlay_history_size'] || 5
+		const historySize =
+			this.config[switcher === this.cameraSwitcher ? 'camera_history_size' : 'overlay_history_size'] || 5
 
 		if (historySize > 0) {
 			switcher.history.push({
 				button: button,
-				timestamp: Date.now()
+				timestamp: Date.now(),
 			})
 
 			// Trim history to size
@@ -709,9 +713,8 @@ class ShowSwitcherInstance extends InstanceBase {
 		// Update average interval
 		if (switcher.lastTriggerTime) {
 			const interval = (Date.now() - switcher.lastTriggerTime) / 1000
-			switcher.averageInterval = switcher.averageInterval === 0
-				? interval
-				: (switcher.averageInterval * 0.8 + interval * 0.2) // Weighted average
+			switcher.averageInterval =
+				switcher.averageInterval === 0 ? interval : switcher.averageInterval * 0.8 + interval * 0.2 // Weighted average
 		}
 		switcher.lastTriggerTime = Date.now()
 	}
@@ -1033,9 +1036,10 @@ class ShowSwitcherInstance extends InstanceBase {
 			clearTimeout(timeoutId)
 
 			const responseTime = Date.now() - startTime
-			this.performance.averageResponseTime = this.performance.averageResponseTime === 0
-				? responseTime
-				: (this.performance.averageResponseTime * 0.9 + responseTime * 0.1)
+			this.performance.averageResponseTime =
+				this.performance.averageResponseTime === 0
+					? responseTime
+					: this.performance.averageResponseTime * 0.9 + responseTime * 0.1
 
 			if (response.ok) {
 				this.performance.httpSuccesses++
@@ -1079,7 +1083,7 @@ class ShowSwitcherInstance extends InstanceBase {
 				overlayTriggerCount: this.overlaySwitcher.triggerCount,
 				httpErrors: this.performance.httpErrors,
 				httpSuccesses: this.performance.httpSuccesses,
-				lastSaved: new Date().toISOString()
+				lastSaved: new Date().toISOString(),
 			}
 
 			// This would normally save to a file or database
