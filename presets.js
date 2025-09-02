@@ -8,11 +8,11 @@ export function getPresets() {
 	// Consolidated System Start/Stop with steps
 	presets['system_control'] = {
 		type: 'button',
-		category: 'System Control',
-		name: 'System Start/Stop',
+		category: '🎛️ System Control',
+		name: '🔴 Main System Start/Stop Toggle',
 		style: {
-			text: '$(showswitcher:system_status == "Stopped" ? "⏵" : "⏹")\\nSYSTEM',
-			size: '14',
+			text: '$(showswitcher:system_status == "Stopped" ? "⏵" : "⏹")\\nMAIN',
+			size: '18',
 			color: combineRgb(255, 255, 255),
 			bgcolor: combineRgb(50, 50, 50),
 		},
@@ -35,7 +35,7 @@ export function getPresets() {
 					bgcolor: combineRgb(0, 150, 0),
 					color: combineRgb(255, 255, 255),
 					text: '⏹\\nSTOP',
-					size: '14',
+					size: '16',
 				},
 			},
 			{
@@ -45,7 +45,7 @@ export function getPresets() {
 					bgcolor: combineRgb(100, 0, 0),
 					color: combineRgb(255, 255, 255),
 					text: '⏵\\nSTART',
-					size: '14',
+					size: '16',
 				},
 			},
 			{
@@ -55,7 +55,7 @@ export function getPresets() {
 					bgcolor: combineRgb(200, 150, 0),
 					color: combineRgb(255, 255, 255),
 					text: '⏸\\nPAUSED',
-					size: '14',
+					size: '16',
 				},
 			},
 		],
@@ -64,11 +64,11 @@ export function getPresets() {
 	// Consolidated Pause/Resume with smart toggle
 	presets['system_pause_resume'] = {
 		type: 'button',
-		category: 'System Control',
-		name: 'System Pause/Resume',
+		category: '🎛️ System Control',
+		name: '⏸️ System Pause/Resume Toggle',
 		style: {
 			text: '⏸\\nPAUSE',
-			size: '14',
+			size: '16',
 			color: combineRgb(255, 255, 255),
 			bgcolor: combineRgb(100, 100, 0),
 		},
@@ -100,7 +100,7 @@ export function getPresets() {
 					bgcolor: combineRgb(255, 200, 0),
 					color: combineRgb(0, 0, 0),
 					text: '▶\\nRESUME',
-					size: '14',
+					size: '16',
 				},
 			},
 		],
@@ -108,11 +108,11 @@ export function getPresets() {
 
 	presets['system_reset'] = {
 		type: 'button',
-		category: 'System Control',
-		name: 'System Reset',
+		category: '🎛️ System Control',
+		name: '↻ System Reset (Double-Tap Required)',
 		style: {
 			text: '↻\\nRESET',
-			size: '14',
+			size: '16',
 			color: combineRgb(255, 255, 255),
 			bgcolor: combineRgb(150, 50, 0),
 		},
@@ -136,11 +136,11 @@ export function getPresets() {
 
 	presets['system_status_display'] = {
 		type: 'button',
-		category: 'System Control',
-		name: 'System Status Display',
+		category: '🎛️ System Control',
+		name: '📊 Live System Status Display',
 		style: {
-			text: '⚙ $(showswitcher:system_status)\\n$(showswitcher:system_duration)',
-			size: '12',
+			text: '$(showswitcher:system_status)\\n$(showswitcher:system_duration)',
+			size: '11',
 			color: combineRgb(255, 255, 255),
 			bgcolor: combineRgb(30, 30, 30),
 		},
@@ -151,8 +151,8 @@ export function getPresets() {
 				options: {},
 				style: {
 					bgcolor: combineRgb(0, 100, 0),
-					text: '▶ RUNNING\\n$(showswitcher:system_duration)',
-					size: '12',
+					text: '▶ RUN\\n$(showswitcher:system_duration)',
+					size: '11',
 				},
 			},
 			{
@@ -160,8 +160,8 @@ export function getPresets() {
 				options: {},
 				style: {
 					bgcolor: combineRgb(200, 150, 0),
-					text: '⏸ PAUSED\\n$(showswitcher:system_duration)',
-					size: '12',
+					text: '⏸ PAUSE\\n$(showswitcher:system_duration)',
+					size: '11',
 				},
 			},
 			{
@@ -169,8 +169,8 @@ export function getPresets() {
 				options: {},
 				style: {
 					bgcolor: combineRgb(60, 60, 60),
-					text: '⏹ STOPPED\\n$(showswitcher:system_duration)',
-					size: '12',
+					text: '⏹ STOP\\n$(showswitcher:system_duration)',
+					size: '11',
 				},
 			},
 		],
@@ -181,8 +181,8 @@ export function getPresets() {
 	// Consolidated Camera Control
 	presets['camera_control'] = {
 		type: 'button',
-		category: 'Camera Control',
-		name: 'Camera Start/Stop',
+		category: '📹 Camera Switching',
+		name: '📹 Camera Auto-Switch Start/Stop',
 		style: {
 			text: '📹\\nCAMERA',
 			size: '14',
@@ -226,8 +226,8 @@ export function getPresets() {
 
 	presets['camera_manual'] = {
 		type: 'button',
-		category: 'Camera Control',
-		name: 'Camera Manual Trigger',
+		category: '📹 Camera Switching',
+		name: '🎬 Manual Camera Switch Trigger',
 		style: {
 			text: '🎬\\nTRIGGER',
 			size: '14',
@@ -251,8 +251,8 @@ export function getPresets() {
 	// Camera Mode with smart toggle
 	presets['camera_mode'] = {
 		type: 'button',
-		category: 'Camera Control',
-		name: 'Camera Mode',
+		category: '📹 Camera Switching',
+		name: '🔀 Camera Mode (Sequential/Random)',
 		style: {
 			text: '🔀\\n$(showswitcher:camera_mode)',
 			size: '12',
@@ -289,8 +289,8 @@ export function getPresets() {
 				options: {},
 				style: {
 					bgcolor: combineRgb(0, 150, 150),
-					text: '➡\\nSEQUENTIAL',
-					size: '12',
+					text: '➡\\nSEQ',
+					size: '14',
 				},
 			},
 		],
@@ -301,8 +301,8 @@ export function getPresets() {
 	// Consolidated Overlay Control
 	presets['overlay_control'] = {
 		type: 'button',
-		category: 'Overlay Control',
-		name: 'Overlay Start/Stop',
+		category: '🎨 Overlay Control',
+		name: '🎨 Overlay Auto-Switch Start/Stop',
 		style: {
 			text: '🎨\\nOVERLAY',
 			size: '14',
@@ -346,8 +346,8 @@ export function getPresets() {
 
 	presets['overlay_manual'] = {
 		type: 'button',
-		category: 'Overlay Control',
-		name: 'Overlay Manual Trigger',
+		category: '🎨 Overlay Control',
+		name: '✨ Manual Overlay Switch Trigger',
 		style: {
 			text: '✨\\nTRIGGER',
 			size: '14',
@@ -371,8 +371,8 @@ export function getPresets() {
 	// Overlay Mode with smart toggle
 	presets['overlay_mode'] = {
 		type: 'button',
-		category: 'Overlay Control',
-		name: 'Overlay Mode',
+		category: '🎨 Overlay Control',
+		name: '🔀 Overlay Mode (Sequential/Random)',
 		style: {
 			text: '🔀\\n$(showswitcher:overlay_mode)',
 			size: '12',
@@ -409,8 +409,8 @@ export function getPresets() {
 				options: {},
 				style: {
 					bgcolor: combineRgb(0, 150, 150),
-					text: '➡\\nSEQUENTIAL',
-					size: '12',
+					text: '➡\\nSEQ',
+					size: '14',
 				},
 			},
 		],
@@ -420,8 +420,8 @@ export function getPresets() {
 
 	presets['camera_countdown'] = {
 		type: 'button',
-		category: 'Status Display',
-		name: 'Camera Countdown',
+		category: '📋 Status Displays',
+		name: '⏱️ Camera Countdown Timer Display',
 		style: {
 			text: '📹 CAM\\n$(showswitcher:camera_countdown)s',
 			size: '14',
@@ -456,8 +456,8 @@ export function getPresets() {
 
 	presets['overlay_countdown'] = {
 		type: 'button',
-		category: 'Status Display',
-		name: 'Overlay Countdown',
+		category: '📋 Status Displays',
+		name: '⏱️ Overlay Countdown Timer Display',
 		style: {
 			text: '🎨 OVL\\n$(showswitcher:overlay_countdown)s',
 			size: '14',
@@ -492,8 +492,8 @@ export function getPresets() {
 
 	presets['system_duration'] = {
 		type: 'button',
-		category: 'Status Display',
-		name: 'System Duration',
+		category: '📋 Status Displays',
+		name: '⏱️ Current Session Duration Display',
 		style: {
 			text: '⏱ ACTIVE\\n$(showswitcher:system_duration)',
 			size: '12',
@@ -517,8 +517,8 @@ export function getPresets() {
 
 	presets['system_total_runtime'] = {
 		type: 'button',
-		category: 'Status Display',
-		name: 'Total Runtime',
+		category: '📋 Status Displays',
+		name: '∑ Total Runtime (All Sessions)',
 		style: {
 			text: '∑ TOTAL\\n$(showswitcher:system_total_runtime)',
 			size: '12',
@@ -531,8 +531,8 @@ export function getPresets() {
 
 	presets['system_session_count'] = {
 		type: 'button',
-		category: 'Status Display',
-		name: 'Session Count',
+		category: '📋 Status Displays',
+		name: '#️⃣ Session Counter Display',
 		style: {
 			text: '# SESSIONS\\n$(showswitcher:system_session_count)',
 			size: '12',
@@ -545,8 +545,8 @@ export function getPresets() {
 
 	presets['camera_next'] = {
 		type: 'button',
-		category: 'Status Display',
-		name: 'Camera Next Button',
+		category: '📋 Status Displays',
+		name: '📹 Next Camera Button Preview',
 		style: {
 			text: '📹 NEXT\\n$(showswitcher:camera_next_button)',
 			size: '11',
@@ -559,8 +559,8 @@ export function getPresets() {
 
 	presets['overlay_next'] = {
 		type: 'button',
-		category: 'Status Display',
-		name: 'Overlay Next Button',
+		category: '📋 Status Displays',
+		name: '🎨 Next Overlay Button Preview',
 		style: {
 			text: '🎨 NEXT\\n$(showswitcher:overlay_next_button)',
 			size: '11',
@@ -574,8 +574,8 @@ export function getPresets() {
 	// Consolidated counter with reset on double-tap
 	presets['camera_count'] = {
 		type: 'button',
-		category: 'Status Display',
-		name: 'Camera Trigger Count',
+		category: '📋 Status Displays',
+		name: '🔢 Camera Trigger Counter (Double-Tap to Reset)',
 		style: {
 			text: '📹 COUNT\\n$(showswitcher:camera_trigger_count)',
 			size: '12',
@@ -613,8 +613,8 @@ export function getPresets() {
 
 	presets['overlay_count'] = {
 		type: 'button',
-		category: 'Status Display',
-		name: 'Overlay Trigger Count',
+		category: '📋 Status Displays',
+		name: '🔢 Overlay Trigger Counter (Double-Tap to Reset)',
 		style: {
 			text: '🎨 COUNT\\n$(showswitcher:overlay_trigger_count)',
 			size: '12',
@@ -652,8 +652,8 @@ export function getPresets() {
 
 	presets['camera_average_interval'] = {
 		type: 'button',
-		category: 'Status Display',
-		name: 'Camera Avg Interval',
+		category: '📋 Status Displays',
+		name: '📈 Camera Average Interval Time',
 		style: {
 			text: '⏱ CAM AVG\\n$(showswitcher:camera_average_interval)s',
 			size: '11',
@@ -666,8 +666,8 @@ export function getPresets() {
 
 	presets['overlay_average_interval'] = {
 		type: 'button',
-		category: 'Status Display',
-		name: 'Overlay Avg Interval',
+		category: '📋 Status Displays',
+		name: '📈 Overlay Average Interval Time',
 		style: {
 			text: '⏱ OVL AVG\\n$(showswitcher:overlay_average_interval)s',
 			size: '11',
@@ -682,8 +682,8 @@ export function getPresets() {
 
 	presets['http_success_rate'] = {
 		type: 'button',
-		category: 'Performance Monitor',
-		name: 'HTTP Success Rate',
+		category: '📊Performance Monitoring',
+		name: '📊HTTP Success Rate Monitor',
 		style: {
 			text: '📊 SUCCESS\\n$(showswitcher:http_success_rate)',
 			size: '11',
@@ -709,8 +709,8 @@ export function getPresets() {
 
 	presets['http_error_count'] = {
 		type: 'button',
-		category: 'Performance Monitor',
-		name: 'HTTP Errors',
+		category: '📊Performance Monitoring',
+		name: '❌HTTP Error Counter',
 		style: {
 			text: '❌ ERRORS\\n$(showswitcher:http_errors)',
 			size: '12',
@@ -734,8 +734,8 @@ export function getPresets() {
 
 	presets['queue_size'] = {
 		type: 'button',
-		category: 'Performance Monitor',
-		name: 'Queue Size',
+		category: '📊Performance Monitoring',
+		name: '📋Button Queue Size (Double-Tap to Clear)',
 		style: {
 			text: '📋 QUEUE\\n$(showswitcher:queue_size)',
 			size: '12',
@@ -776,8 +776,8 @@ export function getPresets() {
 	// Consolidated statistics management
 	presets['statistics_control'] = {
 		type: 'button',
-		category: 'Performance Monitor',
-		name: 'Statistics Control',
+		category: '📊Performance Monitoring',
+		name: '🖾Statistics Reset (Double-Tap Required)',
 		style: {
 			text: '💾 STATS\\nREADY',
 			size: '12',
@@ -807,8 +807,8 @@ export function getPresets() {
 	// Consolidated MIDI status and control
 	presets['midi_control'] = {
 		type: 'button',
-		category: 'MIDI Control',
-		name: 'MIDI Connection',
+		category: '🎹MIDI Control',
+		name: '🎹MIDI Connect/Disconnect Toggle',
 		style: {
 			text: '🎹 MIDI\\n$(showswitcher:midi_status)',
 			size: '12',
@@ -863,8 +863,8 @@ export function getPresets() {
 
 	presets['midi_port'] = {
 		type: 'button',
-		category: 'MIDI Control',
-		name: 'MIDI Port',
+		category: '🎹MIDI Control',
+		name: '🎹MIDI Port Display & Refresh',
 		style: {
 			text: '🎹 PORT\\n$(showswitcher:midi_port)',
 			size: '10',
@@ -896,8 +896,8 @@ export function getPresets() {
 
 	presets['midi_last_note'] = {
 		type: 'button',
-		category: 'MIDI Control',
-		name: 'MIDI Last Note',
+		category: '🎹MIDI Control',
+		name: '♪Last MIDI Note Received',
 		style: {
 			text: '♪ NOTE\\n$(showswitcher:midi_last_note)',
 			size: '11',
@@ -910,8 +910,8 @@ export function getPresets() {
 
 	presets['midi_last_cc'] = {
 		type: 'button',
-		category: 'MIDI Control',
-		name: 'MIDI Last CC',
+		category: '🎹MIDI Control',
+		name: '🎛Last MIDI CC Received',
 		style: {
 			text: '🎛 CC\\n$(showswitcher:midi_last_cc)',
 			size: '11',
@@ -919,30 +919,6 @@ export function getPresets() {
 			bgcolor: combineRgb(100, 50, 50),
 		},
 		steps: [],
-		feedbacks: [],
-	}
-
-	presets['show_midi_guide'] = {
-		type: 'button',
-		category: 'MIDI Control',
-		name: 'MIDI Guide',
-		style: {
-			text: 'ℹ MIDI\\nGUIDE',
-			size: '12',
-			color: combineRgb(255, 255, 255),
-			bgcolor: combineRgb(0, 100, 100),
-		},
-		steps: [
-			{
-				down: [
-					{
-						actionId: 'show_midi_guide',
-						options: {},
-					},
-				],
-				up: [],
-			},
-		],
 		feedbacks: [],
 	}
 

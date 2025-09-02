@@ -638,37 +638,5 @@ export function getActions(self) {
 				self.log('info', `Overlay timer set to ${seconds}s from CC value ${value}`)
 			},
 		},
-		show_midi_guide: {
-			name: 'Show MIDI Configuration Guide',
-			options: [],
-			callback: async () => {
-				self.log('info', '=== MIDI Configuration Guide ===')
-				self.log('info', 'To control this module with MIDI:')
-				self.log('info', '')
-				self.log('info', '1. Go to Settings -> MIDI to configure your MIDI device')
-				self.log('info', '2. Go to Triggers tab and create MIDI triggers')
-				self.log('info', '3. Set trigger type to "MIDI Note" or "MIDI CC"')
-				self.log('info', '4. Add actions from this module')
-				self.log('info', '')
-				self.log('info', 'Recommended MIDI Note Mappings:')
-				self.log('info', '  Note 36 -> system_on')
-				self.log('info', '  Note 37 -> system_off')
-				self.log('info', '  Note 38 -> system_reset')
-				self.log('info', '  Note 39 -> camera_on')
-				self.log('info', '  Note 40 -> camera_off')
-				self.log('info', '  Note 41 -> camera_manual')
-				self.log('info', '  Note 42 -> overlay_on')
-				self.log('info', '  Note 43 -> overlay_off')
-				self.log('info', '  Note 44 -> overlay_manual')
-				self.log('info', '  Note 48 -> system_pause')
-				self.log('info', '  Note 49 -> system_resume')
-				self.log('info', '')
-				self.log('info', 'For MIDI CC (faders/knobs):')
-				self.log('info', '  CC1 -> midi_camera_timer_cc action')
-				self.log('info', '  CC2 -> midi_overlay_timer_cc action')
-				self.log('info', '  Use $(midi:cc_value) variable to pass the value')
-				self.log('info', '=================================')
-			},
-		},
 	}
 }
