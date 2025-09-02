@@ -1,103 +1,162 @@
-# ShowSwitcher Stream Deck Layout Guide
+# ShowSwitcher Stream Deck Layout Guide - Version 2.0
 
-## Optimal 8x4 Stream Deck Layout
+## 🎯 Optimized Button Layout (Reduced from 29 to 19 buttons)
 
-This guide shows the recommended button layout for a standard 8x4 (32-button) Stream Deck. The presets are organized into logical rows for easy operation during a live show.
+This guide shows the improved button layout optimized for a standard 8x4 (32-button) Stream Deck. The presets have been reorganized with logical grouping, consistent color coding, and combined displays for maximum efficiency.
 
-### Row 1: Main System Control (8 buttons)
-1. 🔴 **Main System Start/Stop** - Master control for entire system
-2. ⏸️ **System Pause/Resume** - Pause without stopping
-3. ↻ **System Reset** - Double-tap to reset (safety feature)
-4. 📊 **System Status** - Live status display
-5. ⏱️ **Session Duration** - Current session timer
-6. ∑ **Total Runtime** - All sessions combined
-7. #️⃣ **Session Count** - Number of start/stop cycles
-8. 💾 **Statistics Reset** - Double-tap to clear stats
+## 🎨 Color Coding System
 
-### Row 2: Camera Control & Status (8 buttons)
-1. 📹 **Camera Auto-Switch** - Start/stop automatic switching
-2. 🎬 **Manual Camera Trigger** - Force immediate switch
-3. 🔀 **Camera Mode** - Toggle Sequential/Random
-4. ⏱️ **Camera Countdown** - Time to next switch
-5. 📹 **Next Camera Preview** - Shows which button is next
-6. 🔢 **Camera Trigger Count** - Total switches (double-tap resets)
-7. 📈 **Camera Avg Interval** - Average time between switches
-8. *(Empty or custom)*
+Our new color scheme provides instant visual feedback:
+- **🟢 GREEN**: Active/Running/Go states
+- **🔴 RED**: Stopped/Inactive/Critical alerts
+- **🟡 YELLOW/AMBER**: Warning/Paused/Attention needed
+- **🔵 BLUE**: Camera-related operations
+- **🟣 PURPLE**: Overlay-related operations
+- **⚫ DARK GRAY**: Inactive/Disabled states
+- **⚪ LIGHT GRAY**: Information displays
 
-### Row 3: Overlay Control & Status (8 buttons)
-1. 🎨 **Overlay Auto-Switch** - Start/stop overlay switching
-2. ✨ **Manual Overlay Trigger** - Force immediate switch
-3. 🔀 **Overlay Mode** - Toggle Sequential/Random
-4. ⏱️ **Overlay Countdown** - Time to next overlay
-5. 🎨 **Next Overlay Preview** - Shows which overlay is next
-6. 🔢 **Overlay Trigger Count** - Total switches (double-tap resets)
-7. 📈 **Overlay Avg Interval** - Average time between overlays
-8. *(Empty or custom)*
+## 📋 Recommended 8x4 Layout
 
-### Row 4: MIDI & Performance (8 buttons)
-1. 🎹 **MIDI Connect** - Connect/disconnect MIDI device
-2. 🎹 **MIDI Port** - Shows port & refreshes on press
-3. ♪ **Last Note** - Display last MIDI note received
-4. 🎛 **Last CC** - Display last MIDI CC received
-5. 📖 **MIDI Docs** - Show setup guide (FIXED!)
-6. 📊 **HTTP Success Rate** - Monitor API health
-7. ❌ **HTTP Errors** - Error counter with warnings
-8. 📋 **Queue Size** - Button queue (double-tap clears)
+### Row 1: Master Control (3 buttons + space for custom)
+1. **🔴 Main System Start/Stop** - Master control with STATS ready indicator
+2. **⏸ Pause/Resume** - Smart toggle between pause and resume
+3. **↻ System Reset** - Double-tap safety feature
+4. *(Custom button or space)*
+5. *(Custom button or space)*
+6. *(Custom button or space)*
+7. *(Custom button or space)*
+8. *(Custom button or space)*
 
-## Button Features
+### Row 2: Camera Operations (3 buttons) + Live Monitoring (5 buttons)
+1. **📹 Camera Auto/Manual** - Start/stop automatic switching
+2. **🎬 Manual Trigger** - Force immediate camera switch
+3. **🔀 Camera Mode** - Toggle Sequential/Random
+4. **⏱ Combined Countdown** - CAM & OVL timers with smart warnings
+5. **🔢 Combined Counters** - CAM & OVL counts (double-tap resets both)
+6. **📈 Combined Averages** - CAM & OVL average intervals
+7. **👁 Next Preview** - Shows next CAM & OVL buttons
+8. **📊 Session Info** - Session #, duration, and total runtime
 
-### Smart Toggle Buttons
-Many buttons use multi-step functionality:
-- **Single Tap**: Primary action (start/stop, pause/resume)
-- **Double Tap**: Secondary action (reset, clear)
-- **Visual Feedback**: Colors change based on state
+### Row 3: Overlay Operations (3 buttons) + MIDI Control (2 buttons) + space
+1. **🎨 Overlay Auto/Manual** - Start/stop overlay switching
+2. **✨ Manual Trigger** - Force immediate overlay switch
+3. **🔀 Overlay Mode** - Toggle Sequential/Random
+4. **🎹 MIDI Status** - Connect/disconnect with visual feedback
+5. **🎵 MIDI Monitor** - Shows last Note & CC received
+6. *(Custom button or space)*
+7. *(Custom button or space)*
+8. *(Custom button or space)*
 
-### Color Coding
-- **Green**: Active/Running
-- **Red**: Stopped/Error
-- **Yellow/Orange**: Warning/Paused
-- **Blue**: Camera-related
-- **Purple**: Overlay-related
-- **Gray**: Inactive/Disconnected
+### Row 4: Performance Monitoring (3 buttons) + space for custom
+1. **📊 HTTP Performance** - Success rate with error warnings
+2. **📋 Queue Management** - Queue size (double-tap clears)
+3. **📊 Statistics Reset** - Double-tap to reset all stats
+4. *(Custom button or space)*
+5. *(Custom button or space)*
+6. *(Custom button or space)*
+7. *(Custom button or space)*
+8. *(Custom button or space)*
 
-### Dynamic Text
-Buttons display real-time information using variables:
+## 💡 Key Improvements from Previous Version
+
+### Button Consolidation (29 → 19 buttons)
+- **Combined Displays**: Merged related information into single buttons
+  - Camera & Overlay countdowns in one display
+  - Camera & Overlay counters combined
+  - Camera & Overlay averages together
+  - Next Camera & Overlay preview combined
+  - Session duration, count, and total runtime merged
+  - MIDI Note & CC display combined
+
+### Text Readability Fixes
+- **Larger font sizes**: 18pt for primary actions, 14pt for two-line text, 11pt for detailed info
+- **Shortened text**: "CONNECTED" → "✓", eliminating word wrapping issues
+- **Clear hierarchical sizing**: Important actions use larger text
+
+### Smart Visual Feedback
+- **STATS Ready**: Indicated through color change on main button (green when ready)
+- **Connection Status**: Uses symbols (✓, ✗, ⟳) instead of verbose text
+- **Progressive warnings**: Colors change based on thresholds (yellow → red)
+- **State-based colors**: Button backgrounds change to indicate system state
+
+### Logical Organization
+1. **Priority-based ordering**: Most important controls first
+2. **Function grouping**: Related operations together
+3. **Color-coded sections**: Visual separation by function
+4. **Consistent interaction patterns**: Double-tap for destructive actions
+
+## 🔧 Button Features
+
+### Multi-Step Functionality
+- **Single Tap**: Primary action or display
+- **Double Tap**: Reset/clear functions (with safety)
+- **Visual Feedback**: Real-time color changes based on state
+
+### Dynamic Information
 - Countdowns update every second
-- Status changes immediately
-- Statistics accumulate over time
+- Status changes reflect immediately
+- Statistics accumulate over sessions
+- Average calculations update in real-time
 
-## Tips for Use
+## 📝 Usage Tips
 
-1. **During Setup**:
-   - Row 4 for MIDI configuration
-   - Test with manual triggers before going live
+### During Setup
+1. Start with Row 4 for MIDI configuration
+2. Test manual triggers before going live
+3. Verify color feedback is working
 
-2. **During Show**:
-   - Row 1 for overall control
-   - Rows 2-3 for content switching
-   - Monitor performance indicators
+### During Show
+1. Use Row 1 for overall system control
+2. Monitor combined displays in Row 2
+3. Watch performance indicators for issues
+4. Use manual triggers for immediate changes
 
-3. **Safety Features**:
-   - Reset buttons require double-tap
-   - Visual confirmation on all state changes
-   - Queue monitoring prevents overload
+### Safety Features
+- Double-tap required for all resets
+- Visual confirmation on state changes
+- Queue monitoring prevents overload
+- Color warnings for critical states
 
-## Customization
+## 🚀 Migration from Old Layout
 
-You can rearrange these presets as needed:
-1. Go to Buttons tab in Companion
-2. Find the "ShowSwitcher" presets
-3. Drag desired presets to your Stream Deck layout
-4. Save your configuration
+If you're upgrading from the previous 29-button layout:
 
-## MIDI Integration
+### What's Changed
+- **System Status Display** → Merged into Main System button
+- **Separate Camera/Overlay Countdowns** → Combined Countdown
+- **Individual Counters** → Combined Counter
+- **Separate Averages** → Combined Averages
+- **Next Camera/Overlay** → Combined Next Preview
+- **Duration/Sessions/Runtime** → Session Info display
+- **MIDI Port/Note/CC** → MIDI Status & Monitor
+- **HTTP Success/Errors** → HTTP Performance
+- **Stats Ready** → Indicated by color on Main System button
 
-The MIDI Docs button now properly displays configuration guide through variables. Press it to see:
-- MIDI setup instructions
-- Recommended note mappings
-- CC control assignments
-- Current connection status
+### What's New
+- Consistent color coding across all buttons
+- Improved text sizing and readability
+- Smart toggle buttons with state awareness
+- Combined displays save space
+- Logical category organization
+
+## 🎯 Customization
+
+You can further customize this layout:
+1. Navigate to the Buttons tab in Companion
+2. Find "ShowSwitcher" presets (now in 5 organized categories)
+3. Drag desired presets to your Stream Deck
+4. Leave space for your custom buttons
+5. Save your configuration
+
+## 📊 Category Organization
+
+Presets are now organized in priority order:
+1. **1️⃣ Master Control** - Essential system controls
+2. **2️⃣ Camera Operations** - Camera-specific functions
+3. **3️⃣ Overlay Operations** - Overlay-specific functions
+4. **4️⃣ Live Monitoring** - Combined status displays
+5. **5️⃣ MIDI & Performance** - System monitoring and MIDI
 
 ---
 
-*Note: This layout is optimized for the standard 32-button Stream Deck but can be adapted for other models.*
+*Note: This optimized layout reduces button count from 29 to 19 while maintaining all functionality through intelligent combining and visual feedback.*

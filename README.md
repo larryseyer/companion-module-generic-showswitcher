@@ -8,6 +8,7 @@ A [Bitfocus Companion](https://bitfocus.io/companion) module for professional br
 
 ### New in Version 2.0
 
+- **🎨 Optimized Button Layout**: Reduced from 29 to 19 presets with smart consolidation
 - **⏸️ Pause/Resume Functionality**: Pause and resume system operation without losing state
 - **🔄 Sequential Mode**: Alternative to random selection - cycle through buttons in order
 - **🚫 Button Blacklisting**: Temporarily exclude buttons from rotation
@@ -499,46 +500,62 @@ Visual feedbacks for button states and conditions.
 
 ## 📚 Presets
 
-The module includes 25+ ready-to-use presets:
+### Version 2.0 Preset Improvements
 
-### System Control
+The module now includes **19 optimized presets** (reduced from 29) organized into 5 logical categories with consistent color coding and smart consolidation:
 
-- System ON/OFF/Reset/Toggle with visual feedback
-- System Pause/Resume buttons (v2.0)
-- System status display with duration
+### 🎨 Color Coding System
 
-### Camera Control
+- **🟢 GREEN**: Active/Running/Go states
+- **🔴 RED**: Stopped/Inactive/Critical alerts
+- **🟡 YELLOW**: Warning/Paused/Attention needed
+- **🔵 BLUE**: Camera-related operations
+- **🟣 PURPLE**: Overlay-related operations
+- **⚫ GRAY**: Inactive/Disabled states
 
-- Camera ON/OFF/Manual/Toggle buttons
-- Camera countdown display with warnings
-- Camera mode indicator (v2.0)
-- Camera next button display
+### Preset Categories (Priority Order)
 
-### Overlay Control
+#### 1️⃣ Master Control (3 presets)
+- **System Start/Stop** - Combined toggle with STATS ready indicator via color
+- **Pause/Resume** - Smart state-aware toggle
+- **System Reset** - Double-tap safety feature
 
-- Overlay ON/OFF/Manual/Toggle buttons
-- Overlay countdown display with warnings
-- Overlay mode indicator (v2.0)
-- Overlay next button display
+#### 2️⃣ Camera Operations (3 presets)
+- **Camera Auto/Manual** - Start/stop automatic switching
+- **Manual Camera Trigger** - Force immediate switch
+- **Camera Mode** - Toggle Sequential/Random
 
-### Status Displays
+#### 3️⃣ Overlay Operations (3 presets)
+- **Overlay Auto/Manual** - Start/stop overlay switching
+- **Manual Overlay Trigger** - Force immediate switch
+- **Overlay Mode** - Toggle Sequential/Random
 
-- System duration with color coding
-- Trigger count displays
-- Performance metrics (v2.0)
-- Queue size indicator (v2.0)
+#### 4️⃣ Live Monitoring (5 combined displays)
+- **Combined Countdown** - CAM & OVL timers with smart warnings
+- **Combined Counters** - Both counts with double-tap reset
+- **Combined Averages** - CAM & OVL average intervals
+- **Next Preview** - Shows next CAM & OVL buttons
+- **Session Info** - Session #, duration, and total runtime
 
-## 🎨 Enhanced Preset Buttons (Version 2.0)
+#### 5️⃣ MIDI & Performance (5 presets)
+- **MIDI Status** - Connect/disconnect with visual feedback
+- **MIDI Monitor** - Shows last Note & CC received
+- **HTTP Performance** - Success rate with error warnings
+- **Queue Management** - Queue size with double-tap clear
+- **Statistics Reset** - Double-tap to reset all stats
 
-The module includes redesigned preset buttons that use Companion's multi-step functionality for a cleaner, more efficient control surface. These presets reduce the number of buttons needed while maintaining all functionality.
+## 🎨 Enhanced Preset Design (Version 2.0)
+
+The module's 19 optimized presets use Companion's multi-step functionality and intelligent consolidation to reduce button count by 35% while maintaining all functionality.
 
 ### Button Design Philosophy
 
-- **Single buttons for toggle functions** - Start/Stop, Pause/Resume, Connect/Disconnect
-- **Multi-step actions** - Double-tap for reset functions, preventing accidental triggers
-- **Visual feedback with icons** - Unicode symbols provide clear visual indicators
-- **Optimized font sizes** - Text sized appropriately for readability (10-14pt)
-- **Smart state changes** - Buttons change appearance based on current state
+- **Combined displays** - Related information merged into single buttons
+- **Consistent color scheme** - Visual feedback through standardized colors
+- **Smart text sizing** - 18pt for actions, 14pt for two-line, 11pt for details
+- **Symbol-based status** - Using ✓, ✗, ⟳ instead of verbose text
+- **Double-tap safety** - All destructive actions require confirmation
+- **Priority ordering** - Most important controls placed first
 
 ### System Control Buttons
 
@@ -775,6 +792,10 @@ The module includes redesigned preset buttons that use Companion's multi-step fu
 
 ### Version 2.0.0 (Current)
 
+- **NEW: Optimized preset layout** - Reduced from 29 to 19 buttons
+- **NEW: Combined displays** - Merged related information for efficiency
+- **NEW: Consistent color coding** - Standardized visual feedback system
+- **NEW: Improved text readability** - Fixed word wrapping and font sizes
 - Added pause/resume functionality for system operation
 - Implemented sequential selection mode as alternative to random
 - Added button blacklisting for temporary exclusion
