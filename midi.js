@@ -22,7 +22,7 @@ export class MidiHandler {
 		this.availablePorts = []
 		this.currentPortName = null
 
-		// MIDI note mappings (from original ShowSwitcher)
+		// MIDI note mappings (enhanced from original ShowSwitcher)
 		this.noteMap = {
 			36: 'system_on',
 			37: 'system_off',
@@ -36,12 +36,20 @@ export class MidiHandler {
 			45: 'system_toggle',
 			46: 'camera_toggle',
 			47: 'overlay_toggle',
+			48: 'system_pause',     // New
+			49: 'system_resume',    // New
+			50: 'camera_mode_toggle', // New
+			51: 'overlay_mode_toggle', // New
 		}
 
 		// Control Change mappings
 		this.ccMap = {
 			1: 'camera_timer',
 			2: 'overlay_timer',
+			3: 'camera_min_timer',  // New - adjust minimum timer
+			4: 'camera_max_timer',  // New - adjust maximum timer
+			5: 'overlay_min_timer', // New - adjust minimum timer
+			6: 'overlay_max_timer', // New - adjust maximum timer
 		}
 	}
 
@@ -225,7 +233,7 @@ export class MidiHandler {
 				const mappedCommand = this.noteMap[note]
 				if (mappedCommand) {
 					this.instance.log('info', `MIDI Note ${note} -> ${mappedCommand}`)
-					this.handleCommand(mappedCommand)
+					this.handleCommand(mappedCommand, velocity)
 				}
 			}
 
@@ -267,6 +275,26 @@ export class MidiHandler {
 					const seconds = Math.round((value / 127) * (maxSeconds - minSeconds) + minSeconds)
 					this.instance.setOverlayCountdown(seconds)
 					this.instance.log('info', `Overlay timer set to ${seconds}s via MIDI CC${cc}`)
+				} else if (ccFunction === 'camera_min_timer') {
+					// Adjust camera minimum timer
+					const seconds = Math.round((value / 127) * 60) + 1 // 1-60 seconds
+					this.instance.cameraSwitcher.minSeconds = seconds
+					this.instance.log('info', `Camera min timer set to ${seconds}s via MIDI CC${cc}`)
+				} else if (ccFunction === 'camera_max_timer') {
+					// Adjust camera maximum timer
+					const seconds = Math.round((value / 127) * 300) + 10 // 10-310 seconds
+					this.instance.cameraSwitcher.maxSeconds = seconds
+					this.instance.log('info', `Camera max timer set to ${seconds}s via MIDI CC${cc}`)
+				} else if (ccFunction === 'overlay_min_timer') {
+					// Adjust overlay minimum timer
+					const seconds = Math.round((value / 127) * 1200) + 60 // 60-1260 seconds
+					this.instance.overlaySwitcher.minSeconds = seconds
+					this.instance.log('info', `Overlay min timer set to ${seconds}s via MIDI CC${cc}`)
+				} else if (ccFunction === 'overlay_max_timer') {
+					// Adjust overlay maximum timer
+					const seconds = Math.round((value / 127) * 1800) + 300 // 300-2100 seconds
+					this.instance.overlaySwitcher.maxSeconds = seconds
+					this.instance.log('info', `Overlay max timer set to ${seconds}s via MIDI CC${cc}`)
 				}
 			}
 		} catch (error) {
@@ -274,7 +302,7 @@ export class MidiHandler {
 		}
 	}
 
-	handleCommand(command) {
+	handleCommand(command, velocity = 127) {
 		switch (command) {
 			case 'system_on':
 				this.instance.startSystem()
@@ -292,6 +320,12 @@ export class MidiHandler {
 					this.instance.startSystem()
 				}
 				break
+			case 'system_pause':
+				this.instance.pauseSystem()
+				break
+			case 'system_resume':
+				this.instance.resumeSystem()
+				break
 			case 'camera_on':
 				this.instance.startCameraSwitcher()
 				break
@@ -308,6 +342,11 @@ export class MidiHandler {
 					this.instance.startCameraSwitcher()
 				}
 				break
+			case 'camera_mode_toggle':
+				this.instance.cameraSwitcher.sequentialMode = !this.instance.cameraSwitcher.sequentialMode
+				this.instance.log('info', `Camera mode: ${this.instance.cameraSwitcher.sequentialMode ? 'Sequential' : 'Random'}`)
+				this.instance.updateVariables()
+				break
 			case 'overlay_on':
 				this.instance.startOverlaySwitcher()
 				break
@@ -323,6 +362,11 @@ export class MidiHandler {
 				} else {
 					this.instance.startOverlaySwitcher()
 				}
+				break
+			case 'overlay_mode_toggle':
+				this.instance.overlaySwitcher.sequentialMode = !this.instance.overlaySwitcher.sequentialMode
+				this.instance.log('info', `Overlay mode: ${this.instance.overlaySwitcher.sequentialMode ? 'Sequential' : 'Random'}`)
+				this.instance.updateVariables()
 				break
 			default:
 				this.instance.log('warn', `Unknown MIDI command: ${command}`)

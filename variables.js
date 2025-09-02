@@ -9,6 +9,14 @@ export function getVariableDefinitions() {
 			variableId: 'system_duration',
 			name: 'System Active Duration',
 		},
+		{
+			variableId: 'system_total_runtime',
+			name: 'Total Runtime (All Sessions)',
+		},
+		{
+			variableId: 'system_session_count',
+			name: 'Number of Sessions',
+		},
 
 		// Camera Variables
 		{
@@ -31,6 +39,14 @@ export function getVariableDefinitions() {
 			variableId: 'camera_trigger_count',
 			name: 'Camera Trigger Count',
 		},
+		{
+			variableId: 'camera_average_interval',
+			name: 'Camera Average Interval (seconds)',
+		},
+		{
+			variableId: 'camera_mode',
+			name: 'Camera Selection Mode',
+		},
 
 		// Overlay Variables
 		{
@@ -52,6 +68,28 @@ export function getVariableDefinitions() {
 		{
 			variableId: 'overlay_trigger_count',
 			name: 'Overlay Trigger Count',
+		},
+		{
+			variableId: 'overlay_average_interval',
+			name: 'Overlay Average Interval (seconds)',
+		},
+		{
+			variableId: 'overlay_mode',
+			name: 'Overlay Selection Mode',
+		},
+
+		// Performance Variables
+		{
+			variableId: 'http_success_rate',
+			name: 'HTTP Success Rate',
+		},
+		{
+			variableId: 'http_errors',
+			name: 'HTTP Error Count',
+		},
+		{
+			variableId: 'queue_size',
+			name: 'Button Press Queue Size',
 		},
 
 		// MIDI Variables

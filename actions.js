@@ -33,6 +33,20 @@ export function getActions(self) {
 				}
 			},
 		},
+		system_pause: {
+			name: 'System Pause',
+			options: [],
+			callback: async () => {
+				self.pauseSystem()
+			},
+		},
+		system_resume: {
+			name: 'System Resume',
+			options: [],
+			callback: async () => {
+				self.resumeSystem()
+			},
+		},
 
 		// Camera Actions
 		camera_on: {
@@ -113,6 +127,27 @@ export function getActions(self) {
 				self.cameraSwitcher.minSeconds = parseInt(min)
 				self.cameraSwitcher.maxSeconds = parseInt(max)
 				self.log('info', `Camera timer range set to ${min}-${max} seconds`)
+			},
+		},
+		camera_set_mode: {
+			name: 'Set Camera Selection Mode',
+			options: [
+				{
+					type: 'dropdown',
+					label: 'Mode',
+					id: 'mode',
+					default: 'random',
+					choices: [
+						{ id: 'random', label: 'Random' },
+						{ id: 'sequential', label: 'Sequential' },
+					],
+				},
+			],
+			callback: async (action) => {
+				self.cameraSwitcher.sequentialMode = action.options.mode === 'sequential'
+				self.cameraSwitcher.sequentialIndex = 0
+				self.log('info', `Camera mode set to ${action.options.mode}`)
+				self.updateVariables()
 			},
 		},
 
@@ -197,6 +232,27 @@ export function getActions(self) {
 				self.log('info', `Overlay timer range set to ${min}-${max} seconds`)
 			},
 		},
+		overlay_set_mode: {
+			name: 'Set Overlay Selection Mode',
+			options: [
+				{
+					type: 'dropdown',
+					label: 'Mode',
+					id: 'mode',
+					default: 'random',
+					choices: [
+						{ id: 'random', label: 'Random' },
+						{ id: 'sequential', label: 'Sequential' },
+					],
+				},
+			],
+			callback: async (action) => {
+				self.overlaySwitcher.sequentialMode = action.options.mode === 'sequential'
+				self.overlaySwitcher.sequentialIndex = 0
+				self.log('info', `Overlay mode set to ${action.options.mode}`)
+				self.updateVariables()
+			},
+		},
 
 		// Button Management Actions
 		camera_add_button: {
@@ -235,6 +291,46 @@ export function getActions(self) {
 				if (index > -1) {
 					self.cameraSwitcher.buttons.splice(index, 1)
 					self.log('info', `Removed camera button: ${button}`)
+				}
+			},
+		},
+		camera_blacklist_button: {
+			name: 'Temporarily Blacklist Camera Button',
+			options: [
+				{
+					type: 'textinput',
+					label: 'Button Location (page/bank/button)',
+					id: 'button',
+					default: '2/1/0',
+					useVariables: true,
+				},
+				{
+					type: 'number',
+					label: 'Duration (seconds, 0 = until reset)',
+					id: 'duration',
+					default: 60,
+					min: 0,
+					max: 3600,
+					useVariables: true,
+				},
+			],
+			callback: async (action) => {
+				const button = await self.parseVariablesInString(action.options.button)
+				const duration = parseInt(await self.parseVariablesInString(action.options.duration))
+
+				if (!self.cameraSwitcher.blacklist.includes(button)) {
+					self.cameraSwitcher.blacklist.push(button)
+					self.log('info', `Blacklisted camera button: ${button}`)
+
+					if (duration > 0) {
+						setTimeout(() => {
+							const idx = self.cameraSwitcher.blacklist.indexOf(button)
+							if (idx > -1) {
+								self.cameraSwitcher.blacklist.splice(idx, 1)
+								self.log('info', `Removed blacklist for camera button: ${button}`)
+							}
+						}, duration * 1000)
+					}
 				}
 			},
 		},
@@ -277,6 +373,46 @@ export function getActions(self) {
 				}
 			},
 		},
+		overlay_blacklist_button: {
+			name: 'Temporarily Blacklist Overlay Button',
+			options: [
+				{
+					type: 'textinput',
+					label: 'Button Location (page/bank/button)',
+					id: 'button',
+					default: '2/2/1',
+					useVariables: true,
+				},
+				{
+					type: 'number',
+					label: 'Duration (seconds, 0 = until reset)',
+					id: 'duration',
+					default: 300,
+					min: 0,
+					max: 7200,
+					useVariables: true,
+				},
+			],
+			callback: async (action) => {
+				const button = await self.parseVariablesInString(action.options.button)
+				const duration = parseInt(await self.parseVariablesInString(action.options.duration))
+
+				if (!self.overlaySwitcher.blacklist.includes(button)) {
+					self.overlaySwitcher.blacklist.push(button)
+					self.log('info', `Blacklisted overlay button: ${button}`)
+
+					if (duration > 0) {
+						setTimeout(() => {
+							const idx = self.overlaySwitcher.blacklist.indexOf(button)
+							if (idx > -1) {
+								self.overlaySwitcher.blacklist.splice(idx, 1)
+								self.log('info', `Removed blacklist for overlay button: ${button}`)
+							}
+						}, duration * 1000)
+					}
+				}
+			},
+		},
 
 		// Counter Reset Actions
 		reset_camera_counter: {
@@ -295,6 +431,38 @@ export function getActions(self) {
 				self.overlaySwitcher.triggerCount = 0
 				self.updateVariables()
 				self.log('info', 'Overlay counter reset')
+			},
+		},
+		reset_statistics: {
+			name: 'Reset All Statistics',
+			options: [],
+			callback: async () => {
+				// Reset all statistics
+				self.systemState.totalRuntime = 0
+				self.systemState.sessionCount = 0
+				self.cameraSwitcher.triggerCount = 0
+				self.cameraSwitcher.averageInterval = 0
+				self.cameraSwitcher.history = []
+				self.overlaySwitcher.triggerCount = 0
+				self.overlaySwitcher.averageInterval = 0
+				self.overlaySwitcher.history = []
+				self.performance.httpErrors = 0
+				self.performance.httpSuccesses = 0
+				self.performance.averageResponseTime = 0
+
+				self.updateVariables()
+				self.log('info', 'All statistics reset')
+			},
+		},
+
+		// Performance Actions
+		clear_button_queue: {
+			name: 'Clear Button Press Queue',
+			options: [],
+			callback: async () => {
+				self.performance.buttonPressQueue = []
+				self.updateVariables()
+				self.log('info', 'Button press queue cleared')
 			},
 		},
 
@@ -418,6 +586,8 @@ export function getActions(self) {
 				self.log('info', '  Note 42 -> overlay_on')
 				self.log('info', '  Note 43 -> overlay_off')
 				self.log('info', '  Note 44 -> overlay_manual')
+				self.log('info', '  Note 48 -> system_pause')
+				self.log('info', '  Note 49 -> system_resume')
 				self.log('info', '')
 				self.log('info', 'For MIDI CC (faders/knobs):')
 				self.log('info', '  CC1 -> midi_camera_timer_cc action')

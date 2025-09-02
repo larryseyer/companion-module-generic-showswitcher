@@ -13,7 +13,7 @@ export function getFeedbacks(self) {
 			},
 			options: [],
 			callback: () => {
-				return self.systemState.isRunning
+				return self.systemState.isRunning && !self.systemState.isPaused
 			},
 		},
 		system_stopped: {
@@ -27,6 +27,19 @@ export function getFeedbacks(self) {
 			options: [],
 			callback: () => {
 				return !self.systemState.isRunning
+			},
+		},
+		system_paused: {
+			type: 'boolean',
+			name: 'System Paused',
+			description: 'Show when system is paused',
+			defaultStyle: {
+				bgcolor: combineRgb(255, 255, 0),
+				color: combineRgb(0, 0, 0),
+			},
+			options: [],
+			callback: () => {
+				return self.systemState.isRunning && self.systemState.isPaused
 			},
 		},
 
@@ -107,6 +120,19 @@ export function getFeedbacks(self) {
 				return nextButton === feedback.options.button
 			},
 		},
+		camera_sequential_mode: {
+			type: 'boolean',
+			name: 'Camera Sequential Mode',
+			description: 'Show when camera is in sequential mode',
+			defaultStyle: {
+				bgcolor: combineRgb(100, 100, 255),
+				color: combineRgb(255, 255, 255),
+			},
+			options: [],
+			callback: () => {
+				return self.cameraSwitcher.sequentialMode
+			},
+		},
 
 		// Overlay Feedbacks
 		overlay_running: {
@@ -185,6 +211,19 @@ export function getFeedbacks(self) {
 				return nextButton === feedback.options.button
 			},
 		},
+		overlay_sequential_mode: {
+			type: 'boolean',
+			name: 'Overlay Sequential Mode',
+			description: 'Show when overlay is in sequential mode',
+			defaultStyle: {
+				bgcolor: combineRgb(255, 100, 255),
+				color: combineRgb(255, 255, 255),
+			},
+			options: [],
+			callback: () => {
+				return self.overlaySwitcher.sequentialMode
+			},
+		},
 
 		// Counter Feedbacks
 		camera_count_above: {
@@ -254,6 +293,52 @@ export function getFeedbacks(self) {
 			callback: (feedback) => {
 				const thresholdSeconds = feedback.options.minutes * 60
 				return self.systemState.isRunning && self.systemState.activeDuration > thresholdSeconds
+			},
+		},
+
+		// Performance Feedbacks
+		http_errors_above: {
+			type: 'boolean',
+			name: 'HTTP Errors Above',
+			description: 'Show when HTTP error count is above threshold',
+			defaultStyle: {
+				bgcolor: combineRgb(255, 100, 0),
+				color: combineRgb(255, 255, 255),
+			},
+			options: [
+				{
+					type: 'number',
+					label: 'Error Count',
+					id: 'threshold',
+					default: 5,
+					min: 1,
+					max: 100,
+				},
+			],
+			callback: (feedback) => {
+				return self.performance.httpErrors > feedback.options.threshold
+			},
+		},
+		queue_size_above: {
+			type: 'boolean',
+			name: 'Queue Size Above',
+			description: 'Show when button press queue size is above threshold',
+			defaultStyle: {
+				bgcolor: combineRgb(255, 200, 0),
+				color: combineRgb(0, 0, 0),
+			},
+			options: [
+				{
+					type: 'number',
+					label: 'Queue Size',
+					id: 'threshold',
+					default: 3,
+					min: 1,
+					max: 20,
+				},
+			],
+			callback: (feedback) => {
+				return self.performance.buttonPressQueue.length > feedback.options.threshold
 			},
 		},
 

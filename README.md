@@ -1,17 +1,29 @@
-# companion-module-generic-showswitcher
+# companion-module-generic-showswitcher Ver 2.0
 
-A [Bitfocus Companion](https://bitfocus.io/companion) module for automatic camera and overlay switching with random timing control. This module provides professional broadcast automation capabilities, allowing you to automatically switch between camera angles and trigger overlay graphics at randomized intervals.
+A [Bitfocus Companion](https://bitfocus.io/companion) module for professional broadcast automation with automatic camera and overlay switching, featuring advanced timing control, pause/resume functionality, sequential and random selection modes, performance monitoring, and comprehensive MIDI control.
 
 ![ShowSwitchButtonsExamples](./ShowSwitchButtonsExamples.png)
 
-## Features
+## 🎯 Version 2.0 Features
+
+### New in Version 2.0
+
+- **⏸️ Pause/Resume Functionality**: Pause and resume system operation without losing state
+- **🔄 Sequential Mode**: Alternative to random selection - cycle through buttons in order
+- **🚫 Button Blacklisting**: Temporarily exclude buttons from rotation
+- **📊 Performance Monitoring**: Track HTTP success rates, response times, and errors
+- **📈 Enhanced Statistics**: Average interval calculations and history tracking
+- **🎹 Advanced MIDI Control**: Extended CC mappings for pause/resume (CC48/49)
+- **⚡ Button Press Queue**: Prevent system overload with intelligent queueing
+- **🔍 HTTP Error Tracking**: Monitor connection health and success rates
+- **⏱️ Session Management**: Track total runtime, session counts, and pause durations
 
 ### Core Functionality
 
 - **Dual Independent Switchers**: Separate control for camera angles and overlay graphics
 - **Random Timing Engine**: Each switcher randomly selects intervals within configured ranges
 - **System-Wide Control**: Start/stop both switchers simultaneously or control individually
-- **Default Camera Return**: Automatically returns to the first camera button when system is stopped (v1.0.2+)
+- **Default Camera Return**: Automatically returns to the first camera button when system is stopped
 - **Manual Override**: Instantly trigger any switcher while maintaining automatic operation
 - **Dynamic Button Management**: Add or remove buttons from rotation during live operation
 - **Comprehensive Status Tracking**: Monitor countdowns, trigger counts, and system duration
@@ -24,62 +36,178 @@ A [Bitfocus Companion](https://bitfocus.io/companion) module for automatic camer
 - **Flexible Timer Ranges**: Configure from 1 second to 2 hours per switcher
 - **HTTP API Integration**: Works with Companion's built-in HTTP service
 - **Full MIDI Control**: Direct MIDI input support with port selection and real-time control
+- **Auto-Save Statistics**: Periodic saving of performance metrics
 
-## Requirements
+## 📋 Requirements
 
 - **Bitfocus Companion**: Version 3.0.0 or later
 - **Operating System**: Windows, macOS, or Linux
 - **HTTP Service**: Must be enabled in Companion (Settings → HTTP)
 - **Node.js**: Version 18.12 or later (included with Companion)
 
-## Installation
+## 🚀 Installation Guide
 
-### Method 1: Manual Installation (Immediate Use)
+### Method 1: Manual Installation from GitHub (Recommended)
 
-1. **Download the Module**
+#### For Windows Users
 
-   ```bash
-   # Clone the repository
-   git clone https://github.com/bitfocus/companion-module-generic-showswitcher.git
-   cd companion-module-generic-showswitcher
+1. **Download and Extract the Module**
+   - Open PowerShell or Command Prompt
+   - Navigate to your Downloads folder:
+     ```cmd
+     cd %USERPROFILE%\Downloads
+     ```
+   - Clone the repository:
+     ```cmd
+     git clone https://github.com/bitfocus/companion-module-generic-showswitcher.git
+     cd companion-module-generic-showswitcher
+     ```
 
-   # Install dependencies
+2. **Install Dependencies and Build**
+   ```cmd
    npm install
-
-   # Build the module
-   npx companion-module-build
+   npm run build
    ```
 
-2. **Install in Companion**
-   - Open Companion web interface (typically http://localhost:8000)
+3. **Install in Companion**
+   - Open Companion (usually at http://localhost:8000)
    - Navigate to **Settings → Modules**
    - Click **Install Module from File**
-   - Select the generated `generic-showswitcher-*.tgz` file
-   - Restart Companion if prompted
+   - Browse to `Downloads\companion-module-generic-showswitcher`
+   - Select the `generic-showswitcher-2.0.0.tgz` file
+   - Click **Install**
+   - Restart Companion when prompted
 
-3. **Alternative: Development Mode**
-   - Copy the module folder to Companion's `bundled-modules` directory:
-     - Windows: `%APPDATA%\companion\bundled-modules\`
-     - macOS: `~/Library/Application Support/companion/bundled-modules/`
-     - Linux: `~/.config/companion/bundled-modules/`
-   - Restart Companion
+#### For macOS Users
 
-### Method 2: From Companion Module Store (When Available)
+1. **Download and Extract the Module**
+   - Open Terminal (Applications → Utilities → Terminal)
+   - Navigate to your Downloads folder:
+     ```bash
+     cd ~/Downloads
+     ```
+   - Clone the repository:
+     ```bash
+     git clone https://github.com/bitfocus/companion-module-generic-showswitcher.git
+     cd companion-module-generic-showswitcher
+     ```
 
-1. Open Companion web interface
+2. **Install Dependencies and Build**
+   ```bash
+   npm install
+   npm run build
+   ```
+
+3. **Install in Companion**
+   - Open Companion (usually at http://localhost:8000)
+   - Navigate to **Settings → Modules**
+   - Click **Install Module from File**
+   - Browse to `~/Downloads/companion-module-generic-showswitcher`
+   - Select the `generic-showswitcher-2.0.0.tgz` file
+   - Click **Install**
+   - Restart Companion when prompted
+
+#### For Linux Users
+
+1. **Download and Extract the Module**
+   - Open Terminal
+   - Navigate to your Downloads folder:
+     ```bash
+     cd ~/Downloads
+     ```
+   - Clone the repository:
+     ```bash
+     git clone https://github.com/bitfocus/companion-module-generic-showswitcher.git
+     cd companion-module-generic-showswitcher
+     ```
+
+2. **Install Dependencies and Build**
+   ```bash
+   npm install
+   npm run build
+   ```
+
+3. **Install in Companion**
+   - Open Companion (usually at http://localhost:8000)
+   - Navigate to **Settings → Modules**
+   - Click **Install Module from File**
+   - Browse to `~/Downloads/companion-module-generic-showswitcher`
+   - Select the `generic-showswitcher-2.0.0.tgz` file
+   - Click **Install**
+   - Restart Companion when prompted
+
+### Method 2: Development Mode Installation
+
+This method is useful for developers or users who want to modify the module.
+
+#### Windows
+
+1. Navigate to Companion's module directory:
+   ```cmd
+   cd %APPDATA%\companion\bundled-modules
+   ```
+
+2. Clone the repository directly:
+   ```cmd
+   git clone https://github.com/bitfocus/companion-module-generic-showswitcher.git
+   cd companion-module-generic-showswitcher
+   npm install
+   ```
+
+3. Restart Companion
+
+#### macOS
+
+1. Navigate to Companion's module directory:
+   ```bash
+   cd ~/Library/Application\ Support/companion/bundled-modules
+   ```
+
+2. Clone the repository directly:
+   ```bash
+   git clone https://github.com/bitfocus/companion-module-generic-showswitcher.git
+   cd companion-module-generic-showswitcher
+   npm install
+   ```
+
+3. Restart Companion
+
+#### Linux
+
+1. Navigate to Companion's module directory:
+   ```bash
+   cd ~/.config/companion/bundled-modules
+   ```
+
+2. Clone the repository directly:
+   ```bash
+   git clone https://github.com/bitfocus/companion-module-generic-showswitcher.git
+   cd companion-module-generic-showswitcher
+   npm install
+   ```
+
+3. Restart Companion
+
+### Method 3: From Companion Module Store (When Available)
+
+Once the module is published to the Companion module store:
+
+1. Open Companion web interface (http://localhost:8000)
 2. Go to **Connections**
 3. Click **Add connection**
 4. Search for "Show Switcher" or browse under "Generic"
 5. Click **Add** to install
 
-## Configuration
+## ⚙️ Configuration
 
 ### Initial Setup
 
 1. **Add the Connection**
-   - Go to **Connections** tab
+   - Go to **Connections** tab in Companion
    - Click **Add connection**
-   - Select **Generic → Show Switcher**
+   - Search for "Show Switcher" or find under **Generic → Show Switcher**
+   - Click **Add**
+   - Give it a name (e.g., "ShowSwitcher")
    - Configure the instance
 
 2. **HTTP API Settings**
@@ -88,6 +216,7 @@ A [Bitfocus Companion](https://bitfocus.io/companion) module for automatic camer
    | Companion Host | 127.0.0.1 | IP address of Companion (use 127.0.0.1 for local) |
    | Companion HTTP Port | 8000 | HTTP port from Companion settings |
    | Use Internal API | Unchecked | Experimental direct API access |
+   | Enable Button Press Queue | Checked | Queue button presses to prevent overload |
 
 3. **Camera Switcher Settings**
    | Setting | Default | Range | Description |
@@ -95,6 +224,9 @@ A [Bitfocus Companion](https://bitfocus.io/companion) module for automatic camer
    | Minimum Seconds | 15 | 1-3600 | Shortest time between switches |
    | Maximum Seconds | 30 | 1-3600 | Longest time between switches |
    | Camera Buttons | 2/1/0, 2/1/1... | - | Comma-separated button locations |
+   | Sequential Mode | Unchecked | - | Use sequential order instead of random |
+   | Avoid Immediate Repeats | Checked | - | Prevent same button twice in a row |
+   | History Size | 5 | 0-20 | Number of recent buttons to track |
 
 4. **Overlay Switcher Settings**
    | Setting | Default | Range | Description |
@@ -102,21 +234,29 @@ A [Bitfocus Companion](https://bitfocus.io/companion) module for automatic camer
    | Minimum Seconds | 600 | 1-7200 | Shortest time between overlays |
    | Maximum Seconds | 900 | 1-7200 | Longest time between overlays |
    | Overlay Buttons | 2/2/1, 3/0/3 | - | Comma-separated button locations |
+   | Sequential Mode | Unchecked | - | Use sequential order instead of random |
+   | Avoid Immediate Repeats | Checked | - | Prevent same button twice in a row |
 
-5. **MIDI Control Settings**
+5. **Statistics & Monitoring Settings**
    | Setting | Default | Description |
    |---------|---------|-------------|
-   | Enable MIDI Control | Unchecked | Enable direct MIDI input for controlling the switcher |
-   | Auto-Connect | Checked | Automatically connect to the first available MIDI device |
-   | MIDI Input Port | None | Select from dropdown of available MIDI devices |
-   | MIDI Port Name | (empty) | Optional partial name match for automatic port selection |
+   | Enable Statistics Tracking | Checked | Track and save usage statistics |
+   | Enable Debug Logging | Unchecked | Verbose logging for troubleshooting |
+   | Auto-Save Interval | 5 minutes | How often to save statistics |
+
+6. **MIDI Control Settings**
+   | Setting | Default | Description |
+   |---------|---------|-------------|
+   | Enable MIDI Control | Unchecked | Enable direct MIDI input |
+   | Auto-Connect | Checked | Auto-connect to first MIDI device |
+   | MIDI Input Port | None | Select from available devices |
+   | MIDI Port Name | (empty) | Partial name match for auto-selection |
 
 ### Button Format
 
 Buttons are specified in the format: `page/bank/button`
 
 **Examples:**
-
 - `2/1/0` - Page 2, Bank 1, Button 0
 - `3/0/15` - Page 3, Bank 0, Button 15
 - `99/99/99` - Page 99, Bank 99, Button 99
@@ -124,457 +264,358 @@ Buttons are specified in the format: `page/bank/button`
 **Multiple buttons:** Separate with commas: `2/1/0, 2/1/1, 2/1/2`
 
 **Weighted selection:** Repeat buttons for higher probability:
-
 ```
 2/1/0, 2/1/0, 2/1/0, 2/1/1, 2/1/2
 ```
-
 (Button 2/1/0 has 3x higher chance of selection)
 
-## Available Actions
+## 🎮 Available Actions
 
 ### System Control
-
-| Action            | Description                                                                       |
-| ----------------- | --------------------------------------------------------------------------------- |
-| **System ON**     | Start both camera and overlay switchers                                           |
-| **System OFF**    | Stop both switchers and return to first camera button (default camera)            |
-| **System Reset**  | Stop everything and reset all counters to zero                                    |
-| **System Toggle** | Toggle system between ON and OFF states (returns to default camera when stopping) |
+| Action | Description |
+|--------|-------------|
+| **System ON** | Start both camera and overlay switchers |
+| **System OFF** | Stop both switchers and return to default camera |
+| **System Reset** | Stop everything and reset all counters |
+| **System Toggle** | Toggle system between ON and OFF states |
+| **System Pause** | Pause system operation (v2.0) |
+| **System Resume** | Resume system operation (v2.0) |
 
 ### Camera Control
-
-| Action                     | Description                                         |
-| -------------------------- | --------------------------------------------------- |
-| **Camera ON**              | Start the camera switcher                           |
-| **Camera OFF**             | Stop the camera switcher                            |
-| **Camera Manual**          | Trigger camera immediately (auto-starts if stopped) |
-| **Camera Toggle**          | Toggle camera switcher ON/OFF                       |
-| **Set Camera Timer**       | Set countdown to specific value (seconds)           |
-| **Set Camera Timer Range** | Adjust min/max timing range dynamically             |
-| **Add Camera Button**      | Add a button to the rotation list                   |
-| **Remove Camera Button**   | Remove a button from the rotation list              |
-| **Reset Camera Counter**   | Reset trigger count to zero                         |
+| Action | Description |
+|--------|-------------|
+| **Camera ON** | Start the camera switcher |
+| **Camera OFF** | Stop the camera switcher |
+| **Camera Manual** | Trigger camera immediately |
+| **Camera Toggle** | Toggle camera switcher ON/OFF |
+| **Set Camera Timer** | Set countdown to specific value |
+| **Set Camera Timer Range** | Adjust min/max timing range |
+| **Camera Mode Toggle** | Switch between sequential/random (v2.0) |
+| **Camera Blacklist Button** | Temporarily exclude a button (v2.0) |
+| **Camera Clear Blacklist** | Clear all blacklisted buttons (v2.0) |
+| **Add Camera Button** | Add button to rotation |
+| **Remove Camera Button** | Remove button from rotation |
+| **Reset Camera Counter** | Reset trigger count to zero |
 
 ### Overlay Control
+| Action | Description |
+|--------|-------------|
+| **Overlay ON** | Start the overlay switcher |
+| **Overlay OFF** | Stop the overlay switcher |
+| **Overlay Manual** | Trigger overlay immediately |
+| **Overlay Toggle** | Toggle overlay switcher ON/OFF |
+| **Set Overlay Timer** | Set countdown to specific value |
+| **Set Overlay Timer Range** | Adjust min/max timing range |
+| **Overlay Mode Toggle** | Switch between sequential/random (v2.0) |
+| **Overlay Blacklist Button** | Temporarily exclude a button (v2.0) |
+| **Overlay Clear Blacklist** | Clear all blacklisted buttons (v2.0) |
+| **Add Overlay Button** | Add button to rotation |
+| **Remove Overlay Button** | Remove button from rotation |
+| **Reset Overlay Counter** | Reset trigger count to zero |
 
-| Action                      | Description                                          |
-| --------------------------- | ---------------------------------------------------- |
-| **Overlay ON**              | Start the overlay switcher                           |
-| **Overlay OFF**             | Stop the overlay switcher                            |
-| **Overlay Manual**          | Trigger overlay immediately (auto-starts if stopped) |
-| **Overlay Toggle**          | Toggle overlay switcher ON/OFF                       |
-| **Set Overlay Timer**       | Set countdown to specific value (seconds)            |
-| **Set Overlay Timer Range** | Adjust min/max timing range dynamically              |
-| **Add Overlay Button**      | Add a button to the rotation list                    |
-| **Remove Overlay Button**   | Remove a button from the rotation list               |
-| **Reset Overlay Counter**   | Reset trigger count to zero                          |
+### Performance & Statistics (v2.0)
+| Action | Description |
+|--------|-------------|
+| **Clear Statistics** | Reset all performance metrics |
+| **Save Statistics** | Manually save statistics to disk |
+| **Export Statistics** | Export statistics as JSON |
+| **Clear HTTP Errors** | Reset HTTP error counter |
+| **Clear Queue** | Clear button press queue |
 
 ### MIDI Control
+| Action | Description |
+|--------|-------------|
+| **MIDI Connect** | Connect to selected MIDI port |
+| **MIDI Disconnect** | Disconnect from MIDI device |
+| **MIDI Refresh Ports** | Refresh available MIDI devices |
+| **Camera Timer from MIDI CC** | Set camera timer from CC value |
+| **Overlay Timer from MIDI CC** | Set overlay timer from CC value |
 
-| Action                            | Description                                            |
-| --------------------------------- | ------------------------------------------------------ |
-| **MIDI Connect**                  | Manually connect to a specific MIDI port from dropdown |
-| **MIDI Disconnect**               | Disconnect from current MIDI device                    |
-| **MIDI Refresh Ports**            | Refresh the list of available MIDI devices             |
-| **Camera Timer from MIDI CC**     | Set camera timer from MIDI CC value (0-127)            |
-| **Overlay Timer from MIDI CC**    | Set overlay timer from MIDI CC value (0-127)           |
-| **Show MIDI Configuration Guide** | Display MIDI setup instructions in the log             |
-
-## Variables
+## 📊 Variables
 
 All variables are available in the format: `$(showswitcher:variable_name)`
 
 ### System Variables
-
-| Variable          | Description               | Example Value     |
-| ----------------- | ------------------------- | ----------------- |
-| `system_status`   | Current system state      | Started / Stopped |
-| `system_duration` | Time since system started | 01:23:45          |
+| Variable | Description | Example |
+|----------|-------------|---------|
+| `system_status` | Current system state | Started / Stopped / Paused |
+| `system_duration` | Time since system started | 01:23:45 |
+| `system_total_runtime` | Total runtime across sessions | 12:34:56 |
+| `system_session_count` | Number of start/stop cycles | 42 |
 
 ### Camera Variables
-
-| Variable                 | Description                 | Example Value     |
-| ------------------------ | --------------------------- | ----------------- |
-| `camera_status`          | Camera switcher state       | Running / Stopped |
-| `camera_countdown`       | Seconds until next switch   | 15                |
-| `camera_next_button`     | Next button to trigger      | 2/1/0             |
-| `camera_previous_button` | Last triggered button       | 2/1/3             |
-| `camera_trigger_count`   | Total triggers this session | 42                |
+| Variable | Description | Example |
+|----------|-------------|---------|
+| `camera_status` | Camera switcher state | Running / Stopped |
+| `camera_countdown` | Seconds until next switch | 15 |
+| `camera_next_button` | Next button to trigger | 2/1/0 |
+| `camera_previous_button` | Last triggered button | 2/1/3 |
+| `camera_trigger_count` | Total triggers this session | 42 |
+| `camera_average_interval` | Average time between triggers | 22 |
+| `camera_mode` | Current selection mode | Sequential / Random |
 
 ### Overlay Variables
+| Variable | Description | Example |
+|----------|-------------|---------|
+| `overlay_status` | Overlay switcher state | Running / Stopped |
+| `overlay_countdown` | Seconds until next overlay | 423 |
+| `overlay_next_button` | Next button to trigger | 3/0/3 |
+| `overlay_previous_button` | Last triggered button | 2/2/1 |
+| `overlay_trigger_count` | Total triggers this session | 5 |
+| `overlay_average_interval` | Average time between triggers | 650 |
+| `overlay_mode` | Current selection mode | Sequential / Random |
 
-| Variable                  | Description                 | Example Value     |
-| ------------------------- | --------------------------- | ----------------- |
-| `overlay_status`          | Overlay switcher state      | Running / Stopped |
-| `overlay_countdown`       | Seconds until next overlay  | 423               |
-| `overlay_next_button`     | Next button to trigger      | 3/0/3             |
-| `overlay_previous_button` | Last triggered button       | 2/2/1             |
-| `overlay_trigger_count`   | Total triggers this session | 5                 |
+### Performance Variables (v2.0)
+| Variable | Description | Example |
+|----------|-------------|---------|
+| `http_success_rate` | Percentage of successful HTTP calls | 98% |
+| `http_errors` | Total HTTP errors | 3 |
+| `queue_size` | Current button press queue size | 0 |
 
 ### MIDI Variables
+| Variable | Description | Example |
+|----------|-------------|---------|
+| `midi_status` | MIDI connection state | Connected |
+| `midi_port` | Connected MIDI device | MPK mini Plus |
+| `midi_last_note` | Last received MIDI note | Note 36 (vel: 127) |
+| `midi_last_cc` | Last received CC message | CC1: 64 |
 
-| Variable         | Description                | Example Value            |
-| ---------------- | -------------------------- | ------------------------ |
-| `midi_status`    | MIDI connection state      | Connected / Disconnected |
-| `midi_port`      | Connected MIDI device name | MPK mini Plus            |
-| `midi_last_note` | Last received MIDI note    | Note 36 (vel: 127)       |
-| `midi_last_cc`   | Last received CC message   | CC1: 64                  |
-
-## Feedbacks
+## 🎨 Feedbacks
 
 Visual feedbacks for button states and conditions.
 
 ### System Feedbacks
-
-| Feedback                  | Description                           | Default Style    |
-| ------------------------- | ------------------------------------- | ---------------- |
-| **System Running**        | Active when system is running         | Green background |
-| **System Stopped**        | Active when system is stopped         | Red background   |
-| **System Duration Above** | Active when runtime exceeds threshold | Cyan background  |
+| Feedback | Description | Default Style |
+|----------|-------------|---------------|
+| **System Running** | Active when system is running | Green background |
+| **System Stopped** | Active when system is stopped | Red background |
+| **System Paused** | Active when system is paused (v2.0) | Yellow background |
+| **System Duration Above** | Active when runtime exceeds threshold | Cyan background |
 
 ### Camera Feedbacks
-
-| Feedback                     | Description                            | Options             |
-| ---------------------------- | -------------------------------------- | ------------------- |
-| **Camera Running**           | Active when camera switcher is running | -                   |
-| **Camera Stopped**           | Active when camera switcher is stopped | -                   |
-| **Camera Countdown Below**   | Active when countdown < threshold      | Threshold (seconds) |
-| **Camera Next Button Match** | Active when specific button is next    | Button location     |
-| **Camera Count Above**       | Active when trigger count > threshold  | Count threshold     |
+| Feedback | Description | Options |
+|----------|-------------|---------|
+| **Camera Running** | Active when camera switcher is running | - |
+| **Camera Stopped** | Active when camera switcher is stopped | - |
+| **Camera Countdown Below** | Active when countdown < threshold | Threshold |
+| **Camera Next Button Match** | Active when specific button is next | Button location |
+| **Camera Count Above** | Active when trigger count > threshold | Count threshold |
+| **Camera Mode Sequential** | Active in sequential mode (v2.0) | - |
 
 ### Overlay Feedbacks
+| Feedback | Description | Options |
+|----------|-------------|---------|
+| **Overlay Running** | Active when overlay switcher is running | - |
+| **Overlay Stopped** | Active when overlay switcher is stopped | - |
+| **Overlay Countdown Below** | Active when countdown < threshold | Threshold |
+| **Overlay Next Button Match** | Active when specific button is next | Button location |
+| **Overlay Count Above** | Active when trigger count > threshold | Count threshold |
+| **Overlay Mode Sequential** | Active in sequential mode (v2.0) | - |
 
-| Feedback                      | Description                             | Options             |
-| ----------------------------- | --------------------------------------- | ------------------- |
-| **Overlay Running**           | Active when overlay switcher is running | -                   |
-| **Overlay Stopped**           | Active when overlay switcher is stopped | -                   |
-| **Overlay Countdown Below**   | Active when countdown < threshold       | Threshold (seconds) |
-| **Overlay Next Button Match** | Active when specific button is next     | Button location     |
-| **Overlay Count Above**       | Active when trigger count > threshold   | Count threshold     |
+### Performance Feedbacks (v2.0)
+| Feedback | Description | Default Style |
+|----------|-------------|---------------|
+| **HTTP Errors High** | Active when error rate > 10% | Orange background |
+| **Queue Full** | Active when queue > 10 items | Red background |
+| **Statistics Saved** | Flash when statistics saved | Green flash |
 
 ### MIDI Feedbacks
+| Feedback | Description | Default Style |
+|----------|-------------|---------------|
+| **MIDI Connected** | Active when MIDI connected | Purple background |
+| **MIDI Disconnected** | Active when MIDI disconnected | Gray background |
+| **MIDI Activity** | Flash on MIDI activity | Yellow flash |
 
-| Feedback              | Description                             | Default Style     |
-| --------------------- | --------------------------------------- | ----------------- |
-| **MIDI Connected**    | Active when MIDI device is connected    | Purple background |
-| **MIDI Disconnected** | Active when MIDI device is disconnected | Gray background   |
-| **MIDI Activity**     | Flash indicator for MIDI activity       | Yellow background |
-
-## Presets
-
-The module includes 19 ready-to-use presets organized in categories:
-
-### System Control (4 presets)
-
-- **System ON** - Green button with running feedback
-- **System OFF** - Red button with stopped feedback
-- **System Reset** - Yellow reset button
-- **System Toggle** - Dynamic ON/OFF toggle with text change
-
-### Camera Control (4 presets)
-
-- **Camera ON** - Start camera switcher
-- **Camera OFF** - Stop camera switcher
-- **Camera Manual** - Manual trigger button
-- **Camera Toggle** - Dynamic toggle with state feedback
-
-### Overlay Control (4 presets)
-
-- **Overlay ON** - Start overlay switcher
-- **Overlay OFF** - Stop overlay switcher
-- **Overlay Manual** - Manual trigger button
-- **Overlay Toggle** - Dynamic toggle with state feedback
-
-### Status Display (7 presets)
-
-- **Camera Countdown** - Live countdown with warning colors
-- **Overlay Countdown** - Live countdown with warning colors
-- **System Duration** - Active time display
-- **Camera Next Button** - Shows next camera to trigger
-- **Overlay Next Button** - Shows next overlay to trigger
-- **Camera Trigger Count** - Total camera switches
-- **Overlay Trigger Count** - Total overlay triggers
-
-## MIDI Control
-
-### Overview
-
-Version 1.0.1 adds comprehensive MIDI control capabilities, allowing you to control all switcher functions using any MIDI controller. The module receives MIDI input directly and maps notes and Control Change (CC) messages to actions.
-
-### MIDI Setup
-
-#### Quick Start
-
-1. **Enable MIDI** in the module configuration
-2. **Select your MIDI device** from the dropdown (auto-populated with available devices)
-3. **Save configuration** to activate MIDI input
-4. Start sending MIDI notes/CC from your controller
-
-#### Port Selection Methods
-
-- **Dropdown Selection**: Choose your device from the populated list
-- **Auto-Connect**: Enable to automatically connect to the first available MIDI device
-- **Name Matching**: Enter partial device name (e.g., "MPK", "APC40", "Launch")
-- **Manual Connection**: Use the MIDI Connect action to switch devices on-the-fly
+## 🎹 MIDI Control
 
 ### MIDI Note Assignments
 
-The following MIDI notes (0-127 range) trigger specific actions:
-
 #### System Control
-
-| MIDI Note | Action        | Description                             |
-| --------- | ------------- | --------------------------------------- |
-| 36 (C2)   | System ON     | Start both camera and overlay switchers |
-| 37 (C#2)  | System OFF    | Stop both switchers                     |
-| 38 (D2)   | System Reset  | Reset all counters and stop switchers   |
-| 45 (A2)   | System Toggle | Toggle system on/off                    |
+| MIDI Note | Action | Description |
+|-----------|--------|-------------|
+| 36 (C2) | System ON | Start both switchers |
+| 37 (C#2) | System OFF | Stop both switchers |
+| 38 (D2) | System Reset | Reset all counters |
+| 45 (A2) | System Toggle | Toggle system on/off |
+| 48 (C3) | System Pause | Pause operation (v2.0) |
+| 49 (C#3) | System Resume | Resume operation (v2.0) |
 
 #### Camera Control
-
-| MIDI Note | Action        | Description                   |
-| --------- | ------------- | ----------------------------- |
-| 39 (D#2)  | Camera ON     | Start camera switcher         |
-| 40 (E2)   | Camera OFF    | Stop camera switcher          |
-| 41 (F2)   | Camera Manual | Manually trigger next camera  |
-| 46 (A#2)  | Camera Toggle | Toggle camera switcher on/off |
+| MIDI Note | Action | Description |
+|-----------|--------|-------------|
+| 39 (D#2) | Camera ON | Start camera switcher |
+| 40 (E2) | Camera OFF | Stop camera switcher |
+| 41 (F2) | Camera Manual | Manual trigger |
+| 46 (A#2) | Camera Toggle | Toggle on/off |
+| 50 (D3) | Camera Mode | Toggle sequential/random (v2.0) |
 
 #### Overlay Control
-
-| MIDI Note | Action         | Description                    |
-| --------- | -------------- | ------------------------------ |
-| 42 (F#2)  | Overlay ON     | Start overlay switcher         |
-| 43 (G2)   | Overlay OFF    | Stop overlay switcher          |
-| 44 (G#2)  | Overlay Manual | Manually trigger next overlay  |
-| 47 (B2)   | Overlay Toggle | Toggle overlay switcher on/off |
+| MIDI Note | Action | Description |
+|-----------|--------|-------------|
+| 42 (F#2) | Overlay ON | Start overlay switcher |
+| 43 (G2) | Overlay OFF | Stop overlay switcher |
+| 44 (G#2) | Overlay Manual | Manual trigger |
+| 47 (B2) | Overlay Toggle | Toggle on/off |
+| 51 (D#3) | Overlay Mode | Toggle sequential/random (v2.0) |
 
 ### MIDI Control Change (CC) Assignments
 
-Use MIDI CC messages for real-time timer control:
+| CC Number | Function | Description |
+|-----------|----------|-------------|
+| CC1 | Camera Timer | Maps 0-127 to camera min-max range |
+| CC2 | Overlay Timer | Maps 0-127 to overlay min-max range |
+| CC48 | System Pause | Values > 64 pause system (v2.0) |
+| CC49 | System Resume | Values > 64 resume system (v2.0) |
 
-| CC Number | Function      | Description                                 |
-| --------- | ------------- | ------------------------------------------- |
-| CC1       | Camera Timer  | Maps 0-127 to camera min-max seconds range  |
-| CC2       | Overlay Timer | Maps 0-127 to overlay min-max seconds range |
+## 📚 Presets
 
-#### CC Value Mapping
+The module includes 25+ ready-to-use presets:
 
-- **CC Value 0**: Sets timer to minimum configured seconds
-- **CC Value 127**: Sets timer to maximum configured seconds
-- **CC Values 1-126**: Linear interpolation between min and max
+### System Control
+- System ON/OFF/Reset/Toggle with visual feedback
+- System Pause/Resume buttons (v2.0)
+- System status display with duration
 
-**Example**: If camera min=15s and max=30s:
+### Camera Control
+- Camera ON/OFF/Manual/Toggle buttons
+- Camera countdown display with warnings
+- Camera mode indicator (v2.0)
+- Camera next button display
 
-- CC1 value 0 → 15 seconds
-- CC1 value 64 → ~22 seconds
-- CC1 value 127 → 30 seconds
+### Overlay Control
+- Overlay ON/OFF/Manual/Toggle buttons
+- Overlay countdown display with warnings
+- Overlay mode indicator (v2.0)
+- Overlay next button display
 
-### MIDI Controller Examples
+### Status Displays
+- System duration with color coding
+- Trigger count displays
+- Performance metrics (v2.0)
+- Queue size indicator (v2.0)
 
-#### Akai MPK Mini
+## 🔧 Troubleshooting
 
-```
-Pads: Use for note triggers (36-47)
-Knobs: Assign K1 to CC1 (camera), K2 to CC2 (overlay)
-```
+### Module Not Appearing in Companion
 
-#### Novation Launchpad
+1. **Verify Installation**
+   - Check that the module folder exists in the correct location
+   - Ensure all dependencies were installed (`npm install`)
+   - Restart Companion completely
 
-```
-Grid buttons: Map to notes 36-47 for system control
-Scene buttons: Additional manual triggers
-```
+2. **Check Companion Version**
+   - Ensure you have Companion 3.0.0 or later
+   - Update Companion if necessary
 
-#### Generic MIDI Keyboard
+3. **Clear Module Cache**
+   - Go to Settings → Modules → Clear Cache
+   - Restart Companion
 
-```
-Keys C2-B2: System and switcher controls
-Mod wheel: Assign to CC1 for camera timing
-Pitch bend: Could be mapped to CC2 for overlay timing
-```
+### Connection Issues
 
-### Advanced MIDI Features
+1. **HTTP Service Not Available**
+   - Enable HTTP service in Companion Settings → HTTP
+   - Verify port number matches configuration (default: 8000)
+   - Check firewall settings
 
-#### Dynamic Timer Control
+2. **Buttons Not Triggering**
+   - Verify button locations exist (page/bank/button format)
+   - Check Companion log for errors
+   - Ensure buttons are properly configured in Companion
 
-Use CC messages to adjust timers in real-time while switchers are running. The countdown will immediately update to the new value.
+### Performance Issues
 
-#### MIDI Learn Workflow
+1. **High HTTP Error Rate**
+   - Check network connectivity
+   - Verify Companion HTTP service is running
+   - Enable button press queue if not already enabled
 
-1. Use "Show MIDI Configuration Guide" action to display mappings
-2. Monitor `midi_last_note` and `midi_last_cc` variables
-3. Press buttons/move controls on your MIDI device
-4. Note which MIDI messages are sent
-5. Configure your controller accordingly
+2. **Queue Building Up**
+   - Reduce trigger frequency (increase min/max times)
+   - Check for circular button references
+   - Monitor system resources
 
-#### Multiple Device Support
+### MIDI Issues
 
-- Switch between MIDI devices using the "MIDI Connect" action
-- Useful for using different controllers for different show segments
+1. **Device Not Detected**
+   - Connect MIDI device before starting Companion
+   - Use "MIDI Refresh Ports" action
+   - Check device drivers are installed
 
-### Troubleshooting MIDI
+2. **MIDI Not Responding**
+   - Verify `midi_status` shows "Connected"
+   - Enable debug logging to see MIDI messages
+   - Check MIDI device is sending on any channel
 
-#### MIDI Device Not Appearing
+## 💡 Tips and Best Practices
 
-1. Connect MIDI device before starting Companion
-2. Use "MIDI Refresh Ports" action to rescan
-3. Save and re-open configuration to refresh dropdown
+1. **Start with Testing**: Use high page numbers (99/99/0) for testing before production
+2. **Default Camera**: Place your main camera first in the list for automatic return
+3. **Use Presets**: Start with included presets and customize
+4. **Monitor Performance**: Watch HTTP success rate and queue size
+5. **Sequential for Shows**: Use sequential mode for scripted productions
+6. **Random for Natural**: Use random mode for natural-looking switching
+7. **Backup Settings**: Export Companion configuration regularly
+8. **Test Pause/Resume**: Practice pause/resume during rehearsals
+9. **Use Blacklisting**: Temporarily exclude problematic cameras
+10. **Monitor Statistics**: Check average intervals to optimize timing
 
-#### MIDI Not Responding
+## 📝 Version History
 
-1. Check `midi_status` variable shows "Connected"
-2. Enable debug logging to see MIDI messages
-3. Verify MIDI device is sending on any channel (omni mode)
-4. Check `midi_last_note` variable to confirm reception
+### Version 2.0.0 (Current)
+- Added pause/resume functionality for system operation
+- Implemented sequential selection mode as alternative to random
+- Added button blacklisting for temporary exclusion
+- Enhanced performance monitoring with HTTP metrics
+- Added button press queue system
+- Implemented history tracking and average interval calculations
+- Extended MIDI control with pause/resume support
+- Added session management and persistent statistics
+- Improved error handling and recovery
+- Enhanced configuration options for all features
 
-#### Port Selection Issues
+### Version 1.0.3
+- Bug fixes and stability improvements
+- Enhanced MIDI port detection
 
-- Dropdown shows devices after saving and reopening config
-- Use partial name match if dropdown isn't updating
-- Port indices start at 0 (first device)
+### Version 1.0.2
+- Added default camera return when system stops
+- Improved system shutdown behavior
 
-## Use Cases
+### Version 1.0.1
+- Added comprehensive MIDI control support
+- Direct MIDI input with automatic port detection
 
-### Live Production
+### Version 1.0.0
+- Initial release
+- Dual independent switchers
+- Random timing control
+- HTTP API integration
 
-Configure camera buttons for your switching system:
-
-```
-Camera Buttons: 1/0/0, 1/0/1, 1/0/2, 1/0/3
-Min: 10 seconds, Max: 25 seconds
-```
-
-### Streaming with Overlays
-
-Set up periodic sponsor graphics:
-
-```
-Overlay Buttons: 2/0/0, 2/0/1, 2/0/2
-Min: 300 seconds (5 min), Max: 600 seconds (10 min)
-```
-
-### Weighted Random Selection
-
-Give certain cameras more screen time:
-
-```
-Camera Buttons: 1/0/0, 1/0/0, 1/0/0, 1/0/1, 1/0/2
-(Camera 1/0/0 appears 3x more often)
-```
-
-### Conference Recording
-
-Long intervals for speaker podium switches:
-
-```
-Camera Buttons: 1/0/0, 1/0/1
-Min: 60 seconds, Max: 180 seconds
-```
-
-## Troubleshooting
-
-### Module Shows "Connection Failure"
-
-1. Check Companion's HTTP service is enabled (Settings → HTTP)
-2. Verify the HTTP port matches your configuration
-3. Ensure Companion Host is correct (127.0.0.1 for local)
-
-### Buttons Not Triggering
-
-1. Verify button locations exist in your Companion setup
-2. Check the format: `page/bank/button` (e.g., `2/1/0`)
-3. Ensure at least one button is in the list
-4. Check Companion's log for error messages
-
-### Countdown Stuck at 0
-
-1. Verify minimum time < maximum time
-2. Check that buttons are configured
-3. Ensure the switcher is actually running (not just system ON)
-
-### System Stops Unexpectedly
-
-1. Check for HTTP connection errors in the log
-2. Verify Companion HTTP service hasn't been disabled
-3. Ensure no circular button references
-
-### Variables Not Updating
-
-1. Check the instance name matches in variable references
-2. Use format: `$(showswitcher:variable_name)`
-3. Ensure the module instance is enabled
-
-## Tips and Best Practices
-
-1. **Start Simple**: Test with high page numbers (99/99/0) before using production buttons
-2. **Default Camera First**: Place your default/main camera as the first button in the list for automatic return
-3. **Use Presets**: Start with presets and customize as needed
-4. **Monitor Logs**: Enable debug logging during setup
-5. **Backup Configuration**: Export your Companion config before major changes
-6. **Test Manual Triggers**: Verify manual triggers work before relying on automation
-7. **Use Variables**: Display countdowns on Stream Deck buttons for operator awareness
-8. **Weighted Selection**: Duplicate important cameras in the list for more frequent display
-
-## Support
+## 🤝 Support
 
 ### Getting Help
-
 - **GitHub Issues**: [Report bugs or request features](https://github.com/bitfocus/companion-module-generic-showswitcher/issues)
 - **Companion Slack**: Join the [Bitfocus Slack](https://bitfocus.io/slack) community
-- **Documentation**: Check the module's HELP.md file in Companion
+- **Documentation**: Check this README and the module's HELP.md file
 
 ### Known Limitations
-
 - Requires Companion's HTTP service to be enabled
 - Button triggers are one-way (no feedback from triggered actions)
-- MIDI device must be connected before module initialization for dropdown population
+- Statistics persistence requires file system access
+- MIDI device must be connected before module initialization for dropdown
 
-## License
+## 📄 License
 
 MIT License - See [LICENSE](LICENSE) file for details
 
-## Credits
+## 👏 Credits
 
-- **Author**: Larry Seyer
-- **Contributors**: [List of contributors](https://github.com/bitfocus/companion-module-generic-showswitcher/contributors)
-- **Based on**: Show Switcher standalone web application
+- **Author**: Larry Seyer (bitfocus@larryseyer.com)
+- **Website**: [LarrySeyer.com](http://LarrySeyer.com)
+- **Repository**: [GitHub](https://github.com/larryseyer/companion-module-generic-showswitcher)
 - **Framework**: [Bitfocus Companion Module Base](https://github.com/bitfocus/companion-module-base)
-
-## Version History
-
-### 1.0.2 (2025-09-01)
-
-- **New Feature**: Default camera return when system is stopped
-  - Automatically triggers the first button in the camera list when system is turned off
-  - Ensures production returns to a known default camera angle
-  - Works with System OFF and System Toggle actions
-  - Updates trigger count and previous button variables appropriately
-- Improved system shutdown behavior for professional broadcast workflows
-
-### 1.0.1 (2025-08-30)
-
-- Added comprehensive MIDI control support
-- Direct MIDI input with automatic port detection
-- MIDI note mappings for all system functions (notes 36-47)
-- MIDI CC support for real-time timer control (CC1, CC2)
-- Dynamic MIDI port selection with device name display
-- MIDI status variables and feedbacks
-- MIDI learn workflow support
-- Multiple MIDI device switching capability
-
-### 1.0.0 (2025-08-30)
-
-- Initial release
-- Full feature parity with Show Switcher web application
-- Support for dual independent switchers
-- Comprehensive actions, feedbacks, and variables
-- 19 ready-to-use presets
-- HTTP API integration with configurable host/port
 
 ---
 
 _For the latest updates and information, visit the [GitHub repository](https://github.com/bitfocus/companion-module-generic-showswitcher)_
-
-
-
