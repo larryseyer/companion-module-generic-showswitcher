@@ -339,6 +339,9 @@ export class MidiHandler {
 	destroy() {
 		if (this.midiIn) {
 			try {
+				// Remove all listeners first
+				this.midiIn.removeAllListeners()
+				// Close the port
 				this.midiIn.close()
 				this.instance.log('info', 'MIDI port closed')
 			} catch (error) {
@@ -347,8 +350,19 @@ export class MidiHandler {
 			this.midiIn = null
 		}
 
+		// Force cleanup JZZ if it exists
+		if (JZZ) {
+			try {
+				// Close all MIDI connections
+				JZZ().close()
+			} catch (error) {
+				// Ignore errors during cleanup
+			}
+		}
+
 		this.isConnected = false
 		this.currentPortName = null
+		this.availablePorts = []
 		this.instance.setVariableValues({
 			midi_status: 'Disconnected',
 			midi_port: 'None',
