@@ -214,22 +214,22 @@ export class MidiHandler {
 
 	async handleMidiMessage(msg) {
 		if (!msg) return
-		
+
 		try {
 			// JZZ messages can have different formats depending on version
 			// Try multiple approaches to detect message type
-			
+
 			let isNoteOn = false
 			let isNoteOff = false
 			let isControlChange = false
 			let note, velocity, controller, value, channel
-			
+
 			// Method 1: Check if standard JZZ methods exist
 			if (typeof msg.isNoteOn === 'function') {
 				isNoteOn = msg.isNoteOn()
 				isNoteOff = typeof msg.isNoteOff === 'function' ? msg.isNoteOff() : false
 				isControlChange = typeof msg.isControlChange === 'function' ? msg.isControlChange() : false
-				
+
 				// Get values using JZZ methods
 				if (isNoteOn || isNoteOff) {
 					note = msg.getNote ? msg.getNote() : null
@@ -241,13 +241,13 @@ export class MidiHandler {
 					value = msg.getValue ? msg.getValue() : 0
 					channel = msg.getChannel ? msg.getChannel() : 1
 				}
-			} 
+			}
 			// Method 2: Check if msg is an array (raw MIDI data)
 			else if (Array.isArray(msg) && msg.length >= 2) {
 				const status = msg[0]
-				const statusType = status & 0xF0
-				channel = (status & 0x0F) + 1
-				
+				const statusType = status & 0xf0
+				channel = (status & 0x0f) + 1
+
 				// Note On (0x90)
 				if (statusType === 0x90 && msg.length >= 3) {
 					note = msg[1]
@@ -265,7 +265,7 @@ export class MidiHandler {
 					velocity = msg[2]
 				}
 				// Control Change (0xB0)
-				else if (statusType === 0xB0 && msg.length >= 3) {
+				else if (statusType === 0xb0 && msg.length >= 3) {
 					isControlChange = true
 					controller = msg[1]
 					value = msg[2]
@@ -278,7 +278,7 @@ export class MidiHandler {
 					note = msg.note || msg.pitch
 					velocity = msg.velocity || msg.vel || 0
 					channel = msg.channel || msg.ch || 1
-					
+
 					// Try to determine if it's note on or off
 					if (msg.type === 'noteon' || msg.type === 'note_on' || (msg.type === undefined && velocity > 0)) {
 						isNoteOn = true
@@ -291,19 +291,22 @@ export class MidiHandler {
 					value = msg.value || msg.val || 0
 					channel = msg.channel || msg.ch || 1
 				}
-				
+
 				// If still no match, log the structure once for debugging
 				if (!isNoteOn && !isNoteOff && !isControlChange && !this.loggedUnknownMessage) {
-					this.instance.log('debug', `Unknown MIDI message format. Type: ${typeof msg}, Properties: ${Object.keys(msg).join(', ')}, Values: ${JSON.stringify(msg)}`)
+					this.instance.log(
+						'debug',
+						`Unknown MIDI message format. Type: ${typeof msg}, Properties: ${Object.keys(msg).join(', ')}, Values: ${JSON.stringify(msg)}`
+					)
 					this.loggedUnknownMessage = true
 				}
 			}
-			
+
 			// If still no valid message type detected, return
 			if (!isNoteOn && !isNoteOff && !isControlChange) {
 				return
 			}
-			
+
 			// Note On message
 			if (isNoteOn && velocity > 0) {
 				// Update last note variable
@@ -487,7 +490,7 @@ export class MidiHandler {
 		this.currentPortName = null
 		// IMPORTANT: Keep availablePorts so we can reconnect
 		// Don't clear this.availablePorts!
-		
+
 		this.instance.setVariableValues({
 			midi_status: 'Disconnected',
 			midi_port: 'None',

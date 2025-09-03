@@ -5,6 +5,7 @@
 	"type": "module",
 	"scripts": {
 		"format": "prettier -w .",
+		"lint": "eslint .",
 		"build": "companion-module-build",
 		"build:dev": "companion-module-build --dev",
 		"dev": "companion-module-build --dev --watch",
@@ -35,6 +36,7 @@
 	},
 	"devDependencies": {
 		"@companion-module/tools": "^2.3.0",
+		"eslint": "^9.0.0",
 		"prettier": "^3.2.4"
 	}
 }

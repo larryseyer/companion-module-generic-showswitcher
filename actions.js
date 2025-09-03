@@ -586,10 +586,10 @@ export function getActions(self) {
 							const { MidiHandler } = await import('./midi.js')
 							self.midiHandler = new MidiHandler(self)
 						}
-						
+
 						// Refresh ports
 						await self.midiHandler.refreshPorts()
-						
+
 						// Connect to first available port
 						if (self.midiHandler.availablePorts && self.midiHandler.availablePorts.length > 0) {
 							await self.midiHandler.openPort(0)

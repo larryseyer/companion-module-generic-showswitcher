@@ -297,48 +297,48 @@ Buttons are specified in the format: `page/bank/button`
 
 ### Camera Control
 
-| Action                      | Description                             |
-| --------------------------- | --------------------------------------- |
-| **Camera ON**               | Start the camera switcher               |
-| **Camera OFF**              | Stop the camera switcher                |
-| **Camera Manual**           | Trigger camera immediately              |
-| **Camera Toggle**           | Toggle camera switcher ON/OFF           |
-| **Set Camera Timer**        | Set countdown to specific value         |
-| **Set Camera Timer Range**  | Adjust min/max timing range             |
-| **Set Camera Selection Mode** | Set to Random or Sequential mode      |
-| **Camera Mode Toggle**      | Switch between sequential/random (v2.0) |
-| **Camera Blacklist Button** | Temporarily exclude a button (v2.0)     |
-| **Camera Blacklist Clear**  | Clear all blacklisted buttons (v2.0)    |
-| **Add Camera Button**       | Add button to rotation                  |
-| **Remove Camera Button**    | Remove button from rotation             |
-| **Reset Camera Counter**    | Reset trigger count to zero             |
+| Action                        | Description                             |
+| ----------------------------- | --------------------------------------- |
+| **Camera ON**                 | Start the camera switcher               |
+| **Camera OFF**                | Stop the camera switcher                |
+| **Camera Manual**             | Trigger camera immediately              |
+| **Camera Toggle**             | Toggle camera switcher ON/OFF           |
+| **Set Camera Timer**          | Set countdown to specific value         |
+| **Set Camera Timer Range**    | Adjust min/max timing range             |
+| **Set Camera Selection Mode** | Set to Random or Sequential mode        |
+| **Camera Mode Toggle**        | Switch between sequential/random (v2.0) |
+| **Camera Blacklist Button**   | Temporarily exclude a button (v2.0)     |
+| **Camera Blacklist Clear**    | Clear all blacklisted buttons (v2.0)    |
+| **Add Camera Button**         | Add button to rotation                  |
+| **Remove Camera Button**      | Remove button from rotation             |
+| **Reset Camera Counter**      | Reset trigger count to zero             |
 
 ### Overlay Control
 
-| Action                       | Description                             |
-| ---------------------------- | --------------------------------------- |
-| **Overlay ON**               | Start the overlay switcher              |
-| **Overlay OFF**              | Stop the overlay switcher               |
-| **Overlay Manual**           | Trigger overlay immediately             |
-| **Overlay Toggle**           | Toggle overlay switcher ON/OFF          |
-| **Set Overlay Timer**        | Set countdown to specific value         |
-| **Set Overlay Timer Range**  | Adjust min/max timing range             |
-| **Set Overlay Selection Mode** | Set to Random or Sequential mode     |
-| **Overlay Mode Toggle**      | Switch between sequential/random (v2.0) |
-| **Overlay Blacklist Button** | Temporarily exclude a button (v2.0)     |
-| **Overlay Blacklist Clear**  | Clear all blacklisted buttons (v2.0)    |
-| **Add Overlay Button**       | Add button to rotation                  |
-| **Remove Overlay Button**    | Remove button from rotation             |
-| **Reset Overlay Counter**    | Reset trigger count to zero             |
+| Action                         | Description                             |
+| ------------------------------ | --------------------------------------- |
+| **Overlay ON**                 | Start the overlay switcher              |
+| **Overlay OFF**                | Stop the overlay switcher               |
+| **Overlay Manual**             | Trigger overlay immediately             |
+| **Overlay Toggle**             | Toggle overlay switcher ON/OFF          |
+| **Set Overlay Timer**          | Set countdown to specific value         |
+| **Set Overlay Timer Range**    | Adjust min/max timing range             |
+| **Set Overlay Selection Mode** | Set to Random or Sequential mode        |
+| **Overlay Mode Toggle**        | Switch between sequential/random (v2.0) |
+| **Overlay Blacklist Button**   | Temporarily exclude a button (v2.0)     |
+| **Overlay Blacklist Clear**    | Clear all blacklisted buttons (v2.0)    |
+| **Add Overlay Button**         | Add button to rotation                  |
+| **Remove Overlay Button**      | Remove button from rotation             |
+| **Reset Overlay Counter**      | Reset trigger count to zero             |
 
 ### Performance & Statistics (v2.0)
 
-| Action                      | Description                      |
-| --------------------------- | -------------------------------- |
-| **Clear Statistics**        | Reset performance statistics     |
-| **Save Statistics**         | Manually save statistics to disk |
-| **Reset All Statistics**    | Reset all statistics and counters |
-| **Clear Button Queue**      | Clear button press queue         |
+| Action                   | Description                       |
+| ------------------------ | --------------------------------- |
+| **Clear Statistics**     | Reset performance statistics      |
+| **Save Statistics**      | Manually save statistics to disk  |
+| **Reset All Statistics** | Reset all statistics and counters |
+| **Clear Button Queue**   | Clear button press queue          |
 
 ### MIDI Control
 
@@ -478,21 +478,21 @@ Visual feedbacks for button states and conditions.
 
 #### Camera Control
 
-| MIDI Note | Action        | Description                     |
-| --------- | ------------- | ------------------------------- |
-| 39 (D#2)  | Camera ON     | Start camera switcher           |
-| 40 (E2)   | Camera OFF    | Stop camera switcher            |
-| 41 (F2)   | Camera Manual | Manual trigger                  |
-| 46 (A#2)  | Camera Toggle | Toggle on/off                   |
+| MIDI Note | Action        | Description           |
+| --------- | ------------- | --------------------- |
+| 39 (D#2)  | Camera ON     | Start camera switcher |
+| 40 (E2)   | Camera OFF    | Stop camera switcher  |
+| 41 (F2)   | Camera Manual | Manual trigger        |
+| 46 (A#2)  | Camera Toggle | Toggle on/off         |
 
 #### Overlay Control
 
-| MIDI Note | Action         | Description                     |
-| --------- | -------------- | ------------------------------- |
-| 42 (F#2)  | Overlay ON     | Start overlay switcher          |
-| 43 (G2)   | Overlay OFF    | Stop overlay switcher           |
-| 44 (G#2)  | Overlay Manual | Manual trigger                  |
-| 47 (B2)   | Overlay Toggle | Toggle on/off                   |
+| MIDI Note | Action         | Description            |
+| --------- | -------------- | ---------------------- |
+| 42 (F#2)  | Overlay ON     | Start overlay switcher |
+| 43 (G2)   | Overlay OFF    | Stop overlay switcher  |
+| 44 (G#2)  | Overlay Manual | Manual trigger         |
+| 47 (B2)   | Overlay Toggle | Toggle on/off          |
 
 ### MIDI Control Change (CC) Assignments
 
@@ -521,21 +521,25 @@ The module now includes **19 optimized presets** (reduced from 29) organized int
 ### Preset Categories (Priority Order)
 
 #### 1️⃣ Master Control (3 presets)
+
 - **System Start/Stop** - Combined toggle with STATS ready indicator via color
 - **Pause/Resume** - Smart state-aware toggle
 - **System Reset** - Double-tap safety feature
 
 #### 2️⃣ Camera Operations (3 presets)
+
 - **Camera Auto/Manual** - Start/stop automatic switching
 - **Manual Camera Trigger** - Force immediate switch
 - **Camera Mode** - Toggle Sequential/Random
 
 #### 3️⃣ Overlay Operations (3 presets)
+
 - **Overlay Auto/Manual** - Start/stop overlay switching
 - **Manual Overlay Trigger** - Force immediate switch
 - **Overlay Mode** - Toggle Sequential/Random
 
 #### 4️⃣ Live Monitoring (5 combined displays)
+
 - **Combined Countdown** - CAM & OVL timers with smart warnings
 - **Combined Counters** - Both counts with double-tap reset
 - **Combined Averages** - CAM & OVL average intervals
@@ -543,6 +547,7 @@ The module now includes **19 optimized presets** (reduced from 29) organized int
 - **Session Info** - Session #, duration, and total runtime
 
 #### 5️⃣ MIDI & Performance (5 presets)
+
 - **MIDI Status** - Connect/disconnect with visual feedback
 - **MIDI Monitor** - Shows last Note & CC received
 - **HTTP Performance** - Success rate with error warnings
