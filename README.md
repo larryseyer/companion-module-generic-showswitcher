@@ -2,6 +2,22 @@
 
 A [Bitfocus Companion](https://bitfocus.io/companion) module for professional broadcast automation with automatic camera and overlay switching, featuring advanced timing control, pause/resume functionality, sequential and random selection modes, performance monitoring, and comprehensive MIDI control.
 
+## Why ShowSwitcher?
+
+ShowSwitcher solves a simple problem: **solo performers can't manage production while performing**. Built for musicians, instructors, streamers, and content creators who need professional-looking camera switching but have their hands full. Set it once, and it automatically cycles through your cameras and overlays with randomized or sequential timing—making your stream look professionally produced while you focus on your performance.
+
+## More Than Just Cameras
+
+Since ShowSwitcher can trigger any Companion button, it's not limited to video switching. Use it to:
+
+- **Automate lighting**: Cycle through DMX scenes, Philips Hue colors, or fog machines
+- **Control audio**: Trigger sound effects, backing tracks, or mixer scenes
+- **Engage viewers**: Launch polls, animations, or chat commands at random intervals
+- **Run unattended streams**: Create 24/7 channels with dynamic content changes
+- **Synchronize platforms**: Control OBS, vMix, ATEM, and streaming software simultaneously
+
+Perfect for solo performers, escape rooms, theaters, educators, or anyone who needs hands-free production automation.
+
 ![ShowSwitchButtonsExamples](./ShowSwitchButtonsExamples.png)
 
 ## 🎯 Version 2.0 Features
