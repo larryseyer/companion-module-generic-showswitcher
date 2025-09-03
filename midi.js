@@ -23,6 +23,8 @@ export class MidiHandler {
 		this.isConnected = false
 		this.availablePorts = []
 		this.currentPortName = null
+		this.isToggling = false // Prevent race conditions in toggle operations
+		this.lastCommandTime = {} // Track last command time for debouncing
 
 		// MIDI note mappings (enhanced from original ShowSwitcher)
 		this.noteMap = {
@@ -389,22 +391,62 @@ export class MidiHandler {
 		}
 	}
 
-	async handleCommand(command, velocity = 127) {
+	async handleCommand(command, _velocity = 127) {
+		// Debounce rapid commands (100ms minimum between same command)
+		const now = Date.now()
+		const lastTime = this.lastCommandTime[command] || 0
+		if (now - lastTime < 100) {
+			this.instance.log('debug', `MIDI command '${command}' debounced (too rapid)`)
+			return
+		}
+		this.lastCommandTime[command] = now
+
+		// Prevent concurrent toggle operations
+		if (command === 'system_toggle' && this.isToggling) {
+			this.instance.log('debug', 'MIDI toggle already in progress, ignoring')
+			return
+		}
+
 		switch (command) {
 			case 'system_on':
-				this.instance.startSystem()
+				// Only start if not already running
+				if (!this.instance.systemState.isRunning) {
+					this.instance.startSystem()
+				}
 				break
 			case 'system_off':
-				await this.instance.stopSystem()
+				// Only stop if running
+				if (this.instance.systemState.isRunning) {
+					await this.instance.stopSystem()
+				}
 				break
 			case 'system_reset':
 				this.instance.resetSystem()
 				break
 			case 'system_toggle':
-				if (this.instance.systemState.isRunning) {
-					await this.instance.stopSystem()
-				} else {
-					this.instance.startSystem()
+				// Set toggle flag to prevent race conditions
+				this.isToggling = true
+				try {
+					// Store current state before toggling
+					const wasRunning = this.instance.systemState.isRunning
+
+					if (wasRunning) {
+						await this.instance.stopSystem()
+						// Verify the system actually stopped
+						if (this.instance.systemState.isRunning) {
+							this.instance.log('warn', 'System failed to stop during MIDI toggle')
+						}
+					} else {
+						this.instance.startSystem()
+						// Verify the system actually started
+						if (!this.instance.systemState.isRunning) {
+							this.instance.log('warn', 'System failed to start during MIDI toggle')
+						}
+					}
+
+					this.instance.log('debug', `MIDI system toggle: ${wasRunning ? 'stopped' : 'started'}`)
+				} finally {
+					this.isToggling = false
 				}
 				break
 			case 'system_pause':
@@ -414,21 +456,33 @@ export class MidiHandler {
 				this.instance.resumeSystem()
 				break
 			case 'camera_on':
-				this.instance.startCameraSwitcher()
+				// Only start if not already running
+				if (!this.instance.cameraSwitcher.isRunning) {
+					this.instance.startCameraSwitcher()
+				}
 				break
 			case 'camera_off':
-				this.instance.stopCameraSwitcher()
+				// Only stop if running
+				if (this.instance.cameraSwitcher.isRunning) {
+					this.instance.stopCameraSwitcher()
+				}
 				break
 			case 'camera_manual':
 				this.instance.manualTriggerCamera()
 				break
-			case 'camera_toggle':
-				if (this.instance.cameraSwitcher.isRunning) {
+			case 'camera_toggle': {
+				// Store current state before toggling
+				const cameraWasRunning = this.instance.cameraSwitcher.isRunning
+
+				if (cameraWasRunning) {
 					this.instance.stopCameraSwitcher()
 				} else {
 					this.instance.startCameraSwitcher()
 				}
+
+				this.instance.log('debug', `MIDI camera toggle: ${cameraWasRunning ? 'stopped' : 'started'}`)
 				break
+			}
 			case 'camera_mode_toggle':
 				this.instance.cameraSwitcher.sequentialMode = !this.instance.cameraSwitcher.sequentialMode
 				this.instance.log(
@@ -438,21 +492,33 @@ export class MidiHandler {
 				this.instance.updateVariables()
 				break
 			case 'overlay_on':
-				this.instance.startOverlaySwitcher()
+				// Only start if not already running
+				if (!this.instance.overlaySwitcher.isRunning) {
+					this.instance.startOverlaySwitcher()
+				}
 				break
 			case 'overlay_off':
-				this.instance.stopOverlaySwitcher()
+				// Only stop if running
+				if (this.instance.overlaySwitcher.isRunning) {
+					this.instance.stopOverlaySwitcher()
+				}
 				break
 			case 'overlay_manual':
 				this.instance.manualTriggerOverlay()
 				break
-			case 'overlay_toggle':
-				if (this.instance.overlaySwitcher.isRunning) {
+			case 'overlay_toggle': {
+				// Store current state before toggling
+				const overlayWasRunning = this.instance.overlaySwitcher.isRunning
+
+				if (overlayWasRunning) {
 					this.instance.stopOverlaySwitcher()
 				} else {
 					this.instance.startOverlaySwitcher()
 				}
+
+				this.instance.log('debug', `MIDI overlay toggle: ${overlayWasRunning ? 'stopped' : 'started'}`)
 				break
+			}
 			case 'overlay_mode_toggle':
 				this.instance.overlaySwitcher.sequentialMode = !this.instance.overlaySwitcher.sequentialMode
 				this.instance.log(
@@ -516,7 +582,7 @@ export class MidiHandler {
 			try {
 				// Close all MIDI connections
 				JZZ().close()
-			} catch (error) {
+			} catch (_error) {
 				// Ignore errors during cleanup
 			}
 		}

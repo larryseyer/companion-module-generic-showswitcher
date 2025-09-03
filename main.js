@@ -636,10 +636,7 @@ class ShowSwitcherInstance extends InstanceBase {
 
 			// MIDI status variables
 			midi_status: this.midiHandler && this.midiHandler.isConnected ? 'Connected' : 'Disconnected',
-			midi_port:
-				this.midiHandler && this.midiHandler.isConnected && this.midiHandler.input
-					? this.midiHandler.input.getPortName(this.config.midi_port_index || 0)
-					: 'None',
+			midi_port: this.midiHandler && this.midiHandler.currentPortName ? this.midiHandler.currentPortName : 'None',
 			midi_last_note: '',
 			midi_last_cc: '',
 		}

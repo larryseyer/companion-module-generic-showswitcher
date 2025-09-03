@@ -547,7 +547,7 @@ export function getPresets() {
 		category: '5️⃣ MIDI & Performance',
 		name: '🎹 MIDI Connection Toggle',
 		style: {
-			text: 'MIDI ⚡\\nCONNECT',
+			text: 'MIDI ⚡\\n$(showswitcher:midi_port)',
 			size: '14',
 			color: COLORS.GRAY_TEXT,
 			bgcolor: COLORS.GRAY_INACTIVE,
@@ -580,7 +580,7 @@ export function getPresets() {
 				style: {
 					bgcolor: COLORS.GRAY_INACTIVE,
 					color: COLORS.GRAY_TEXT,
-					text: 'MIDI ⚡\\nCONNECT',
+					text: 'MIDI ⚡\\n$(showswitcher:midi_port)',
 					size: '14',
 				},
 			},
