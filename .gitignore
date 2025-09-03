@@ -7,7 +7,7 @@ yarn.lock
 *.tgz
 dist/
 build/
-pkg/
+
 
 # IDE files
 .vscode/
