@@ -305,9 +305,10 @@ Buttons are specified in the format: `page/bank/button`
 | **Camera Toggle**           | Toggle camera switcher ON/OFF           |
 | **Set Camera Timer**        | Set countdown to specific value         |
 | **Set Camera Timer Range**  | Adjust min/max timing range             |
+| **Set Camera Selection Mode** | Set to Random or Sequential mode      |
 | **Camera Mode Toggle**      | Switch between sequential/random (v2.0) |
 | **Camera Blacklist Button** | Temporarily exclude a button (v2.0)     |
-| **Camera Clear Blacklist**  | Clear all blacklisted buttons (v2.0)    |
+| **Camera Blacklist Clear**  | Clear all blacklisted buttons (v2.0)    |
 | **Add Camera Button**       | Add button to rotation                  |
 | **Remove Camera Button**    | Remove button from rotation             |
 | **Reset Camera Counter**    | Reset trigger count to zero             |
@@ -322,22 +323,22 @@ Buttons are specified in the format: `page/bank/button`
 | **Overlay Toggle**           | Toggle overlay switcher ON/OFF          |
 | **Set Overlay Timer**        | Set countdown to specific value         |
 | **Set Overlay Timer Range**  | Adjust min/max timing range             |
+| **Set Overlay Selection Mode** | Set to Random or Sequential mode     |
 | **Overlay Mode Toggle**      | Switch between sequential/random (v2.0) |
 | **Overlay Blacklist Button** | Temporarily exclude a button (v2.0)     |
-| **Overlay Clear Blacklist**  | Clear all blacklisted buttons (v2.0)    |
+| **Overlay Blacklist Clear**  | Clear all blacklisted buttons (v2.0)    |
 | **Add Overlay Button**       | Add button to rotation                  |
 | **Remove Overlay Button**    | Remove button from rotation             |
 | **Reset Overlay Counter**    | Reset trigger count to zero             |
 
 ### Performance & Statistics (v2.0)
 
-| Action                | Description                      |
-| --------------------- | -------------------------------- |
-| **Clear Statistics**  | Reset all performance metrics    |
-| **Save Statistics**   | Manually save statistics to disk |
-| **Export Statistics** | Export statistics as JSON        |
-| **Clear HTTP Errors** | Reset HTTP error counter         |
-| **Clear Queue**       | Clear button press queue         |
+| Action                      | Description                      |
+| --------------------------- | -------------------------------- |
+| **Clear Statistics**        | Reset performance statistics     |
+| **Save Statistics**         | Manually save statistics to disk |
+| **Reset All Statistics**    | Reset all statistics and counters |
+| **Clear Button Queue**      | Clear button press queue         |
 
 ### MIDI Control
 
@@ -345,7 +346,9 @@ Buttons are specified in the format: `page/bank/button`
 | ------------------------------ | ------------------------------- |
 | **MIDI Connect**               | Connect to selected MIDI port   |
 | **MIDI Disconnect**            | Disconnect from MIDI device     |
+| **MIDI Toggle**                | Toggle MIDI connection on/off   |
 | **MIDI Refresh Ports**         | Refresh available MIDI devices  |
+| **MIDI Refresh**               | Refresh available MIDI devices  |
 | **Camera Timer from MIDI CC**  | Set camera timer from CC value  |
 | **Overlay Timer from MIDI CC** | Set overlay timer from CC value |
 
@@ -425,6 +428,8 @@ Visual feedbacks for button states and conditions.
 | **Camera Countdown Below**   | Active when countdown < threshold      | Threshold       |
 | **Camera Next Button Match** | Active when specific button is next    | Button location |
 | **Camera Count Above**       | Active when trigger count > threshold  | Count threshold |
+| **Camera Sequential Mode**   | Active in sequential mode              | -               |
+| **Camera Mode Random**       | Active in random mode (v2.0)           | -               |
 | **Camera Mode Sequential**   | Active in sequential mode (v2.0)       | -               |
 
 ### Overlay Feedbacks
@@ -436,6 +441,8 @@ Visual feedbacks for button states and conditions.
 | **Overlay Countdown Below**   | Active when countdown < threshold       | Threshold       |
 | **Overlay Next Button Match** | Active when specific button is next     | Button location |
 | **Overlay Count Above**       | Active when trigger count > threshold   | Count threshold |
+| **Overlay Sequential Mode**   | Active in sequential mode               | -               |
+| **Overlay Mode Random**       | Active in random mode (v2.0)            | -               |
 | **Overlay Mode Sequential**   | Active in sequential mode (v2.0)        | -               |
 
 ### Performance Feedbacks (v2.0)
@@ -477,7 +484,6 @@ Visual feedbacks for button states and conditions.
 | 40 (E2)   | Camera OFF    | Stop camera switcher            |
 | 41 (F2)   | Camera Manual | Manual trigger                  |
 | 46 (A#2)  | Camera Toggle | Toggle on/off                   |
-| 50 (D3)   | Camera Mode   | Toggle sequential/random (v2.0) |
 
 #### Overlay Control
 
@@ -487,7 +493,6 @@ Visual feedbacks for button states and conditions.
 | 43 (G2)   | Overlay OFF    | Stop overlay switcher           |
 | 44 (G#2)  | Overlay Manual | Manual trigger                  |
 | 47 (B2)   | Overlay Toggle | Toggle on/off                   |
-| 51 (D#3)  | Overlay Mode   | Toggle sequential/random (v2.0) |
 
 ### MIDI Control Change (CC) Assignments
 

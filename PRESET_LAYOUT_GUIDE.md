@@ -1,6 +1,6 @@
 # ShowSwitcher Stream Deck Layout Guide - Version 2.0.3
 
-## 🎯 Optimized Button Layout (Reduced from 29 to 19 buttons)
+## 🎯 Optimized Button Layout 
 
 This guide shows the improved button layout optimized for a standard 8x4 (32-button) Stream Deck. The presets have been reorganized with logical grouping, consistent color coding, and combined displays for maximum efficiency.
 
