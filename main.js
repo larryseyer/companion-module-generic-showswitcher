@@ -890,7 +890,8 @@ class ShowSwitcherInstance extends InstanceBase {
 			const [page, bank, btn] = defaultButton.split('/').map(Number)
 
 			this.log('info', `Returning to default camera: ${defaultButton}`)
-			await this.pressButton(page, bank, btn)
+			// Bypass queue for default camera return - execute immediately
+			await this.executePressButton(page, bank, btn)
 
 			// Update the previous button to show it was triggered
 			this.cameraSwitcher.previousButton = defaultButton
