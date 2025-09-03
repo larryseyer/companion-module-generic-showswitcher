@@ -1,4 +1,4 @@
-# companion-module-generic-showswitcher Ver 2.0
+# companion-module-generic-showswitcher Ver 2.0.3
 
 A [Bitfocus Companion](https://bitfocus.io/companion) module for professional broadcast automation with automatic camera and overlay switching, featuring advanced timing control, pause/resume functionality, sequential and random selection modes, performance monitoring, and comprehensive MIDI control.
 
@@ -790,7 +790,23 @@ The module's 19 optimized presets use Companion's multi-step functionality and i
 
 ## 📝 Version History
 
-### Version 2.0.0 (Current)
+### Version 2.0.3 (Current)
+
+- **MAJOR UI IMPROVEMENT**: Optimized preset layout from 29 to 19 buttons (35% reduction)
+- **NEW: Smart button consolidation** - Combined related displays for efficiency
+- **NEW: Consistent color coding system** - Standardized visual feedback across all buttons
+- **FIXED: MIDI toggle connection** - Properly reconnects after disconnection
+- **FIXED: Text readability** - Eliminated word wrapping issues, optimized font sizes
+- **IMPROVED: Logical category organization** - 5 priority-based categories
+- **ADDED: Connection status icons** - Visual indicators (✓, ✗, ⚡) for better feedback
+- **ENHANCED: Multi-display buttons** - Combined countdowns, counters, averages, and previews
+
+### Version 2.0.2
+
+- Bug fixes and stability improvements
+- Enhanced preset buttons with better visual feedback
+
+### Version 2.0.0
 
 - **NEW: Optimized preset layout** - Reduced from 29 to 19 buttons
 - **NEW: Combined displays** - Merged related information for efficiency

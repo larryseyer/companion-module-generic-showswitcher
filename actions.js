@@ -569,6 +569,44 @@ export function getActions(self) {
 				}
 			},
 		},
+		midi_toggle: {
+			name: 'MIDI Toggle Connection',
+			options: [],
+			callback: async () => {
+				try {
+					if (self.midiHandler && self.midiHandler.isConnected) {
+						// Disconnect if connected - completely destroy the handler
+						self.midiHandler.destroy()
+						self.midiHandler = null
+						self.updateVariables()
+						self.log('info', 'MIDI disconnected')
+					} else {
+						// Create fresh handler and connect
+						const MidiHandler = require('./midi')
+						if (self.midiHandler) {
+							self.midiHandler.destroy()
+						}
+						self.midiHandler = new MidiHandler(self)
+						
+						// Refresh ports
+						await self.midiHandler.refreshPorts()
+						
+						// Connect to first available port
+						if (self.midiHandler.availablePorts && self.midiHandler.availablePorts.length > 0) {
+							await self.midiHandler.openPort(0)  // Fixed: using openPort instead of connect
+							self.updateVariables()
+							self.log('info', `MIDI connected to ${self.midiHandler.availablePorts[0].name}`)
+						} else {
+							self.log('warn', 'No MIDI devices found')
+							self.updateVariables()
+						}
+					}
+				} catch (error) {
+					self.log('error', `MIDI toggle error: ${error.message || error}`)
+					self.updateVariables()
+				}
+			},
+		},
 		midi_refresh_ports: {
 			name: 'MIDI Refresh Ports',
 			options: [],

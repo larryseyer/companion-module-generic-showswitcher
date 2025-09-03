@@ -1,4 +1,4 @@
-# ShowSwitcher Stream Deck Layout Guide - Version 2.0
+# ShowSwitcher Stream Deck Layout Guide - Version 2.0.3
 
 ## 🎯 Optimized Button Layout (Reduced from 29 to 19 buttons)
 

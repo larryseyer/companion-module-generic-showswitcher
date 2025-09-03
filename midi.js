@@ -386,6 +386,36 @@ export class MidiHandler {
 		}))
 	}
 
+	disconnect() {
+		// Disconnect without destroying the handler
+		if (this.midiIn) {
+			try {
+				// Remove all listeners first
+				if (this.midiIn.removeAllListeners) {
+					this.midiIn.removeAllListeners()
+				}
+				// Close the port
+				this.midiIn.close()
+				this.instance.log('info', 'MIDI port disconnected')
+			} catch (error) {
+				this.instance.log('error', `Error closing MIDI port: ${error.message}`)
+			}
+			this.midiIn = null
+		}
+
+		this.isConnected = false
+		this.currentPortName = null
+		// IMPORTANT: Keep availablePorts so we can reconnect
+		// Don't clear this.availablePorts!
+		
+		this.instance.setVariableValues({
+			midi_status: 'Disconnected',
+			midi_port: 'None',
+			midi_last_note: '--',
+			midi_last_cc: '--',
+		})
+	}
+
 	destroy() {
 		if (this.midiIn) {
 			try {

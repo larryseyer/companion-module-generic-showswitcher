@@ -10,13 +10,13 @@ export function getPresets() {
 		RED_STOPPED: combineRgb(150, 0, 0),
 		YELLOW_WARNING: combineRgb(200, 150, 0),
 		YELLOW_PAUSED: combineRgb(255, 200, 0),
-		
+
 		// Function colors
 		BLUE_CAMERA: combineRgb(0, 100, 200),
 		PURPLE_OVERLAY: combineRgb(150, 0, 200),
 		GRAY_INACTIVE: combineRgb(60, 60, 60),
 		GRAY_INFO: combineRgb(40, 40, 40),
-		
+
 		// Text colors
 		WHITE: combineRgb(255, 255, 255),
 		BLACK: combineRgb(0, 0, 0),
@@ -32,7 +32,7 @@ export function getPresets() {
 		name: '🔴 Main System Start/Stop',
 		style: {
 			text: 'SYSTEM\\n$(showswitcher:system_status == "Stopped" ? "START" : "STOP")',
-			size: '18',
+			size: '14',
 			color: COLORS.WHITE,
 			bgcolor: COLORS.GRAY_INACTIVE,
 		},
@@ -55,7 +55,7 @@ export function getPresets() {
 					bgcolor: COLORS.GREEN_ACTIVE,
 					color: COLORS.WHITE,
 					text: '⏹ STOP\\nRUNNING',
-					size: '18',
+					size: '14',
 				},
 			},
 			{
@@ -65,7 +65,7 @@ export function getPresets() {
 					bgcolor: COLORS.RED_STOPPED,
 					color: COLORS.WHITE,
 					text: '▶ START\\nREADY',
-					size: '18',
+					size: '14',
 				},
 			},
 			{
@@ -75,15 +75,7 @@ export function getPresets() {
 					bgcolor: COLORS.YELLOW_PAUSED,
 					color: COLORS.BLACK,
 					text: '⏸ PAUSED\\nRESUME?',
-					size: '18',
-				},
-			},
-			{
-				feedbackId: 'stats_ready',
-				options: {},
-				style: {
-					// Add green border effect when stats are ready
-					png64: 'iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNk+M9QDwADhgGAWjR9awAAAABJRU5ErkJggg==',
+					size: '14',
 				},
 			},
 		],
@@ -95,7 +87,7 @@ export function getPresets() {
 		name: '⏸ Pause/Resume Toggle',
 		style: {
 			text: 'PAUSE',
-			size: '24',
+			size: '14',
 			color: COLORS.WHITE,
 			bgcolor: COLORS.GRAY_INACTIVE,
 		},
@@ -127,7 +119,7 @@ export function getPresets() {
 					bgcolor: COLORS.YELLOW_WARNING,
 					color: COLORS.BLACK,
 					text: '⏸ PAUSE',
-					size: '24',
+					size: '14',
 				},
 			},
 			{
@@ -137,7 +129,7 @@ export function getPresets() {
 					bgcolor: COLORS.GREEN_ACTIVE,
 					color: COLORS.WHITE,
 					text: '▶ RESUME',
-					size: '24',
+					size: '14',
 				},
 			},
 		],
@@ -180,7 +172,7 @@ export function getPresets() {
 		name: '📹 Camera Auto/Manual Toggle',
 		style: {
 			text: 'CAMERA\\n$(showswitcher:camera_status == "Stopped" ? "START" : "AUTO")',
-			size: '18',
+			size: '14',
 			color: COLORS.WHITE,
 			bgcolor: COLORS.GRAY_INACTIVE,
 		},
@@ -203,7 +195,7 @@ export function getPresets() {
 					bgcolor: COLORS.BLUE_CAMERA,
 					color: COLORS.WHITE,
 					text: '📹 AUTO\\nACTIVE',
-					size: '18',
+					size: '14',
 				},
 			},
 			{
@@ -213,7 +205,7 @@ export function getPresets() {
 					bgcolor: COLORS.GRAY_INACTIVE,
 					color: COLORS.GRAY_TEXT,
 					text: '📹 START\\nCAMERA',
-					size: '18',
+					size: '14',
 				},
 			},
 		],
@@ -225,7 +217,7 @@ export function getPresets() {
 		name: '🎬 Manual Camera Trigger',
 		style: {
 			text: 'TRIGGER\\nCAMERA',
-			size: '18',
+			size: '14',
 			color: COLORS.WHITE,
 			bgcolor: combineRgb(0, 75, 150),
 		},
@@ -284,7 +276,7 @@ export function getPresets() {
 				style: {
 					bgcolor: combineRgb(0, 150, 150),
 					text: 'SEQ→',
-					size: '24',
+					size: '14',
 				},
 			},
 		],
@@ -299,7 +291,7 @@ export function getPresets() {
 		name: '🎨 Overlay Auto/Manual Toggle',
 		style: {
 			text: 'OVERLAY\\n$(showswitcher:overlay_status == "Stopped" ? "START" : "AUTO")',
-			size: '18',
+			size: '14',
 			color: COLORS.WHITE,
 			bgcolor: COLORS.GRAY_INACTIVE,
 		},
@@ -322,7 +314,7 @@ export function getPresets() {
 					bgcolor: COLORS.PURPLE_OVERLAY,
 					color: COLORS.WHITE,
 					text: '🎨 AUTO\\nACTIVE',
-					size: '18',
+					size: '14',
 				},
 			},
 			{
@@ -332,7 +324,7 @@ export function getPresets() {
 					bgcolor: COLORS.GRAY_INACTIVE,
 					color: COLORS.GRAY_TEXT,
 					text: '🎨 START\\nOVERLAY',
-					size: '18',
+					size: '14',
 				},
 			},
 		],
@@ -344,7 +336,7 @@ export function getPresets() {
 		name: '✨ Manual Overlay Trigger',
 		style: {
 			text: 'TRIGGER\\nOVERLAY',
-			size: '18',
+			size: '14',
 			color: COLORS.WHITE,
 			bgcolor: combineRgb(100, 0, 150),
 		},
@@ -403,7 +395,7 @@ export function getPresets() {
 				style: {
 					bgcolor: combineRgb(150, 0, 150),
 					text: 'SEQ→',
-					size: '24',
+					size: '14',
 				},
 			},
 		],
@@ -550,32 +542,21 @@ export function getPresets() {
 	// ============= 5. MIDI & PERFORMANCE (Priority 5) =============
 	// System monitoring and MIDI control
 
-	presets['midi_status'] = {
+	presets['midi_connection'] = {
 		type: 'button',
 		category: '5️⃣ MIDI & Performance',
-		name: '🎹 MIDI Connection Status',
+		name: '🎹 MIDI Connection Toggle',
 		style: {
-			text: 'MIDI\\n$(showswitcher:midi_status == "Connected" ? "✓" : "CONNECT")',
-			size: '18',
-			color: COLORS.WHITE,
+			text: 'MIDI ⚡\\nCONNECT',
+			size: '14',
+			color: COLORS.GRAY_TEXT,
 			bgcolor: COLORS.GRAY_INACTIVE,
 		},
 		steps: [
 			{
 				down: [
 					{
-						actionId: 'midi_connect',
-						options: {
-							port_index: 0,
-						},
-					},
-				],
-				up: [],
-			},
-			{
-				down: [
-					{
-						actionId: 'midi_disconnect',
+						actionId: 'midi_toggle',
 						options: {},
 					},
 				],
@@ -599,8 +580,8 @@ export function getPresets() {
 				style: {
 					bgcolor: COLORS.GRAY_INACTIVE,
 					color: COLORS.GRAY_TEXT,
-					text: 'MIDI\\nCONNECT',
-					size: '18',
+					text: 'MIDI ⚡\\nCONNECT',
+					size: '14',
 				},
 			},
 			{
@@ -609,6 +590,8 @@ export function getPresets() {
 				style: {
 					bgcolor: combineRgb(255, 255, 0),
 					color: COLORS.BLACK,
+					text: 'MIDI ⚡\\nACTIVE',
+					size: '14',
 				},
 			},
 		],
@@ -683,7 +666,7 @@ export function getPresets() {
 		name: '📋 Queue Management (Double-Tap Clear)',
 		style: {
 			text: 'QUEUE\\n$(showswitcher:queue_size)',
-			size: '24',
+			size: '14',
 			color: COLORS.WHITE,
 			bgcolor: COLORS.GRAY_INFO,
 		},
@@ -712,7 +695,7 @@ export function getPresets() {
 					bgcolor: COLORS.YELLOW_WARNING,
 					color: COLORS.BLACK,
 					text: '⚠ QUEUE\\nFULL',
-					size: '18',
+					size: '14',
 				},
 			},
 			{
@@ -736,7 +719,7 @@ export function getPresets() {
 		name: '📊 Statistics Reset (Double-Tap)',
 		style: {
 			text: 'STATS\\nRESET',
-			size: '18',
+			size: '14',
 			color: COLORS.WHITE,
 			bgcolor: COLORS.GRAY_INACTIVE,
 		},
@@ -755,17 +738,7 @@ export function getPresets() {
 				up: [],
 			},
 		],
-		feedbacks: [
-			{
-				feedbackId: 'stats_ready',
-				options: {},
-				style: {
-					bgcolor: COLORS.GREEN_ACTIVE,
-					text: 'STATS\\nREADY',
-					size: '18',
-				},
-			},
-		],
+		feedbacks: [],
 	}
 
 	return presets
