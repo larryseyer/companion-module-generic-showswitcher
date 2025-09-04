@@ -8,6 +8,7 @@ module.exports = {
 	// that cannot be properly bundled
 	externals: ['jzz'],
 
-	// Copy jzz and its dependencies manually since the package name has spaces
-	extraFiles: ['node_modules/jzz/**/*', 'node_modules/jazz-midi/**/*', 'node_modules/@types/webmidi/**/*'],
+	// Ensure jzz is included as a dependency in the distributed package
+	// This will make Companion install it when the module is installed
+	includeDeps: ['jzz'],
 }

@@ -1,7 +1,0 @@
-{
-	"permissions": {
-		"allow": ["Bash(uv run:*)", "Bash(uv pip:*)"],
-		"deny": [],
-		"ask": []
-	}
-}
