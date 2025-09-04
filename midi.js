@@ -287,88 +287,78 @@ export class MidiHandler {
 	executeAction(action) {
 		const actions = {
 			system_on: () => {
-				this.instance.updateVariables({ system: 'on' })
-				this.instance.checkFeedbacksById(['system_state'])
+				this.instance.startSystem()
 			},
 			system_off: () => {
-				this.instance.updateVariables({ system: 'off' })
-				this.instance.checkFeedbacksById(['system_state'])
+				this.instance.stopSystem()
 			},
 			system_reset: () => {
-				this.instance.updateVariables({
-					system: 'off',
-					camera_state: 'off',
-					overlay_state: 'off',
-					system_paused: false,
-				})
-				this.instance.checkFeedbacksById(['system_state', 'camera_state', 'overlay_state'])
+				this.instance.resetSystem()
 			},
 			system_toggle: () => {
 				if (!this.isToggling) {
 					this.isToggling = true
-					const newState = this.instance.variables.system === 'on' ? 'off' : 'on'
-					this.instance.updateVariables({ system: newState })
-					this.instance.checkFeedbacksById(['system_state'])
+					if (this.instance.systemState.isRunning) {
+						this.instance.stopSystem()
+					} else {
+						this.instance.startSystem()
+					}
 					setTimeout(() => {
 						this.isToggling = false
 					}, 100)
 				}
 			},
 			system_pause: () => {
-				this.instance.updateVariables({ system_paused: true })
-				this.instance.checkFeedbacksById(['system_state'])
+				this.instance.pauseSystem()
 			},
 			system_resume: () => {
-				this.instance.updateVariables({ system_paused: false })
-				this.instance.checkFeedbacksById(['system_state'])
+				this.instance.resumeSystem()
 			},
 			camera_on: () => {
-				this.instance.updateVariables({ camera_state: 'on' })
-				this.instance.checkFeedbacksById(['camera_state'])
+				this.instance.startCameraSwitcher()
 			},
 			camera_off: () => {
-				this.instance.updateVariables({ camera_state: 'off' })
-				this.instance.checkFeedbacksById(['camera_state'])
+				this.instance.stopCameraSwitcher()
 			},
 			camera_manual: () => {
-				this.instance.updateVariables({ camera_state: 'manual' })
-				this.instance.checkFeedbacksById(['camera_state'])
+				this.instance.manualTriggerCamera()
 			},
 			camera_toggle: () => {
-				const current = this.instance.variables.camera_state
-				const newState = current === 'on' ? 'off' : 'on'
-				this.instance.updateVariables({ camera_state: newState })
-				this.instance.checkFeedbacksById(['camera_state'])
+				if (this.instance.cameraSwitcher.isRunning) {
+					this.instance.stopCameraSwitcher()
+				} else {
+					this.instance.startCameraSwitcher()
+				}
 			},
 			camera_mode_toggle: () => {
-				const current = this.instance.variables.camera_mode
-				const newMode = current === 'random' ? 'sequential' : 'random'
-				this.instance.updateVariables({ camera_mode: newMode })
-				this.instance.checkFeedbacksById(['camera_state'])
+				this.instance.cameraSwitcher.sequentialMode = !this.instance.cameraSwitcher.sequentialMode
+				this.instance.cameraSwitcher.sequentialIndex = 0
+				const mode = this.instance.cameraSwitcher.sequentialMode ? 'sequential' : 'random'
+				this.instance.log('info', `Camera mode toggled to ${mode} via MIDI`)
+				this.instance.updateVariables()
 			},
 			overlay_on: () => {
-				this.instance.updateVariables({ overlay_state: 'on' })
-				this.instance.checkFeedbacksById(['overlay_state'])
+				this.instance.startOverlaySwitcher()
 			},
 			overlay_off: () => {
-				this.instance.updateVariables({ overlay_state: 'off' })
-				this.instance.checkFeedbacksById(['overlay_state'])
+				this.instance.stopOverlaySwitcher()
 			},
 			overlay_manual: () => {
-				this.instance.updateVariables({ overlay_state: 'manual' })
-				this.instance.checkFeedbacksById(['overlay_state'])
+				this.instance.manualTriggerOverlay()
 			},
 			overlay_toggle: () => {
-				const current = this.instance.variables.overlay_state
-				const newState = current === 'on' ? 'off' : 'on'
-				this.instance.updateVariables({ overlay_state: newState })
-				this.instance.checkFeedbacksById(['overlay_state'])
+				if (this.instance.overlaySwitcher.isRunning) {
+					this.instance.stopOverlaySwitcher()
+				} else {
+					this.instance.startOverlaySwitcher()
+				}
 			},
 			overlay_mode_toggle: () => {
-				const current = this.instance.variables.overlay_mode
-				const newMode = current === 'random' ? 'sequential' : 'random'
-				this.instance.updateVariables({ overlay_mode: newMode })
-				this.instance.checkFeedbacksById(['overlay_state'])
+				this.instance.overlaySwitcher.sequentialMode = !this.instance.overlaySwitcher.sequentialMode
+				this.instance.overlaySwitcher.sequentialIndex = 0
+				const mode = this.instance.overlaySwitcher.sequentialMode ? 'sequential' : 'random'
+				this.instance.log('info', `Overlay mode toggled to ${mode} via MIDI`)
+				this.instance.updateVariables()
 			},
 		}
 
@@ -389,39 +379,43 @@ export class MidiHandler {
 
 		const actions = {
 			camera_timer: () => {
-				// Map to 1-60 seconds
-				const seconds = mapToRange(value, 1, 60)
-				this.instance.updateVariables({ camera_timer: seconds })
+				// Map to configured camera timer range
+				const minSeconds = this.instance.config.camera_min_seconds || 15
+				const maxSeconds = this.instance.config.camera_max_seconds || 30
+				const seconds = mapToRange(value, minSeconds, maxSeconds)
+				this.instance.setCameraCountdown(seconds)
 				this.instance.log('info', `Camera timer set to ${seconds} seconds via MIDI CC`)
 			},
 			overlay_timer: () => {
-				// Map to 1-60 seconds
-				const seconds = mapToRange(value, 1, 60)
-				this.instance.updateVariables({ overlay_timer: seconds })
+				// Map to configured overlay timer range
+				const minSeconds = this.instance.config.overlay_min_seconds || 600
+				const maxSeconds = this.instance.config.overlay_max_seconds || 900
+				const seconds = mapToRange(value, minSeconds, maxSeconds)
+				this.instance.setOverlayCountdown(seconds)
 				this.instance.log('info', `Overlay timer set to ${seconds} seconds via MIDI CC`)
 			},
 			camera_min_timer: () => {
 				// Map to 1-30 seconds
 				const seconds = mapToRange(value, 1, 30)
-				this.instance.updateVariables({ camera_min_timer: seconds })
+				this.instance.cameraSwitcher.minSeconds = seconds
 				this.instance.log('info', `Camera min timer set to ${seconds} seconds via MIDI CC`)
 			},
 			camera_max_timer: () => {
 				// Map to 2-120 seconds
 				const seconds = mapToRange(value, 2, 120)
-				this.instance.updateVariables({ camera_max_timer: seconds })
+				this.instance.cameraSwitcher.maxSeconds = seconds
 				this.instance.log('info', `Camera max timer set to ${seconds} seconds via MIDI CC`)
 			},
 			overlay_min_timer: () => {
-				// Map to 1-30 seconds
-				const seconds = mapToRange(value, 1, 30)
-				this.instance.updateVariables({ overlay_min_timer: seconds })
+				// Map to 1-30 seconds for testing, normally would be higher
+				const seconds = mapToRange(value, 60, 600)
+				this.instance.overlaySwitcher.minSeconds = seconds
 				this.instance.log('info', `Overlay min timer set to ${seconds} seconds via MIDI CC`)
 			},
 			overlay_max_timer: () => {
-				// Map to 2-120 seconds
-				const seconds = mapToRange(value, 2, 120)
-				this.instance.updateVariables({ overlay_max_timer: seconds })
+				// Map to appropriate overlay range
+				const seconds = mapToRange(value, 120, 1200)
+				this.instance.overlaySwitcher.maxSeconds = seconds
 				this.instance.log('info', `Overlay max timer set to ${seconds} seconds via MIDI CC`)
 			},
 		}
