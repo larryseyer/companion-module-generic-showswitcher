@@ -1,15 +1,16 @@
 // MIDI Handler for Show Switcher Module using JZZ
-import { createRequire } from 'module'
-const require = createRequire(import.meta.url)
 
-// Try to load JZZ - handle both CommonJS and ES modules
+// Import JZZ - let webpack handle the module loading
 let JZZ = null
 try {
-	// jzz is a CommonJS module, so we use require
-	JZZ = require('jzz')
-	// JZZ MIDI library loaded successfully
+	// Use standard import for ES modules
+	import('jzz').then(module => {
+		JZZ = module.default || module
+	}).catch(() => {
+		// JZZ not available
+	})
 } catch (_error) {
-	// JZZ MIDI library not available
+	// Import failed - JZZ not available
 }
 
 export class MidiHandler {

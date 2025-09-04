@@ -38,3 +38,8 @@ tmp/
 temp/
 *.tmp
 
+# CLAUDE
+.claude/
+
+
+
