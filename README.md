@@ -1,4 +1,4 @@
-# companion-module-generic-showswitcher Ver 2.0.3
+# companion-module-generic-showswitcher Ver 2.0.4
 
 A [Bitfocus Companion](https://bitfocus.io/companion) module for professional broadcast automation with automatic camera and overlay switching, featuring advanced timing control, pause/resume functionality, sequential and random selection modes, performance monitoring, and comprehensive MIDI control.
 
@@ -92,7 +92,7 @@ Perfect for solo performers, escape rooms, theaters, educators, or anyone who ne
    - Navigate to **Settings → Modules**
    - Click **Install Module from File**
    - Browse to `Downloads\companion-module-generic-showswitcher`
-   - Select the `generic-showswitcher-2.0.0.tgz` file
+   - Select the `generic-showswitcher-2.0.4.tgz` file
    - Click **Install**
    - Restart Companion when prompted
 
@@ -122,7 +122,7 @@ Perfect for solo performers, escape rooms, theaters, educators, or anyone who ne
    - Navigate to **Settings → Modules**
    - Click **Install Module from File**
    - Browse to `~/Downloads/companion-module-generic-showswitcher`
-   - Select the `generic-showswitcher-2.0.0.tgz` file
+   - Select the `generic-showswitcher-2.0.4.tgz` file
    - Click **Install**
    - Restart Companion when prompted
 
@@ -152,7 +152,7 @@ Perfect for solo performers, escape rooms, theaters, educators, or anyone who ne
    - Navigate to **Settings → Modules**
    - Click **Install Module from File**
    - Browse to `~/Downloads/companion-module-generic-showswitcher`
-   - Select the `generic-showswitcher-2.0.0.tgz` file
+   - Select the `generic-showswitcher-2.0.4.tgz` file
    - Click **Install**
    - Restart Companion when prompted
 
@@ -816,7 +816,14 @@ The module's 19 optimized presets use Companion's multi-step functionality and i
 
 ## 📝 Version History
 
-### Version 2.0.3 (Current)
+### Version 2.0.4 (Current)
+
+- **CRITICAL FIX: MIDI support now works in distributed packages**
+  - Fixed issue where MIDI ports were not detected in installed modules
+  - Properly bundled jzz and jazz-midi dependencies with all platform binaries
+  - Module now includes native MIDI support for Windows, macOS, and Linux
+
+### Version 2.0.3
 
 - **MAJOR UI IMPROVEMENT**: Optimized preset layout from 29 to 19 buttons (35% reduction)
 - **NEW: Smart button consolidation** - Combined related displays for efficiency
@@ -894,7 +901,7 @@ MIT License - See [LICENSE](LICENSE) file for details
 
 - **Author**: Larry Seyer (bitfocus@larryseyer.com)
 - **Website**: [LarrySeyer.com](http://LarrySeyer.com)
-- **Repository**: [GitHub](https://github.com/larryseyer/companion-module-generic-showswitcher)
+- **Repository**: [GitHub](https://github.com/bitfocus/companion-module-generic-showswitcher)
 - **Framework**: [Bitfocus Companion Module Base](https://github.com/bitfocus/companion-module-base)
 
 ---

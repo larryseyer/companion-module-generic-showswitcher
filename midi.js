@@ -7,9 +7,9 @@ let JZZ = null
 try {
 	// jzz is a CommonJS module, so we use require
 	JZZ = require('jzz')
-	console.log('JZZ MIDI library loaded successfully')
+	// JZZ MIDI library loaded successfully
 } catch (error) {
-	console.warn('JZZ MIDI library not available:', error.message)
+	// JZZ MIDI library not available
 }
 
 export class MidiHandler {

@@ -1,1 +1,16 @@
-{"id":"generic-showswitcher","name":"Show Switcher","shortname":"ShowSwitch","description":"Professional broadcast automation with pause/resume, sequential/random modes, button blacklisting, performance monitoring, and comprehensive MIDI control","version":"2.0.3","license":"MIT","repository":"https://github.com/bitfocus/companion-module-generic-showswitcher.git","bugs":"https://github.com/bitfocus/companion-module-generic-showswitcher/issues","maintainers":[{"name":"Larry Seyer","email":"support@example.com"}],"runtime":{"type":"node18","api":"nodejs-ipc","apiVersion":"1.11.3","entrypoint":"../main.js"},"manufacturer":"Generic","products":["Show Switcher"],"keywords":["switcher","automation","camera","overlay","random"],"legacyIds":[]}
+{
+	"id": "generic-showswitcher",
+	"name": "Show Switcher",
+	"shortname": "ShowSwitch",
+	"description": "Professional broadcast automation with pause/resume, sequential/random modes, button blacklisting, performance monitoring, and comprehensive MIDI control",
+	"version": "2.0.4",
+	"license": "MIT",
+	"repository": "https://github.com/bitfocus/companion-module-generic-showswitcher.git",
+	"bugs": "https://github.com/bitfocus/companion-module-generic-showswitcher/issues",
+	"maintainers": [{ "name": "Larry Seyer", "email": "bitfocus@larryseyer.com" }],
+	"runtime": { "type": "node18", "api": "nodejs-ipc", "apiVersion": "1.11.3", "entrypoint": "../main.js" },
+	"manufacturer": "Generic",
+	"products": ["Show Switcher"],
+	"keywords": ["switcher", "automation", "camera", "overlay", "random"],
+	"legacyIds": []
+}
