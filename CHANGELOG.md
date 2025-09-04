@@ -8,6 +8,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [2.0.4] - 2024-09-03
 
 ### Fixed
+
 - **CRITICAL: Fixed MIDI support in distributed packages** - MIDI ports were not being detected when module was installed from .tgz file
 - Properly bundled jzz and jazz-midi dependencies with all platform-specific native binaries
 - Removed console.log statements from production code
@@ -16,12 +17,19 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Updated all documentation to reflect correct version numbers
 
 ### Changed
+
 - Module now includes native MIDI binaries for Windows (x86/x64), macOS (Intel/ARM), and Linux (x64/ARM7)
 - Added pkg/ directory to .gitignore
+
+### Added
+
+- Proper upgrade path in upgrades.js to prevent forced button reloading between versions
+- Configuration migration handlers for seamless version upgrades
 
 ## [2.0.3] - 2024-09-02
 
 ### Added
+
 - **MAJOR UI IMPROVEMENT**: Optimized preset layout from 29 to 19 buttons (35% reduction)
 - Smart button consolidation - Combined related displays for efficiency
 - Consistent color coding system - Standardized visual feedback across all buttons
@@ -29,22 +37,26 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Multi-display buttons - Combined countdowns, counters, averages, and previews
 
 ### Fixed
+
 - MIDI toggle connection - Properly reconnects after disconnection
 - Text readability - Eliminated word wrapping issues, optimized font sizes
 
 ### Changed
+
 - Logical category organization - 5 priority-based categories
 - Improved preset design with better visual hierarchy
 
 ## [2.0.2] - 2024-09-01
 
 ### Fixed
+
 - Bug fixes and stability improvements
 - Enhanced preset buttons with better visual feedback
 
 ## [2.0.0] - 2024-08-30
 
 ### Added
+
 - Pause/Resume functionality for system operation
 - Sequential selection mode as alternative to random
 - Button blacklisting for temporary exclusion from rotation
@@ -58,30 +70,35 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Mode toggle actions for quick switching between sequential/random
 
 ### Changed
+
 - Reduced preset count from 29 to 19 through intelligent consolidation
 - Improved error handling and recovery mechanisms
 - Enhanced configuration options for all features
 - Optimized button layouts with consistent color coding
 
 ### Fixed
+
 - Various stability improvements
 - Better handling of edge cases in button selection
 
 ## [1.0.3] - 2024-08-15
 
 ### Fixed
+
 - Bug fixes and stability improvements
 - Enhanced MIDI port detection
 
 ## [1.0.2] - 2024-08-10
 
 ### Added
+
 - Default camera return when system stops
 - Improved system shutdown behavior
 
 ## [1.0.1] - 2024-08-05
 
 ### Added
+
 - Comprehensive MIDI control support
 - Direct MIDI input with automatic port detection
 - MIDI Note assignments for all major functions
@@ -90,6 +107,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [1.0.0] - 2024-08-01
 
 ### Added
+
 - Initial release
 - Dual independent switchers for cameras and overlays
 - Random timing control within configurable ranges

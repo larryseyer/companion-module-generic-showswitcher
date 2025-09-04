@@ -8,7 +8,7 @@ try {
 	// jzz is a CommonJS module, so we use require
 	JZZ = require('jzz')
 	// JZZ MIDI library loaded successfully
-} catch (error) {
+} catch (_error) {
 	// JZZ MIDI library not available
 }
 
