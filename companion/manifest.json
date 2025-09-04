@@ -1,6 +1,6 @@
 {
 	"id": "generic-showswitcher",
-	"name": "Show Switcher",
+	"name": "ShowSwitcher",
 	"shortname": "ShowSwitch",
 	"description": "Professional broadcast automation with pause/resume, sequential/random modes, button blacklisting, performance monitoring, and comprehensive MIDI control",
 	"version": "2.0.5",
