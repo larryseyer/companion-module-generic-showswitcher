@@ -5,6 +5,16 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.0.5] - 2025-01-04
+
+### Fixed
+
+- **CRITICAL: Properly fixed MIDI dependency bundling** - Previous fix in 2.0.4 did not work on remote machines
+- Changed jzz import from createRequire with hardcoded absolute paths to standard ES module import
+- Configured webpack to treat jzz as an external CommonJS dependency
+- Fixed package.json generation to include jzz dependency in distributed module
+- MIDI ports now properly appear on all machines, not just development machine
+
 ## [2.0.4] - 2024-09-03
 
 ### Fixed

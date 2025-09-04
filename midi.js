@@ -1,20 +1,10 @@
 // MIDI Handler for Show Switcher Module using JZZ
 
-// Import JZZ - let webpack handle the module loading
-let JZZ = null
-try {
-	// Use standard import for ES modules
-	import('jzz').then(module => {
-		JZZ = module.default || module
-	}).catch(() => {
-		// JZZ not available
-	})
-} catch (_error) {
-	// Import failed - JZZ not available
-}
+// Import JZZ directly - webpack will bundle it properly
+import JZZ from 'jzz'
 
 export class MidiHandler {
-	// Static method to check if JZZ is available
+	// Static method to check if JZZ is available  
 	static getJZZ() {
 		return JZZ
 	}
@@ -51,13 +41,14 @@ export class MidiHandler {
 		this.ccMap = {
 			1: 'camera_timer',
 			2: 'overlay_timer',
-			3: 'camera_min_timer', // New - adjust minimum timer
-			4: 'camera_max_timer', // New - adjust maximum timer
-			5: 'overlay_min_timer', // New - adjust minimum timer
-			6: 'overlay_max_timer', // New - adjust maximum timer
+			3: 'camera_min_timer',
+			4: 'camera_max_timer',
+			5: 'overlay_min_timer',
+			6: 'overlay_max_timer',
 		}
 	}
 
+	// Initialize MIDI connection
 	async init(config) {
 		if (!config.midi_enabled) {
 			this.instance.log('debug', 'MIDI disabled in configuration')
@@ -74,28 +65,28 @@ export class MidiHandler {
 		}
 
 		try {
-			// Initialize JZZ
+			// Initialize JZZ MIDI engine
 			await JZZ().or('Cannot start MIDI engine!')
 
-			// Get available MIDI input ports
+			// Refresh port list
 			await this.refreshPorts()
 
-			// Try to connect to configured port
+			// Auto-connect logic
 			if (config.midi_port_name) {
-				// Try to find port by name
-				const port = this.availablePorts.find((p) => p.name.toLowerCase().includes(config.midi_port_name.toLowerCase()))
+				// Try to find port by name (partial match)
+				const port = this.availablePorts.find((p) =>
+					p.name.toLowerCase().includes(config.midi_port_name.toLowerCase())
+				)
 				if (port) {
 					await this.openPort(port.index)
 				} else {
 					this.instance.log('warn', `MIDI port "${config.midi_port_name}" not found`)
 				}
-			} else if (
-				config.midi_port_index !== undefined &&
-				config.midi_port_index >= 0 &&
-				config.midi_port_index < this.availablePorts.length
-			) {
-				// Open by index
-				await this.openPort(config.midi_port_index)
+			} else if (config.midi_port_index !== undefined && config.midi_port_index >= 0) {
+				// Use specific port index
+				if (config.midi_port_index < this.availablePorts.length) {
+					await this.openPort(config.midi_port_index)
+				}
 			} else if (this.availablePorts.length > 0 && config.midi_auto_connect) {
 				// Auto-connect to first available port
 				await this.openPort(0)
@@ -109,6 +100,7 @@ export class MidiHandler {
 		}
 	}
 
+	// Refresh available MIDI ports
 	async refreshPorts() {
 		if (!JZZ) {
 			this.instance.log('debug', 'JZZ not available for port refresh')
@@ -116,43 +108,41 @@ export class MidiHandler {
 		}
 
 		try {
-			// Initialize JZZ first
-			const jazz = await JZZ().or('Cannot start MIDI engine!')
-			const info = await jazz.info()
+			const midi = await JZZ().or('Cannot start MIDI engine!')
+			const info = await midi.info()
 
 			this.availablePorts = []
 
 			// Get input ports
 			if (info.inputs && info.inputs.length > 0) {
 				info.inputs.forEach((port) => {
-					// Filter out virtual/internal ports but be less restrictive
-					const portName = port.name || 'Unknown MIDI Device'
-					if (!portName.includes('Midi Through')) {
+					const name = port.name || 'Unknown MIDI Device'
+					// Filter out internal/virtual ports
+					if (!name.includes('Midi Through')) {
 						this.availablePorts.push({
 							index: this.availablePorts.length,
-							name: portName,
-							id: port.id || portName,
+							name: name,
+							id: port.id || name,
 						})
-						this.instance.log('info', `Found MIDI Port ${this.availablePorts.length - 1}: ${portName}`)
+						this.instance.log('info', `Found MIDI Port ${this.availablePorts.length - 1}: ${name}`)
 					}
 				})
 			}
 
-			// Also check if there are any other ways to get ports
+			// Log raw port info if no ports found
 			if (this.availablePorts.length === 0) {
-				// Try alternative method
-				const inputs = jazz.info().inputs
-				if (inputs) {
-					this.instance.log('debug', `Raw inputs: ${JSON.stringify(inputs)}`)
+				const rawInputs = midi.info().inputs
+				if (rawInputs) {
+					this.instance.log('debug', `Raw inputs: ${JSON.stringify(rawInputs)}`)
 				}
 			}
 
 			this.instance.log('info', `Total MIDI input ports found: ${this.availablePorts.length}`)
 
-			// Store available ports for UI
+			// Update instance properties for UI
 			this.instance.midiPorts = this.availablePorts
 
-			// Update the dropdown choices for the instance
+			// Create choices array for dropdown
 			this.instance.midiPortChoices = [{ id: -1, label: 'None - Select a MIDI port' }]
 			this.availablePorts.forEach((port, index) => {
 				this.instance.midiPortChoices.push({
@@ -166,21 +156,21 @@ export class MidiHandler {
 		}
 	}
 
+	// Open a specific MIDI port
 	async openPort(portIndex) {
 		if (!JZZ) {
-			this.instance.log('warn', 'MIDI support not available')
+			this.instance.log('debug', 'JZZ not available for opening port')
 			return
 		}
 
 		try {
-			// Close existing port if open
+			// Close existing connection
 			if (this.midiIn) {
 				this.midiIn.close()
 				this.midiIn = null
 				this.isConnected = false
 			}
 
-			// Check if port index is valid
 			if (portIndex < 0 || portIndex >= this.availablePorts.length) {
 				this.instance.log('error', `Invalid MIDI port index: ${portIndex}`)
 				return
@@ -190,9 +180,11 @@ export class MidiHandler {
 			this.currentPortName = port.name
 
 			// Open the MIDI input port
-			this.midiIn = await JZZ().openMidiIn(port.name).or(`Cannot open MIDI port: ${port.name}`)
+			this.midiIn = await JZZ()
+				.openMidiIn(port.name)
+				.or(`Cannot open MIDI port: ${port.name}`)
 
-			// Set up message handler
+			// Connect message handler
 			this.midiIn.connect((msg) => {
 				this.handleMidiMessage(msg)
 			})
@@ -200,13 +192,13 @@ export class MidiHandler {
 			this.isConnected = true
 			this.instance.log('info', `Connected to MIDI port ${portIndex}: ${port.name}`)
 
-			// Update variables
+			// Update Companion variables
 			this.instance.setVariableValues({
 				midi_status: 'Connected',
 				midi_port: port.name,
 			})
 		} catch (error) {
-			this.instance.log('error', `Failed to open MIDI port ${portIndex}: ${error.message || error}`)
+			this.instance.log('error', `Failed to open MIDI port: ${error.message || error}`)
 			this.isConnected = false
 			this.instance.setVariableValues({
 				midi_status: 'Error',
@@ -215,385 +207,244 @@ export class MidiHandler {
 		}
 	}
 
-	async handleMidiMessage(msg) {
-		if (!msg) return
+	// Handle incoming MIDI messages
+	handleMidiMessage(msg) {
+		if (!msg || msg.length < 3) return
 
-		try {
-			// JZZ messages can have different formats depending on version
-			// Try multiple approaches to detect message type
+		const status = msg[0]
+		const data1 = msg[1]
+		const data2 = msg[2]
 
-			let isNoteOn = false
-			let isNoteOff = false
-			let isControlChange = false
-			let note, velocity, controller, value, channel
+		const channel = (status & 0x0f) + 1
+		const messageType = status & 0xf0
 
-			// Method 1: Check if standard JZZ methods exist
-			if (typeof msg.isNoteOn === 'function') {
-				isNoteOn = msg.isNoteOn()
-				isNoteOff = typeof msg.isNoteOff === 'function' ? msg.isNoteOff() : false
-				isControlChange = typeof msg.isControlChange === 'function' ? msg.isControlChange() : false
-
-				// Get values using JZZ methods
-				if (isNoteOn || isNoteOff) {
-					note = msg.getNote ? msg.getNote() : null
-					velocity = msg.getVelocity ? msg.getVelocity() : 0
-					channel = msg.getChannel ? msg.getChannel() : 1
-				}
-				if (isControlChange) {
-					controller = msg.getController ? msg.getController() : null
-					value = msg.getValue ? msg.getValue() : 0
-					channel = msg.getChannel ? msg.getChannel() : 1
-				}
-			}
-			// Method 2: Check if msg is an array (raw MIDI data)
-			else if (Array.isArray(msg) && msg.length >= 2) {
-				const status = msg[0]
-				const statusType = status & 0xf0
-				channel = (status & 0x0f) + 1
-
-				// Note On (0x90)
-				if (statusType === 0x90 && msg.length >= 3) {
-					note = msg[1]
-					velocity = msg[2]
-					if (velocity > 0) {
-						isNoteOn = true
-					} else {
-						isNoteOff = true // Note On with velocity 0 = Note Off
-					}
-				}
-				// Note Off (0x80)
-				else if (statusType === 0x80 && msg.length >= 3) {
-					isNoteOff = true
-					note = msg[1]
-					velocity = msg[2]
-				}
-				// Control Change (0xB0)
-				else if (statusType === 0xb0 && msg.length >= 3) {
-					isControlChange = true
-					controller = msg[1]
-					value = msg[2]
-				}
-			}
-			// Method 3: Check if msg has direct properties (alternative JZZ format)
-			else if (typeof msg === 'object' && msg !== null) {
-				// Check for direct properties
-				if ('note' in msg || 'pitch' in msg) {
-					note = msg.note || msg.pitch
-					velocity = msg.velocity || msg.vel || 0
-					channel = msg.channel || msg.ch || 1
-
-					// Try to determine if it's note on or off
-					if (msg.type === 'noteon' || msg.type === 'note_on' || (msg.type === undefined && velocity > 0)) {
-						isNoteOn = true
-					} else if (msg.type === 'noteoff' || msg.type === 'note_off' || velocity === 0) {
-						isNoteOff = true
-					}
-				} else if ('controller' in msg || 'cc' in msg) {
-					isControlChange = true
-					controller = msg.controller || msg.cc
-					value = msg.value || msg.val || 0
-					channel = msg.channel || msg.ch || 1
-				}
-
-				// If still no match, log the structure once for debugging
-				if (!isNoteOn && !isNoteOff && !isControlChange && !this.loggedUnknownMessage) {
-					this.instance.log(
-						'debug',
-						`Unknown MIDI message format. Type: ${typeof msg}, Properties: ${Object.keys(msg).join(', ')}, Values: ${JSON.stringify(msg)}`
-					)
-					this.loggedUnknownMessage = true
-				}
-			}
-
-			// If still no valid message type detected, return
-			if (!isNoteOn && !isNoteOff && !isControlChange) {
-				return
-			}
-
-			// Note On message
-			if (isNoteOn && velocity > 0) {
-				// Update last note variable
-				this.instance.setVariableValues({
-					midi_last_note: `Note ${note} (vel: ${velocity})`,
-				})
-
-				// Log MIDI activity if debug logging is enabled
-				if (this.instance.config.enable_logging) {
-					this.instance.log('debug', `MIDI Note On: Note=${note}, Velocity=${velocity}, Channel=${channel}`)
-				}
-
-				// Look up command for this note
-				const mappedCommand = this.noteMap[note]
-				if (mappedCommand) {
-					this.instance.log('info', `MIDI Note ${note} -> ${mappedCommand}`)
-					await this.handleCommand(mappedCommand, velocity)
-				}
-			}
-
-			// Note Off message
-			if (isNoteOff || (isNoteOn && velocity === 0)) {
-				if (this.instance.config.enable_logging) {
-					this.instance.log('debug', `MIDI Note Off: Note=${note}, Channel=${channel}`)
-				}
-			}
-
-			// Control Change message
-			if (isControlChange) {
-				// Update last CC variable
-				this.instance.setVariableValues({
-					midi_last_cc: `CC${controller}: ${value}`,
-				})
-
-				// Log MIDI activity if debug logging is enabled
-				if (this.instance.config.enable_logging) {
-					this.instance.log('debug', `MIDI CC: Controller=${controller}, Value=${value}, Channel=${channel}`)
-				}
-
-				const ccFunction = this.ccMap[controller]
-
-				if (ccFunction === 'camera_timer') {
-					// Map CC value (0-127) to seconds range
-					const minSeconds = this.instance.config.camera_min_seconds || 15
-					const maxSeconds = this.instance.config.camera_max_seconds || 30
-					const seconds = Math.round((value / 127) * (maxSeconds - minSeconds) + minSeconds)
-					this.instance.setCameraCountdown(seconds)
-					this.instance.log('info', `Camera timer set to ${seconds}s via MIDI CC${controller}`)
-				} else if (ccFunction === 'overlay_timer') {
-					// Map CC value (0-127) to seconds range
-					const minSeconds = this.instance.config.overlay_min_seconds || 600
-					const maxSeconds = this.instance.config.overlay_max_seconds || 900
-					const seconds = Math.round((value / 127) * (maxSeconds - minSeconds) + minSeconds)
-					this.instance.setOverlayCountdown(seconds)
-					this.instance.log('info', `Overlay timer set to ${seconds}s via MIDI CC${controller}`)
-				} else if (ccFunction === 'camera_min_timer') {
-					// Adjust camera minimum timer
-					const seconds = Math.round((value / 127) * 60) + 1 // 1-60 seconds
-					this.instance.cameraSwitcher.minSeconds = seconds
-					this.instance.log('info', `Camera min timer set to ${seconds}s via MIDI CC${controller}`)
-				} else if (ccFunction === 'camera_max_timer') {
-					// Adjust camera maximum timer
-					const seconds = Math.round((value / 127) * 300) + 10 // 10-310 seconds
-					this.instance.cameraSwitcher.maxSeconds = seconds
-					this.instance.log('info', `Camera max timer set to ${seconds}s via MIDI CC${controller}`)
-				} else if (ccFunction === 'overlay_min_timer') {
-					// Adjust overlay minimum timer
-					const seconds = Math.round((value / 127) * 1200) + 60 // 60-1260 seconds
-					this.instance.overlaySwitcher.minSeconds = seconds
-					this.instance.log('info', `Overlay min timer set to ${seconds}s via MIDI CC${controller}`)
-				} else if (ccFunction === 'overlay_max_timer') {
-					// Adjust overlay maximum timer
-					const seconds = Math.round((value / 127) * 1800) + 300 // 300-2100 seconds
-					this.instance.overlaySwitcher.maxSeconds = seconds
-					this.instance.log('info', `Overlay max timer set to ${seconds}s via MIDI CC${controller}`)
-				}
-			}
-		} catch (error) {
-			this.instance.log('error', `Error handling MIDI message: ${error.message}`)
+		// Check if this channel should be processed
+		const config = this.instance.config
+		if (config.midi_channel_filter && config.midi_channel !== channel) {
+			return // Ignore messages on other channels
 		}
-	}
 
-	async handleCommand(command, _velocity = 127) {
-		// Debounce rapid commands (100ms minimum between same command)
 		const now = Date.now()
-		const lastTime = this.lastCommandTime[command] || 0
-		if (now - lastTime < 100) {
-			this.instance.log('debug', `MIDI command '${command}' debounced (too rapid)`)
-			return
-		}
-		this.lastCommandTime[command] = now
 
-		// Prevent concurrent toggle operations
-		if (command === 'system_toggle' && this.isToggling) {
-			this.instance.log('debug', 'MIDI toggle already in progress, ignoring')
-			return
-		}
+		// Note On message (0x90)
+		if (messageType === 0x90 && data2 > 0) {
+			const action = this.noteMap[data1]
+			if (action) {
+				// Debounce check (prevent rapid repeated triggers)
+				const lastTime = this.lastCommandTime[`note_${data1}`] || 0
+				if (now - lastTime < 100) {
+					return // Ignore if triggered within 100ms
+				}
+				this.lastCommandTime[`note_${data1}`] = now
 
-		switch (command) {
-			case 'system_on':
-				// Only start if not already running
-				if (!this.instance.systemState.isRunning) {
-					this.instance.startSystem()
-				}
-				break
-			case 'system_off':
-				// Only stop if running
-				if (this.instance.systemState.isRunning) {
-					await this.instance.stopSystem()
-				}
-				break
-			case 'system_reset':
-				this.instance.resetSystem()
-				break
-			case 'system_toggle':
-				// Set toggle flag to prevent race conditions
-				this.isToggling = true
-				try {
-					// Store current state before toggling
-					const wasRunning = this.instance.systemState.isRunning
-
-					if (wasRunning) {
-						await this.instance.stopSystem()
-						// Verify the system actually stopped
-						if (this.instance.systemState.isRunning) {
-							this.instance.log('warn', 'System failed to stop during MIDI toggle')
-						}
-					} else {
-						this.instance.startSystem()
-						// Verify the system actually started
-						if (!this.instance.systemState.isRunning) {
-							this.instance.log('warn', 'System failed to start during MIDI toggle')
-						}
-					}
-
-					this.instance.log('debug', `MIDI system toggle: ${wasRunning ? 'stopped' : 'started'}`)
-				} finally {
-					this.isToggling = false
-				}
-				break
-			case 'system_pause':
-				this.instance.pauseSystem()
-				break
-			case 'system_resume':
-				this.instance.resumeSystem()
-				break
-			case 'camera_on':
-				// Only start if not already running
-				if (!this.instance.cameraSwitcher.isRunning) {
-					this.instance.startCameraSwitcher()
-				}
-				break
-			case 'camera_off':
-				// Only stop if running
-				if (this.instance.cameraSwitcher.isRunning) {
-					this.instance.stopCameraSwitcher()
-				}
-				break
-			case 'camera_manual':
-				this.instance.manualTriggerCamera()
-				break
-			case 'camera_toggle': {
-				// Store current state before toggling
-				const cameraWasRunning = this.instance.cameraSwitcher.isRunning
-
-				if (cameraWasRunning) {
-					this.instance.stopCameraSwitcher()
-				} else {
-					this.instance.startCameraSwitcher()
-				}
-
-				this.instance.log('debug', `MIDI camera toggle: ${cameraWasRunning ? 'stopped' : 'started'}`)
-				break
-			}
-			case 'camera_mode_toggle':
-				this.instance.cameraSwitcher.sequentialMode = !this.instance.cameraSwitcher.sequentialMode
 				this.instance.log(
 					'info',
-					`Camera mode: ${this.instance.cameraSwitcher.sequentialMode ? 'Sequential' : 'Random'}`
+					`MIDI Note On: ${data1} (velocity: ${data2}) on channel ${channel} -> Action: ${action}`
 				)
-				this.instance.updateVariables()
-				break
-			case 'overlay_on':
-				// Only start if not already running
-				if (!this.instance.overlaySwitcher.isRunning) {
-					this.instance.startOverlaySwitcher()
-				}
-				break
-			case 'overlay_off':
-				// Only stop if running
-				if (this.instance.overlaySwitcher.isRunning) {
-					this.instance.stopOverlaySwitcher()
-				}
-				break
-			case 'overlay_manual':
-				this.instance.manualTriggerOverlay()
-				break
-			case 'overlay_toggle': {
-				// Store current state before toggling
-				const overlayWasRunning = this.instance.overlaySwitcher.isRunning
+				this.executeAction(action)
 
-				if (overlayWasRunning) {
-					this.instance.stopOverlaySwitcher()
-				} else {
-					this.instance.startOverlaySwitcher()
-				}
-
-				this.instance.log('debug', `MIDI overlay toggle: ${overlayWasRunning ? 'stopped' : 'started'}`)
-				break
+				// Update MIDI activity variable
+				this.instance.setVariableValues({
+					midi_last_note: data1,
+					midi_last_velocity: data2,
+					midi_last_channel: channel,
+				})
 			}
-			case 'overlay_mode_toggle':
-				this.instance.overlaySwitcher.sequentialMode = !this.instance.overlaySwitcher.sequentialMode
+		}
+		// Note Off message (0x80 or Note On with velocity 0)
+		else if (messageType === 0x80 || (messageType === 0x90 && data2 === 0)) {
+			// We don't need to do anything for note off in this implementation
+			this.instance.log('debug', `MIDI Note Off: ${data1} on channel ${channel}`)
+		}
+		// Control Change message (0xB0)
+		else if (messageType === 0xb0) {
+			const ccAction = this.ccMap[data1]
+			if (ccAction) {
+				// Debounce check for CC
+				const lastTime = this.lastCommandTime[`cc_${data1}`] || 0
+				if (now - lastTime < 50) {
+					return // Ignore if triggered within 50ms
+				}
+				this.lastCommandTime[`cc_${data1}`] = now
+
 				this.instance.log(
 					'info',
-					`Overlay mode: ${this.instance.overlaySwitcher.sequentialMode ? 'Sequential' : 'Random'}`
+					`MIDI CC: ${data1} value: ${data2} on channel ${channel} -> Action: ${ccAction}`
 				)
-				this.instance.updateVariables()
-				break
-			default:
-				this.instance.log('warn', `Unknown MIDI command: ${command}`)
-		}
-	}
+				this.executeCCAction(ccAction, data2)
 
-	getMidiPorts() {
-		return this.availablePorts.map((port) => ({
-			id: port.index,
-			label: port.name,
-		}))
-	}
-
-	disconnect() {
-		// Disconnect without destroying the handler
-		if (this.midiIn) {
-			try {
-				// JZZ doesn't have removeAllListeners, just close the port
-				this.midiIn.close()
-				this.instance.log('info', 'MIDI port disconnected')
-			} catch (error) {
-				this.instance.log('error', `Error closing MIDI port: ${error.message}`)
+				// Update MIDI activity variable
+				this.instance.setVariableValues({
+					midi_last_cc: data1,
+					midi_last_cc_value: data2,
+					midi_last_channel: channel,
+				})
 			}
-			this.midiIn = null
 		}
-
-		this.isConnected = false
-		this.currentPortName = null
-		// IMPORTANT: Keep availablePorts so we can reconnect
-		// Don't clear this.availablePorts!
-
-		this.instance.setVariableValues({
-			midi_status: 'Disconnected',
-			midi_port: 'None',
-			midi_last_note: '--',
-			midi_last_cc: '--',
-		})
 	}
 
+	// Execute action based on MIDI note
+	executeAction(action) {
+		const actions = {
+			system_on: () => {
+				this.instance.updateVariables({ system: 'on' })
+				this.instance.checkFeedbacksById(['system_state'])
+			},
+			system_off: () => {
+				this.instance.updateVariables({ system: 'off' })
+				this.instance.checkFeedbacksById(['system_state'])
+			},
+			system_reset: () => {
+				this.instance.updateVariables({
+					system: 'off',
+					camera_state: 'off',
+					overlay_state: 'off',
+					system_paused: false,
+				})
+				this.instance.checkFeedbacksById(['system_state', 'camera_state', 'overlay_state'])
+			},
+			system_toggle: () => {
+				if (!this.isToggling) {
+					this.isToggling = true
+					const newState = this.instance.variables.system === 'on' ? 'off' : 'on'
+					this.instance.updateVariables({ system: newState })
+					this.instance.checkFeedbacksById(['system_state'])
+					setTimeout(() => {
+						this.isToggling = false
+					}, 100)
+				}
+			},
+			system_pause: () => {
+				this.instance.updateVariables({ system_paused: true })
+				this.instance.checkFeedbacksById(['system_state'])
+			},
+			system_resume: () => {
+				this.instance.updateVariables({ system_paused: false })
+				this.instance.checkFeedbacksById(['system_state'])
+			},
+			camera_on: () => {
+				this.instance.updateVariables({ camera_state: 'on' })
+				this.instance.checkFeedbacksById(['camera_state'])
+			},
+			camera_off: () => {
+				this.instance.updateVariables({ camera_state: 'off' })
+				this.instance.checkFeedbacksById(['camera_state'])
+			},
+			camera_manual: () => {
+				this.instance.updateVariables({ camera_state: 'manual' })
+				this.instance.checkFeedbacksById(['camera_state'])
+			},
+			camera_toggle: () => {
+				const current = this.instance.variables.camera_state
+				const newState = current === 'on' ? 'off' : 'on'
+				this.instance.updateVariables({ camera_state: newState })
+				this.instance.checkFeedbacksById(['camera_state'])
+			},
+			camera_mode_toggle: () => {
+				const current = this.instance.variables.camera_mode
+				const newMode = current === 'random' ? 'sequential' : 'random'
+				this.instance.updateVariables({ camera_mode: newMode })
+				this.instance.checkFeedbacksById(['camera_state'])
+			},
+			overlay_on: () => {
+				this.instance.updateVariables({ overlay_state: 'on' })
+				this.instance.checkFeedbacksById(['overlay_state'])
+			},
+			overlay_off: () => {
+				this.instance.updateVariables({ overlay_state: 'off' })
+				this.instance.checkFeedbacksById(['overlay_state'])
+			},
+			overlay_manual: () => {
+				this.instance.updateVariables({ overlay_state: 'manual' })
+				this.instance.checkFeedbacksById(['overlay_state'])
+			},
+			overlay_toggle: () => {
+				const current = this.instance.variables.overlay_state
+				const newState = current === 'on' ? 'off' : 'on'
+				this.instance.updateVariables({ overlay_state: newState })
+				this.instance.checkFeedbacksById(['overlay_state'])
+			},
+			overlay_mode_toggle: () => {
+				const current = this.instance.variables.overlay_mode
+				const newMode = current === 'random' ? 'sequential' : 'random'
+				this.instance.updateVariables({ overlay_mode: newMode })
+				this.instance.checkFeedbacksById(['overlay_state'])
+			},
+		}
+
+		const handler = actions[action]
+		if (handler) {
+			handler()
+		} else {
+			this.instance.log('warn', `Unknown MIDI action: ${action}`)
+		}
+	}
+
+	// Execute action based on MIDI CC value
+	executeCCAction(action, value) {
+		// Map 0-127 to appropriate timer range
+		const mapToRange = (val, min, max) => {
+			return Math.round(min + (val / 127) * (max - min))
+		}
+
+		const actions = {
+			camera_timer: () => {
+				// Map to 1-60 seconds
+				const seconds = mapToRange(value, 1, 60)
+				this.instance.updateVariables({ camera_timer: seconds })
+				this.instance.log('info', `Camera timer set to ${seconds} seconds via MIDI CC`)
+			},
+			overlay_timer: () => {
+				// Map to 1-60 seconds
+				const seconds = mapToRange(value, 1, 60)
+				this.instance.updateVariables({ overlay_timer: seconds })
+				this.instance.log('info', `Overlay timer set to ${seconds} seconds via MIDI CC`)
+			},
+			camera_min_timer: () => {
+				// Map to 1-30 seconds
+				const seconds = mapToRange(value, 1, 30)
+				this.instance.updateVariables({ camera_min_timer: seconds })
+				this.instance.log('info', `Camera min timer set to ${seconds} seconds via MIDI CC`)
+			},
+			camera_max_timer: () => {
+				// Map to 2-120 seconds
+				const seconds = mapToRange(value, 2, 120)
+				this.instance.updateVariables({ camera_max_timer: seconds })
+				this.instance.log('info', `Camera max timer set to ${seconds} seconds via MIDI CC`)
+			},
+			overlay_min_timer: () => {
+				// Map to 1-30 seconds
+				const seconds = mapToRange(value, 1, 30)
+				this.instance.updateVariables({ overlay_min_timer: seconds })
+				this.instance.log('info', `Overlay min timer set to ${seconds} seconds via MIDI CC`)
+			},
+			overlay_max_timer: () => {
+				// Map to 2-120 seconds
+				const seconds = mapToRange(value, 2, 120)
+				this.instance.updateVariables({ overlay_max_timer: seconds })
+				this.instance.log('info', `Overlay max timer set to ${seconds} seconds via MIDI CC`)
+			},
+		}
+
+		const handler = actions[action]
+		if (handler) {
+			handler()
+		} else {
+			this.instance.log('warn', `Unknown MIDI CC action: ${action}`)
+		}
+	}
+
+	// Close MIDI connections
 	destroy() {
 		if (this.midiIn) {
 			try {
-				// JZZ doesn't have removeAllListeners, just close the port
 				this.midiIn.close()
-				this.instance.log('info', 'MIDI port closed')
 			} catch (error) {
-				this.instance.log('error', `Error closing MIDI port: ${error.message}`)
+				this.instance.log('debug', `Error closing MIDI port: ${error.message || error}`)
 			}
 			this.midiIn = null
 		}
-
-		// Force cleanup JZZ if it exists
-		if (JZZ) {
-			try {
-				// Close all MIDI connections
-				JZZ().close()
-			} catch (_error) {
-				// Ignore errors during cleanup
-			}
-		}
-
 		this.isConnected = false
 		this.currentPortName = null
-		this.availablePorts = []
-		this.instance.setVariableValues({
-			midi_status: 'Disconnected',
-			midi_port: 'None',
-		})
 	}
 }

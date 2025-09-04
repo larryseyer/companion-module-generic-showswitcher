@@ -1,4 +1,4 @@
-# companion-module-generic-showswitcher Ver 2.0.4
+# companion-module-generic-showswitcher Ver 2.0.5
 
 A [Bitfocus Companion](https://bitfocus.io/companion) module for professional broadcast automation with automatic camera and overlay switching, featuring advanced timing control, pause/resume functionality, sequential and random selection modes, performance monitoring, and comprehensive MIDI control.
 
@@ -92,7 +92,7 @@ Perfect for solo performers, escape rooms, theaters, educators, or anyone who ne
    - Navigate to **Settings → Modules**
    - Click **Install Module from File**
    - Browse to `Downloads\companion-module-generic-showswitcher`
-   - Select the `generic-showswitcher-2.0.4.tgz` file
+   - Select the `generic-showswitcher-2.0.5.tgz` file
    - Click **Install**
    - Restart Companion when prompted
 
@@ -122,7 +122,7 @@ Perfect for solo performers, escape rooms, theaters, educators, or anyone who ne
    - Navigate to **Settings → Modules**
    - Click **Install Module from File**
    - Browse to `~/Downloads/companion-module-generic-showswitcher`
-   - Select the `generic-showswitcher-2.0.4.tgz` file
+   - Select the `generic-showswitcher-2.0.5.tgz` file
    - Click **Install**
    - Restart Companion when prompted
 
@@ -152,7 +152,7 @@ Perfect for solo performers, escape rooms, theaters, educators, or anyone who ne
    - Navigate to **Settings → Modules**
    - Click **Install Module from File**
    - Browse to `~/Downloads/companion-module-generic-showswitcher`
-   - Select the `generic-showswitcher-2.0.4.tgz` file
+   - Select the `generic-showswitcher-2.0.5.tgz` file
    - Click **Install**
    - Restart Companion when prompted
 
@@ -816,7 +816,13 @@ The module's 19 optimized presets use Companion's multi-step functionality and i
 
 ## 📝 Version History
 
-### Version 2.0.4 (Current)
+### Version 2.0.5 (Current)
+
+- **CRITICAL FIX**: Resolved MIDI port detection issue on remote machines
+- Fixed jzz library bundling and import mechanism
+- MIDI functionality now works consistently across all installations
+
+### Version 2.0.4
 
 - **CRITICAL FIX: MIDI support now works in distributed packages**
   - Fixed issue where MIDI ports were not detected in installed modules
