@@ -18,6 +18,8 @@ Since ShowSwitcher can trigger any Companion button, it's not limited to video s
 
 Perfect for solo performers, escape rooms, theaters, educators, or anyone who needs hands-free production automation.
 
+YouTube Install Video: [https://www.youtube.com/watch?v=BDuccJ_dBzs](https://www.youtube.com/watch?v=BDuccJ_dBzs)
+
 ![ShowSwitchButtonsExamples](./ShowSwitchButtonsExamples.png)
 
 ## 🎯 Version 2.0 Features

@@ -2,6 +2,8 @@
 
 This module provides automatic switching between camera angles and overlay graphics with random timing control, replicating all features of the standalone Show Switcher web application.
 
+YouTube Install Video: [https://www.youtube.com/watch?v=BDuccJ_dBzs](https://www.youtube.com/watch?v=BDuccJ_dBzs)
+
 ## Features
 
 - **Dual Independent Switchers**: Control camera and overlay switching independently
