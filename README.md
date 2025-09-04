@@ -2,6 +2,8 @@
 
 A [Bitfocus Companion](https://bitfocus.io/companion) module for professional broadcast automation with automatic camera and overlay switching, featuring advanced timing control, pause/resume functionality, sequential and random selection modes, performance monitoring, and comprehensive MIDI control.
 
+[Download Module](https://github.com/larryseyer/companion-module-generic-showswitcher/releases/download/v2.0.5/generic-showswitcher-2.0.5.tgz)
+
 ## Why ShowSwitcher?
 
 ShowSwitcher solves a simple problem: **solo performers can't manage production while performing**. Built for musicians, instructors, streamers, and content creators who need professional-looking camera switching but have their hands full. Set it once, and it automatically cycles through your cameras and overlays with randomized or sequential timing—making your stream look professionally produced while you focus on your performance.
@@ -781,6 +783,8 @@ MIT License - See [LICENSE](LICENSE) file for details
 - **Website**: [LarrySeyer.com](http://LarrySeyer.com)
 - **Repository**: [GitHub](https://github.com/bitfocus/companion-module-generic-showswitcher)
 - **Framework**: [Bitfocus Companion Module Base](https://github.com/bitfocus/companion-module-base)
+
+[Download Module](https://github.com/larryseyer/companion-module-generic-showswitcher/releases/download/v2.0.5/generic-showswitcher-2.0.5.tgz)
 
 ---
 
