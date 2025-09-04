@@ -538,23 +538,28 @@ export function getActions(self) {
 					label: 'MIDI Port',
 					id: 'port_index',
 					default: 0,
-					choices: () => {
-						if (!self.midiHandler || !self.midiHandler.availablePorts || self.midiHandler.availablePorts.length === 0) {
-							return [{ id: -1, label: 'No MIDI devices found' }]
-						}
-						// Return actual port names
-						return self.midiHandler.availablePorts.map((port, index) => ({
-							id: index,
-							label: port.name || `Port ${index}`,
-						}))
-					},
+					choices: self.midiPortChoices || [{ id: -1, label: 'No MIDI devices found' }],
 				},
 			],
 			callback: async (action) => {
-				if (self.midiHandler) {
+				// Initialize MIDI handler if needed
+				if (!self.midiHandler) {
+					try {
+						const { MidiHandler } = await import('./midi.js')
+						self.midiHandler = new MidiHandler(self)
+						await self.midiHandler.refreshPorts()
+						// Update actions to refresh the dropdown choices
+						self.updateActions()
+					} catch (error) {
+						self.log('error', `Failed to initialize MIDI: ${error.message || error}`)
+						return
+					}
+				}
+				
+				if (self.midiHandler && action.options.port_index >= 0) {
 					await self.midiHandler.openPort(action.options.port_index)
 				} else {
-					self.log('warn', 'MIDI not enabled')
+					self.log('warn', 'Invalid MIDI port selected')
 				}
 			},
 		},
@@ -610,9 +615,22 @@ export function getActions(self) {
 			name: 'MIDI Refresh Ports',
 			options: [],
 			callback: async () => {
+				// Initialize MIDI handler if needed
+				if (!self.midiHandler) {
+					try {
+						const { MidiHandler } = await import('./midi.js')
+						self.midiHandler = new MidiHandler(self)
+					} catch (error) {
+						self.log('error', `Failed to initialize MIDI handler: ${error.message || error}`)
+						return
+					}
+				}
+				
 				if (self.midiHandler) {
 					await self.midiHandler.refreshPorts()
-					self.log('info', 'MIDI ports refreshed')
+					// Update the action definitions to refresh dropdown choices
+					self.updateActions()
+					self.log('info', `MIDI ports refreshed: ${self.midiHandler.availablePorts.length} ports found`)
 				}
 			},
 		},
@@ -621,9 +639,22 @@ export function getActions(self) {
 			name: 'MIDI Refresh',
 			options: [],
 			callback: async () => {
+				// Initialize MIDI handler if needed
+				if (!self.midiHandler) {
+					try {
+						const { MidiHandler } = await import('./midi.js')
+						self.midiHandler = new MidiHandler(self)
+					} catch (error) {
+						self.log('error', `Failed to initialize MIDI handler: ${error.message || error}`)
+						return
+					}
+				}
+				
 				if (self.midiHandler) {
 					await self.midiHandler.refreshPorts()
-					self.log('info', 'MIDI ports refreshed')
+					// Update the action definitions to refresh dropdown choices
+					self.updateActions()
+					self.log('info', `MIDI ports refreshed: ${self.midiHandler.availablePorts.length} ports found`)
 				}
 			},
 		},

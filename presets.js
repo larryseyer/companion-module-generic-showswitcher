@@ -542,6 +542,30 @@ export function getPresets() {
 	// ============= 5. MIDI & PERFORMANCE (Priority 5) =============
 	// System monitoring and MIDI control
 
+	presets['midi_refresh_ports'] = {
+		type: 'button',
+		category: '5️⃣ MIDI & Performance',
+		name: '🔄 MIDI Refresh Ports',
+		style: {
+			text: 'Refresh\\nMIDI Ports',
+			size: '14',
+			color: COLORS.WHITE,
+			bgcolor: combineRgb(0, 100, 200),
+		},
+		steps: [
+			{
+				down: [
+					{
+						actionId: 'midi_refresh_ports',
+						options: {},
+					},
+				],
+				up: [],
+			},
+		],
+		feedbacks: [],
+	}
+
 	presets['midi_connection'] = {
 		type: 'button',
 		category: '5️⃣ MIDI & Performance',
