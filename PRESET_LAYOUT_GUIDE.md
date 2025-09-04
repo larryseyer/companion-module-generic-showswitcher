@@ -23,11 +23,6 @@ Our new color scheme provides instant visual feedback:
 1. **🔴 Main System Start/Stop** - Master control with STATS ready indicator
 2. **⏸ Pause/Resume** - Smart toggle between pause and resume
 3. **↻ System Reset** - Double-tap safety feature
-4. _(Custom button or space)_
-5. _(Custom button or space)_
-6. _(Custom button or space)_
-7. _(Custom button or space)_
-8. _(Custom button or space)_
 
 ### Row 2: Camera Operations (3 buttons) + Live Monitoring (5 buttons)
 
@@ -47,20 +42,12 @@ Our new color scheme provides instant visual feedback:
 3. **🔀 Overlay Mode** - Toggle Sequential/Random
 4. **🎹 MIDI Status** - Connect/disconnect with visual feedback
 5. **🎵 MIDI Monitor** - Shows last Note & CC received
-6. _(Custom button or space)_
-7. _(Custom button or space)_
-8. _(Custom button or space)_
 
 ### Row 4: Performance Monitoring (3 buttons) + space for custom
 
 1. **📊 HTTP Performance** - Success rate with error warnings
 2. **📋 Queue Management** - Queue size (double-tap clears)
 3. **📊 Statistics Reset** - Double-tap to reset all stats
-4. _(Custom button or space)_
-5. _(Custom button or space)_
-6. _(Custom button or space)_
-7. _(Custom button or space)_
-8. _(Custom button or space)_
 
 ## 💡 Key Improvements from Previous Version
 

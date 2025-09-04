@@ -24,7 +24,7 @@ Perfect for solo performers, escape rooms, theaters, educators, or anyone who ne
 
 ### New in Version 2.0
 
-- **🎨 Optimized Button Layout**: Reduced from 29 to 19 presets with smart consolidation
+- **🎨 Optimized Button Layout**: 19 presets 
 - **⏸️ Pause/Resume Functionality**: Pause and resume system operation without losing state
 - **🔄 Sequential Mode**: Alternative to random selection - cycle through buttons in order
 - **🚫 Button Blacklisting**: Temporarily exclude buttons from rotation
@@ -57,14 +57,16 @@ Perfect for solo performers, escape rooms, theaters, educators, or anyone who ne
 
 ## 📋 Requirements
 
-- **Bitfocus Companion**: Version 3.0.0 or later
+- **Bitfocus Companion**: Version 4.0.0 or later
 - **Operating System**: Windows, macOS, or Linux
 - **HTTP Service**: Must be enabled in Companion (Settings → HTTP)
 - **Node.js**: Version 18.12 or later (included with Companion)
 
 ## 🚀 Installation Guide
 
-### Method 1: Manual Installation from GitHub (Recommended)
+### Manual Installation from GitHub
+
+*(Sorry, this is the only way to do this, since BitFocus refuses to include ShowSwitcher in their modules package)*
 
 #### For Windows Users
 
@@ -155,74 +157,6 @@ Perfect for solo performers, escape rooms, theaters, educators, or anyone who ne
    - Select the `generic-showswitcher-2.0.5.tgz` file
    - Click **Install**
    - Restart Companion when prompted
-
-### Method 2: Development Mode Installation
-
-This method is useful for developers or users who want to modify the module.
-
-#### Windows
-
-1. Navigate to Companion's module directory:
-
-   ```cmd
-   cd %APPDATA%\companion\bundled-modules
-   ```
-
-2. Clone the repository directly:
-
-   ```cmd
-   git clone https://github.com/bitfocus/companion-module-generic-showswitcher.git
-   cd companion-module-generic-showswitcher
-   npm install
-   ```
-
-3. Restart Companion
-
-#### macOS
-
-1. Navigate to Companion's module directory:
-
-   ```bash
-   cd ~/Library/Application\ Support/companion/bundled-modules
-   ```
-
-2. Clone the repository directly:
-
-   ```bash
-   git clone https://github.com/bitfocus/companion-module-generic-showswitcher.git
-   cd companion-module-generic-showswitcher
-   npm install
-   ```
-
-3. Restart Companion
-
-#### Linux
-
-1. Navigate to Companion's module directory:
-
-   ```bash
-   cd ~/.config/companion/bundled-modules
-   ```
-
-2. Clone the repository directly:
-
-   ```bash
-   git clone https://github.com/bitfocus/companion-module-generic-showswitcher.git
-   cd companion-module-generic-showswitcher
-   npm install
-   ```
-
-3. Restart Companion
-
-### Method 3: From Companion Module Store (When Available)
-
-Once the module is published to the Companion module store:
-
-1. Open Companion web interface (http://localhost:8000)
-2. Go to **Connections**
-3. Click **Add connection**
-4. Search for "Show Switcher" or browse under "Generic"
-5. Click **Add** to install
 
 ## ⚙️ Configuration
 
@@ -570,9 +504,9 @@ The module now includes **19 optimized presets** (reduced from 29) organized int
 - **Queue Management** - Queue size with double-tap clear
 - **Statistics Reset** - Double-tap to reset all stats
 
-## 🎨 Enhanced Preset Design (Version 2.0)
+## 🎨 Enhanced Preset Design
 
-The module's 19 optimized presets use Companion's multi-step functionality and intelligent consolidation to reduce button count by 35% while maintaining all functionality.
+The module's 19 optimized presets use Companion's multi-step functionality and maintains all functionality.
 
 ### Button Design Philosophy
 
@@ -816,80 +750,16 @@ The module's 19 optimized presets use Companion's multi-step functionality and i
 
 ## 📝 Version History
 
-### Version 2.0.5 (Current)
+### Version 2.0.5 (Current and Final Release)
 
 - **CRITICAL FIX**: Resolved MIDI port detection issue on remote machines
 - Fixed jzz library bundling and import mechanism
 - MIDI functionality now works consistently across all installations
 
-### Version 2.0.4
-
-- **CRITICAL FIX: MIDI support now works in distributed packages**
-  - Fixed issue where MIDI ports were not detected in installed modules
-  - Properly bundled jzz and jazz-midi dependencies with all platform binaries
-  - Module now includes native MIDI support for Windows, macOS, and Linux
-
-### Version 2.0.3
-
-- **MAJOR UI IMPROVEMENT**: Optimized preset layout from 29 to 19 buttons (35% reduction)
-- **NEW: Smart button consolidation** - Combined related displays for efficiency
-- **NEW: Consistent color coding system** - Standardized visual feedback across all buttons
-- **FIXED: MIDI toggle connection** - Properly reconnects after disconnection
-- **FIXED: Text readability** - Eliminated word wrapping issues, optimized font sizes
-- **IMPROVED: Logical category organization** - 5 priority-based categories
-- **ADDED: Connection status icons** - Visual indicators (✓, ✗, ⚡) for better feedback
-- **ENHANCED: Multi-display buttons** - Combined countdowns, counters, averages, and previews
-
-### Version 2.0.2
-
-- Bug fixes and stability improvements
-- Enhanced preset buttons with better visual feedback
-
-### Version 2.0.0
-
-- **NEW: Optimized preset layout** - Reduced from 29 to 19 buttons
-- **NEW: Combined displays** - Merged related information for efficiency
-- **NEW: Consistent color coding** - Standardized visual feedback system
-- **NEW: Improved text readability** - Fixed word wrapping and font sizes
-- Added pause/resume functionality for system operation
-- Implemented sequential selection mode as alternative to random
-- Added button blacklisting for temporary exclusion
-- Enhanced performance monitoring with HTTP metrics
-- Added button press queue system
-- Implemented history tracking and average interval calculations
-- Extended MIDI control with pause/resume support
-- Added session management and persistent statistics
-- Improved error handling and recovery
-- Enhanced configuration options for all features
-
-### Version 1.0.3
-
-- Bug fixes and stability improvements
-- Enhanced MIDI port detection
-
-### Version 1.0.2
-
-- Added default camera return when system stops
-- Improved system shutdown behavior
-
-### Version 1.0.1
-
-- Added comprehensive MIDI control support
-- Direct MIDI input with automatic port detection
-
-### Version 1.0.0
-
-- Initial release
-- Dual independent switchers
-- Random timing control
-- HTTP API integration
-
 ## 🤝 Support
 
 ### Getting Help
 
-- **GitHub Issues**: [Report bugs or request features](https://github.com/bitfocus/companion-module-generic-showswitcher/issues)
-- **Companion Slack**: Join the [Bitfocus Slack](https://bitfocus.io/slack) community
 - **Documentation**: Check this README and the module's HELP.md file
 
 ### Known Limitations
