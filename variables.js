@@ -109,5 +109,17 @@ export function getVariableDefinitions() {
 			variableId: 'midi_last_cc',
 			name: 'Last MIDI CC Received',
 		},
+		{
+			variableId: 'midi_last_velocity',
+			name: 'Last MIDI Note Velocity',
+		},
+		{
+			variableId: 'midi_last_channel',
+			name: 'Last MIDI Channel',
+		},
+		{
+			variableId: 'midi_last_cc_value',
+			name: 'Last MIDI CC Value',
+		},
 	]
 }

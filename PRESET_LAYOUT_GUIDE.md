@@ -1,4 +1,4 @@
-# ShowSwitcher Stream Deck Layout Guide - Version 2.0.4
+# ShowSwitcher Stream Deck Layout Guide - Version 2.0.5
 
 ## 🎯 Optimized Button Layout
 

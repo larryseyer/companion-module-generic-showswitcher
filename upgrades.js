@@ -125,7 +125,7 @@ export function upgradeInstance(context, props) {
 
 	// Mark the config with the current version
 	if (result.updatedConfig) {
-		result.updatedConfig._configVersion = '2.0.4'
+		result.updatedConfig._configVersion = '2.0.5'
 	}
 
 	return result

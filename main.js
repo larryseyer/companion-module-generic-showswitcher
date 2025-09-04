@@ -139,7 +139,7 @@ class ShowSwitcherInstance extends InstanceBase {
 		// Initialize button press queue processor
 		this.startQueueProcessor()
 
-		this.log('info', 'Show Switcher module v2.0.0 initialized with enhanced features')
+		this.log('info', 'Show Switcher module v2.0.5 initialized with enhanced features')
 	}
 
 	async destroy() {

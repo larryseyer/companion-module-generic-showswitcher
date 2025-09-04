@@ -4,7 +4,7 @@
 import JZZ from 'jzz'
 
 export class MidiHandler {
-	// Static method to check if JZZ is available  
+	// Static method to check if JZZ is available
 	static getJZZ() {
 		return JZZ
 	}
@@ -74,9 +74,7 @@ export class MidiHandler {
 			// Auto-connect logic
 			if (config.midi_port_name) {
 				// Try to find port by name (partial match)
-				const port = this.availablePorts.find((p) =>
-					p.name.toLowerCase().includes(config.midi_port_name.toLowerCase())
-				)
+				const port = this.availablePorts.find((p) => p.name.toLowerCase().includes(config.midi_port_name.toLowerCase()))
 				if (port) {
 					await this.openPort(port.index)
 				} else {
@@ -180,9 +178,7 @@ export class MidiHandler {
 			this.currentPortName = port.name
 
 			// Open the MIDI input port
-			this.midiIn = await JZZ()
-				.openMidiIn(port.name)
-				.or(`Cannot open MIDI port: ${port.name}`)
+			this.midiIn = await JZZ().openMidiIn(port.name).or(`Cannot open MIDI port: ${port.name}`)
 
 			// Connect message handler
 			this.midiIn.connect((msg) => {
@@ -267,10 +263,7 @@ export class MidiHandler {
 				}
 				this.lastCommandTime[`cc_${data1}`] = now
 
-				this.instance.log(
-					'info',
-					`MIDI CC: ${data1} value: ${data2} on channel ${channel} -> Action: ${ccAction}`
-				)
+				this.instance.log('info', `MIDI CC: ${data1} value: ${data2} on channel ${channel} -> Action: ${ccAction}`)
 				this.executeCCAction(ccAction, data2)
 
 				// Update MIDI activity variable

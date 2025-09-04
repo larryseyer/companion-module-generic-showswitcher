@@ -8,10 +8,10 @@ module.exports = {
 	// Mark jzz and jazz-midi as external so they get included as dependencies
 	// These modules contain native binaries that must be installed, not bundled
 	externals: {
-		'jzz': 'commonjs jzz',
-		'jazz-midi': 'commonjs jazz-midi'
+		jzz: 'commonjs jzz',
+		'jazz-midi': 'commonjs jazz-midi',
 	},
-	
+
 	// Post-build step to fix package.json and ensure dependencies are included
 	onComplete: async (context) => {
 		const pkgPath = path.join(context.output, 'package.json')
@@ -24,11 +24,11 @@ module.exports = {
 			pkg.dependencies.jzz = '^1.8.0'
 			fs.writeFileSync(pkgPath, JSON.stringify(pkg, null, 2))
 		}
-		
+
 		// Copy node_modules to the output directory for the native dependencies
 		const sourceModules = path.join(context.root, 'node_modules')
 		const destModules = path.join(context.output, 'node_modules')
-		
+
 		// Ensure jzz and its dependencies are available in the package
 		const modulesToCopy = ['jzz', 'jazz-midi']
 		for (const mod of modulesToCopy) {
@@ -42,7 +42,7 @@ module.exports = {
 				copyRecursiveSync(src, dest)
 			}
 		}
-	}
+	},
 }
 
 // Helper function to copy directories recursively
@@ -52,11 +52,8 @@ function copyRecursiveSync(src, dest) {
 	const isDirectory = exists && stats.isDirectory()
 	if (isDirectory) {
 		fs.mkdirSync(dest, { recursive: true })
-		fs.readdirSync(src).forEach(childItemName => {
-			copyRecursiveSync(
-				path.join(src, childItemName),
-				path.join(dest, childItemName)
-			)
+		fs.readdirSync(src).forEach((childItemName) => {
+			copyRecursiveSync(path.join(src, childItemName), path.join(dest, childItemName))
 		})
 	} else {
 		fs.copyFileSync(src, dest)
